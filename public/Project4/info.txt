@@ -1,0 +1,65 @@
+ComfyUI Face-Blend Baby Generator Workflow
+My role. Sole Developer & ComfyUI Workflow Engineer
+
+Project description.
+
+Built a custom ComfyUI workflow to generate ultra-realistic baby images by blending facial features from two parent photos. The pipeline uses IPAdapter FaceID, InsightFace, CLIP Vision, and SDXL to preserve identity, balance skin tone, and produce photorealistic results. It includes prompt manipulation, negative conditioning, real-time previews, and controlled sampling to ensure consistent, high-quality outputs. Designed as a reusable, production-ready ComfyUI graph.
+Skills and deliverables
+
+AI Image Generation
+Artificial Intelligence
+Automation
+Image Prompt Engineering
+Image Processing
+Published on Feb 1, 2026
+A ComfyUI workflow graph for a baby face generation system
+A ComfyUI workflow graph for a baby face generation system
+ComfyUI Face-Blend Baby Generator
+Project Overview
+This project is a custom ComfyUI workflow designed to generate ultra-realistic baby images by blending facial features from two parent photos. The workflow focuses on identity preservation, skin-tone balance, and age realism, producing high-quality, photorealistic outputs suitable for repeatable generation.
+
+The entire pipeline is built as a reusable, production-ready ComfyUI graph rather than a simple text-to-image setup.
+
+What the Workflow Does
+Takes two input images (parent faces)
+Extracts and preserves key facial identity features
+Blends visual traits naturally into a baby-like face
+Enforces realistic baby proportions, skin texture, and lighting
+Filters out adult features, artifacts, and stylized outputs
+Produces consistent, high-quality results with controlled sampling
+Core Components & Logic
+Identity Preservation
+Uses IPAdapter FaceID with InsightFace to retain facial structure and key identity traits from both parent images.
+Dual FaceID nodes allow balanced influence from each input face.
+Prompt Control & Conditioning
+CLIP text conditioning is carefully tuned to enforce:
+Baby age realism
+Soft skin, youthful facial structure, and natural expressions
+A Prompt Replace node dynamically adjusts prompts based on detected attributes, ensuring consistent tone and realism.
+Strong negative prompts are applied to remove adult features, artifacts, and unwanted styles.
+Skin Tone & Visual Balance
+Integrated skin-tone detection logic helps maintain natural blending between parent images.
+Ensures even skin tones and avoids unnatural color shifts.
+Image Generation Pipeline
+Built on SDXL with controlled sampling parameters.
+Uses fixed seeds and tuned schedulers for repeatable results.
+Outputs are decoded, previewed, and validated directly within the workflow.
+Technical Highlights
+Modular ComfyUI graph design
+IPAdapter FaceID + InsightFace integration
+CLIP Vision conditioning
+Prompt replacement and negative filtering
+SDXL-based photorealistic sampling
+Real-time preview and iteration support
+My Role
+Sole Developer & ComfyUI Workflow Engineer
+
+Designed the entire workflow from scratch
+Integrated FaceID, InsightFace, and CLIP Vision nodes
+Tuned prompts, negatives, and sampling for realism
+Implemented identity blending and skin-tone balancing logic
+Optimized the graph for repeatable, production-ready usage
+Outcome
+The workflow reliably generates natural, photorealistic baby images that blend parental features without artifacts or stylization. It demonstrates advanced ComfyUI graph design, identity control, and visual realism—going far beyond basic text-to-image pipelines.
+``
+

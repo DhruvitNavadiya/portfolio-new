@@ -1,0 +1,64 @@
+Pinterest Blog Generator – AI Content & Visual Automation Platform
+My role. Sole Developer & AI Automation Engineer
+
+Project description.
+
+Built a Pinterest-style blog generator as a solo developer using Python and AI automation. The platform generates lifestyle-focused content with a strict Pinterest/Reddit tone, creates matching aesthetic images in parallel, and exports results as DOCX and JSON. It integrates multiple AI models for text and visuals, uploads assets to cloud storage, and supports rate limiting, retries, and production-ready deployment for scalable content automation.
+Skills and deliverables
+
+Artificial Intelligence
+Python
+Automation
+API Development
+Contextual Prompt
+Published on Jan 28, 2026
+
+
+Pinterest Blog Generator – AI Content & Visual Automation Platform
+Overview
+Pinterest Blog Generator is an AI-powered web application built end-to-end as a solo developer. The platform automates the creation of high-quality, Pinterest-style lifestyle blogs by generating engaging written content, cohesive aesthetic images, and export-ready documents. It is designed for creators, marketers, and automation pipelines that require fast, consistent, and visually aligned blog content.
+
+Problem
+Creating Pinterest-optimized lifestyle blogs is time-consuming and fragmented. Writers must craft trendy, platform-specific text, generate matching visuals, format documents, and prepare data for publishing—often using multiple disconnected tools. This process does not scale and is prone to inconsistencies in tone, aesthetics, and output quality.
+
+Solution
+I designed and implemented a single, automated system that handles the entire workflow: content writing, image prompt generation, image creation, cloud storage, and export. The application uses multiple AI models in parallel and a Python backend optimized for concurrency, reliability, and production deployment.
+
+Core Features
+Smart Content Generation
+Automatically generates focused lifestyle content (fashion, decor, beauty, etc.) using strict Pinterest/Reddit-style voice rules. Content is structured into an introduction, numbered ideas, and a conclusion with no fluff.
+
+Parallel Visual Pipeline
+Uses a dual-model approach where LLMs generate detailed image prompts from blog sections, which are then sent to image models. Prompts and images are generated in parallel to minimize wait time while maintaining strong visual consistency.
+
+Pinterest-Style Aesthetics
+Enforces realistic editorial photography, curated lighting, moods, and compositions optimized for Pinterest-style engagement.
+
+Cloud Storage Integration
+All generated images are automatically uploaded to Cloudflare R2 using S3-compatible APIs, providing persistent public URLs for reuse and publishing.
+
+Export & Publishing
+Generates professionally formatted Word documents with embedded images and structured headings. Also exports a custom JSON payload designed for Pinterest automation or CMS integration, with a proxy API endpoint for direct publishing.
+
+Production Readiness
+Includes semaphore-based rate limiting to protect server resources, retry logic with exponential backoff for external APIs, background cleanup of temporary files, and health-check endpoints for deployment monitoring.
+
+Technical Architecture
+Backend: Python 3.11 with Flask 3.0 and Gunicorn
+AI Services: Google Gemini, Together AI (Llama/Qwen), Fal AI
+Concurrency: ThreadPoolExecutor for parallel prompt and image generation
+Resilience: Tenacity-based retry logic
+Storage: Cloudflare R2 via boto3 (S3-compatible)
+Documents: python-docx for DOCX generation
+Deployment: Railway / Heroku-ready configuration
+Project Structure
+app.py: Main application entry, routing, concurrency control, cleanup tasks
+final_blog_generator.py: Core generation logic for text, prompts, images, and uploads
+templates/index.html: User-facing web interface
+static/downloads/: Temporary storage for generated outputs
+My Role
+Sole Developer & AI Automation Engineer. I owned the full system design, backend development, AI integrations, concurrency handling, storage architecture, and deployment readiness, delivering the entire platform independently.
+
+Outcome
+The platform enables fully automated, scalable generation of Pinterest-ready blogs with consistent tone, visuals, and export formats, significantly reducing manual effort while supporting production-grade usage.
+

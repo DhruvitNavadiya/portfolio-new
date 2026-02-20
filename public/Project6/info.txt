@@ -1,0 +1,49 @@
+AI Comic Book Generator with Story & Flipbook Viewer
+My role. Sole Developer & AI Automation Engineer
+
+Project description.
+
+Built an AI-powered Comic Book Generator that transforms real photos into a personalized children’s storybook with consistent characters and illustrations. The system generates a 10-part story and matching images using multimodal AI, preserving facial features and art style across all pages. It outputs structured JSON and includes an interactive flipbook viewer with page-turn animations, light/dark themes, and side-by-side story and artwork for an engaging reading experience.
+Skills and deliverables
+
+AI Image Generation
+Prompt Engineering
+Python
+Automation
+UI Animation
+Published on Feb 2, 2026
+AI system that generates personalized comic books with consistent characters and an interactive viewer
+AI Comic Book Generator with Interactive Story Viewer
+Project Overview
+Comic Book Generator is an AI-powered Python application that transforms real photos of people into a personalized, illustrated children’s storybook. The system generates both a cohesive story and matching illustrations while preserving character identity and visual consistency across all pages. The final output can be viewed in a polished, interactive flipbook-style story viewer.
+
+Core Capabilities
+AI Story & Illustration Generation
+The generation engine takes photos of a father, mother, and child as reference inputs and uses a multimodal AI model to preserve facial features, hairstyles, and overall character appearance. It creates a custom 10-part children’s story based on a user-defined theme, ensuring the narrative is wholesome, sequential, and age-appropriate.
+
+To maintain a consistent art style, the system first generates a cover image in the selected visual style. This cover image is then used as a reference for all subsequent chapters, ensuring uniform illustration style throughout the book. The complete story, including text and base64-encoded images, is saved in a structured JSON format.
+
+Interactive Flipbook Viewer
+The project includes a web-based story viewer that presents the generated content as a realistic digital book. It features smooth page-flip animations, a split layout with illustrations on one side and story text on the other, and theme toggles for day and night reading modes. The viewer can load stories directly from the generated JSON file or from a local image folder.
+
+Technical Highlights
+Multimodal AI model for combined text and image generation
+Character identity preservation using reference photos
+Consistent art style enforced across all chapters
+Structured JSON output for easy frontend integration
+Interactive HTML-based flipbook with animations and themes
+Workflow
+Configure API credentials and environment settings.
+Provide character names, reference photos, and a story theme.
+Generate the story text and illustrations automatically.
+Open the story viewer and load the generated JSON to read the comic book.
+My Role
+Sole Developer & AI Automation Engineer
+
+Designed and implemented the entire AI generation pipeline
+Built identity-preserving, consistency-aware illustration logic
+Structured and stored story content in reusable JSON format
+Developed the interactive flipbook-style viewer
+Delivered the complete project end-to-end independently
+Outcome
+The project produces fully personalized children’s comic books with consistent characters, cohesive storytelling, and a visually engaging reading experience, demonstrating advanced use of multimodal AI and thoughtful user-facing presentation.

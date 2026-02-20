@@ -1,0 +1,90 @@
+Agentic AI Media Platform with Python Backend & Automation
+My role. Founding Engineer – Agentic AI & Automation
+
+Project description.
+
+Built an end-to-end agentic AI media platform as a solo developer. The system automates image, video, prompt, and document generation using multi-stage AI workflows and a Python backend. It supports async job orchestration, real-time updates via WebSockets, prompt intelligence pipelines, media processing, and cloud storage integration. Designed for scalability, reliability, and production use across multiple AI services.
+Skills and deliverables
+
+Artificial Intelligence
+Python
+Automation
+API Development
+Automated Workflow
+Published on Jan 27, 2026
+Infinite-scroll AI gallery with real-time updates and one-click image generation from the feed.
+Infinite-scroll AI gallery with real-time updates and one-click image generation from the feed.
+Test and fine-tune prompts across AI models with full parameter control.
+Test and fine-tune prompts across AI models with full parameter control.
+Batch convert images and videos across formats with cloud-hosted output.
+Batch convert images and videos across formats with cloud-hosted output.
+A History Directory made using Firebase with all links and thumbnails of cloud-hosted outputs
+A History Directory made using Firebase with all links and thumbnails of cloud-hosted outputs
+Analyze images or videos to generate editable prompts and remix them into new AI variations.
+Analyze images or videos to generate editable prompts and remix them into new AI variations.
+Create consistent AI videos using start and end frames with async processing and live status updates.
+Create consistent AI videos using start and end frames with async processing and live status updates.
+Generate AI lipsync videos using automated workflows and tracked job history.
+Generate AI lipsync videos using automated workflows and tracked job history.
+Generate multiple caption styles in parallel for images or videos with automatic media optimization.
+Generate multiple caption styles in parallel for images or videos with automatic media optimization.
+Download media from URLs and generate accurate AI transcripts with metadata extraction.
+Download media from URLs and generate accurate AI transcripts with metadata extraction.
+Multi-stage system that retrieves, refines, and generates model-optimized AI prompts.
+Multi-stage system that retrieves, refines, and generates model-optimized AI prompts.
+Create structured PDF documents from images and text with dynamic multi-frame support.
+Create structured PDF documents from images and text with dynamic multi-frame support.
+Agentic AI Media Platform with Python Backend & Automation
+Overview
+This project is a full-scale agentic AI media platform built entirely as a solo developer. It automates image, video, prompt, caption, transcription, and document generation using modular AI workflows and a Python backend. The system is designed for production use, combining asynchronous processing, real-time updates, and multi-service AI orchestration into a single unified application.
+
+Problem
+Creative teams and developers often rely on fragmented tools for AI image generation, video workflows, prompt engineering, transcription, and media conversion. These tools are slow to manage, lack automation, and fail to scale reliably when long-running AI jobs are involved.
+
+Solution
+I designed and implemented an end-to-end platform where each feature operates as an independent, automated workflow. Agent-style pipelines coordinate AI analysis, generation, validation, and delivery, while a Python backend manages execution, state, and reliability. The system supports non-blocking job handling, real-time UI updates, and seamless integration with multiple AI providers.
+
+Core Features
+Homepage & Gallery
+Central dashboard with an infinite-scroll gallery of generated images. Supports instant image generation from the feed and real-time updates via WebSockets.
+
+Image Remix
+Uploads images or videos for AI-based visual analysis and prompt extraction. Users can edit and remix prompts to generate new variations, with streaming analysis for video inputs.
+
+First Frame / Last Frame Video
+Generates consistent AI videos using a starting image and optional ending frame. User instructions are translated into precise animation prompts, with async job polling for long-running tasks.
+
+Caption Generator
+Creates multiple caption styles in parallel for uploaded images or videos. Includes automatic media compression and concurrent processing for fast results.
+
+Transcript & Downloader
+Downloads media from URLs and generates high-accuracy AI transcripts. Automatically extracts metadata such as titles, durations, and thumbnails.
+
+Prompt Generator
+A multi-stage prompt intelligence pipeline that retrieves proven prompts from a vector database, synthesizes context, and tailors outputs to specific AI models.
+
+Document Generator
+Generates structured PDF documents from user-provided images and text. Supports dynamic multi-frame layouts and styled exports.
+
+URL & Media Converter
+Batch converts images and videos between formats and uploads processed assets to cloud storage for easy reuse.
+
+Lipsync Studio
+Automates AI lipsync generation through an external workflow engine. Dynamically injects media inputs into execution graphs and tracks job history.
+
+Prompt Testing Lab
+Provides a sandbox for testing raw prompts across AI models with full control over parameters such as seeds, ratios, and safety settings.
+
+Technical Architecture
+Backend: Python with modular routing and async processing
+AI Services: OpenAI, Gemini, Fal AI, Whisper
+Realtime: WebSockets for live UI updates
+Storage: AWS S3 / Cloudflare R2
+Media Processing: yt-dlp, video and audio pipelines
+Architecture: Agent-style workflows with clear separation of concerns
+My Role
+Sole Developer & Agentic AI Engineer. I designed the system architecture, built the Python backend, implemented all AI workflows, integrated external services, and delivered a production-ready platform end-to-end.
+
+Outcome
+The platform unifies more than ten AI-driven workflows into a single scalable system, reduces manual user effort through automation, and supports reliable execution of long-running AI jobs in real time.
+

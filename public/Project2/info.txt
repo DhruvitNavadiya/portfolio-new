@@ -1,0 +1,52 @@
+AutoGenix – Agentic AI Website Generator & Deployment System
+My role. Sole Developer & Agentic AI Engineer
+
+Project description.
+
+Built AutoGenix, a fully agentic AI system that generates production-ready websites from natural language or JSON configs. The platform uses a multi-agent architecture to plan requirements, design UI, generate code, review quality, fix issues, generate assets, and deploy live sites automatically. It supports Next.js and vanilla HTML, integrates multiple LLM providers, handles retries and loops, and performs end-to-end GitHub and Vercel deployment as a fully autonomous pipeline.
+Skills and deliverables
+
+Artificial Intelligence
+Python
+Automation
+API Development
+Software Architecture
+Published on Jan 31, 2026
+generate the sites with the exact content you want so the users will have all the text and section control 
+generate the sites with the exact content you want so the users will have all the text and section control
+Unique Designs every time that matches the type of the website
+Unique Designs every time that matches the type of the website
+Example of generated site : https://aiglmimage.vercel.app/
+Example of generated site : https://aiglmimage.vercel.app/
+Example of generated site : https://aiflux2klein.vercel.app/
+Example of generated site : https://aiflux2klein.vercel.app/
+What AutoGenix Can Do
+AutoGenix is a fully autonomous, agentic AI system that builds complete, production-ready websites from natural language descriptions or structured JSON configurations. It operates as a coordinated network of specialized AI agents, each responsible for a specific phase of the software development lifecycle.
+
+1. Requirement Understanding & Planning
+AutoGenix starts by analyzing user input to extract functional requirements, technical constraints, and the target framework (Next.js or vanilla HTML/CSS). It converts vague instructions into a structured project scope that guides all downstream decisions.
+
+2. Design Intent & UI Creation
+The system defines the visual and narrative intent of the website, generating custom color palettes, typography systems, layout strategies, and component choices. A built-in quality check evaluates design originality and forces regeneration if the output feels generic or repetitive.
+
+3. Architecture & Project Blueprint
+AutoGenix translates requirements and design decisions into a detailed project blueprint. This blueprint defines file structure, routing, components, and implementation phases, ensuring the project is planned before any code is written.
+
+4. Code Generation & Implementation
+Specialized coding agents scaffold a working project and implement features in sequential phases. The system writes clean frontend code, resolves dependencies, and integrates selected UI libraries while continuously validating syntax, imports, and framework-specific rules.
+
+5. Real-Time Validation & Self-Correction
+During code generation, AutoGenix runs real-time checks to catch errors such as missing imports, invalid React patterns, or syntax issues. Problems are automatically corrected without stopping the generation process.
+
+6. Review & Quality Assurance
+Once implementation is complete, the system performs automated review cycles to validate accessibility, visual consistency, asset references, and performance best practices. Detected issues trigger targeted fixes until quality thresholds are met.
+
+7. Asset Generation & Integration
+AutoGenix generates real visual assets that match the site’s theme and design language. Images are placed directly into the project structure and validated to ensure they are correctly referenced by the code.
+
+8. Packaging & Deployment
+After validation, the system packages the final project, creates a GitHub repository, pushes the generated code, and deploys the site to Vercel. A live production URL is returned automatically.
+
+Summary
+AutoGenix functions as a repeatable software factory rather than a one-off generator. It autonomously plans, designs, builds, reviews, fixes, and deploys complete websites end-to-end with minimal human involvement.
+
