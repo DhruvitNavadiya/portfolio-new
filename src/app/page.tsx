@@ -4,6 +4,10 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { SkillsSection } from "@/components/SkillsSection";
+import { ContactSection } from "@/components/ContactSection";
+import { Footer } from "@/components/Footer";
+
+import { ChatAssistant } from "@/components/ChatAssistant";
 
 export default function Home() {
   return (
@@ -15,6 +19,9 @@ export default function Home() {
       <ProjectsSection />
       <ExperienceSection />
       <SkillsSection />
+      <ContactSection />
+      <Footer />
+      <ChatAssistant />
     </main>
   );
 }

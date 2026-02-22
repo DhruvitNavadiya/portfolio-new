@@ -12,6 +12,7 @@ import {
   Brain,
   Bot,
 } from "lucide-react";
+import { useLenis } from "lenis/react";
 
 /* ================================================================== */
 /*  REF-BASED TYPEWRITER (zero React re-renders)                       */
@@ -376,6 +377,7 @@ const fadeIn = (delay: number) => ({ initial: { opacity: 0, y: 18 }, animate: { 
 /*  HERO — MAIN EXPORT                                                 */
 /* ================================================================== */
 export function Hero3D() {
+  const lenis = useLenis();
   const clock = useLiveClock();
 
   const texts = useMemo(() => [
@@ -473,11 +475,17 @@ export function Hero3D() {
         </motion.div>
 
         <motion.div {...fadeIn(1.5)} className="mt-8 flex gap-4">
-          <button className="group relative px-8 py-3.5 border border-white/20 text-white text-sm tracking-wide hover:border-white/60 hover:bg-white/10 transition-all duration-300 overflow-hidden">
+          <button 
+            onClick={() => lenis?.scrollTo("#projects", { duration: 2.5, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })}
+            className="group relative px-8 py-3.5 border border-white/20 text-white text-sm tracking-wide hover:border-white/60 hover:bg-white/10 transition-all duration-300 overflow-hidden"
+          >
             <span className="relative z-10">View My Work</span>
             <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </button>
-          <button className="group px-8 py-3.5 bg-white text-black text-sm font-semibold tracking-wide hover:bg-white/85 hover:scale-[1.02] transition-all duration-300 flex items-center gap-2">
+          <button 
+            onClick={() => lenis?.scrollTo("#contact", { duration: 3.5, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })}
+            className="group px-8 py-3.5 bg-white text-black text-sm font-semibold tracking-wide hover:bg-white/85 hover:scale-[1.02] transition-all duration-300 flex items-center gap-2"
+          >
             Contact Me
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </button>

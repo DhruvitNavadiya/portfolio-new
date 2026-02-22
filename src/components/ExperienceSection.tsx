@@ -68,10 +68,10 @@ export function ExperienceSection() {
         }} />
 
         {/* Accent Corners */}
-        <div className="absolute top-10 left-10 w-6 h-6 border-t-2 border-l-2 border-white/10" />
-        <div className="absolute top-10 right-10 w-6 h-6 border-t-2 border-r-2 border-white/10" />
-        <div className="absolute bottom-10 left-10 w-6 h-6 border-b-2 border-l-2 border-white/10" />
-        <div className="absolute bottom-10 right-10 w-6 h-6 border-b-2 border-r-2 border-white/10" />
+        <div className="absolute top-4 left-4 md:top-10 md:left-10 w-4 h-4 md:w-6 md:h-6 border-t-2 border-l-2 border-white/10" />
+        <div className="absolute top-4 right-4 md:top-10 md:right-10 w-4 h-4 md:w-6 md:h-6 border-t-2 border-r-2 border-white/10" />
+        <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 w-4 h-4 md:w-6 md:h-6 border-b-2 border-l-2 border-white/10" />
+        <div className="absolute bottom-4 right-4 md:bottom-10 md:right-10 w-4 h-4 md:w-6 md:h-6 border-b-2 border-r-2 border-white/10" />
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12">

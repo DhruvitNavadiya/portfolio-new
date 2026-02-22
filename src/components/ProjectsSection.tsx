@@ -320,7 +320,7 @@ function ProjectFullView({
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] bg-black"
+      className="fixed inset-0 z-[100] bg-black overflow-y-auto lg:overflow-hidden flex flex-col lg:flex-row"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -329,17 +329,59 @@ function ProjectFullView({
       {/* Close button */}
       <button
         onClick={onClose}
-        className="absolute top-6 left-6 z-50 w-10 h-10 border border-white/10 flex items-center justify-center hover:border-white/25 hover:bg-white/[0.05] transition-all"
+        className="fixed lg:absolute top-4 right-4 lg:top-6 lg:left-6 z-50 w-10 h-10 border border-white/10 bg-black/50 backdrop-blur-md flex items-center justify-center hover:border-white/25 hover:bg-white/[0.05] transition-all"
       >
         <X className="w-4 h-4 text-white/50" />
       </button>
 
-      <div className="h-full flex">
+      {/* ============================================ */}
+      {/* MOBILE IMAGE GALLERY (Visible only < lg)     */}
+      {/* ============================================ */}
+      <div className="lg:hidden w-full h-[40vh] min-h-[300px] shrink-0 relative border-b border-white/10 bg-black">
+        {/* Horizontal Snapping Scroll */}
+        <div 
+          className="flex h-full overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          onScroll={(e) => {
+            // Very basic scroll spy to update active image index on mobile
+            const target = e.target as HTMLDivElement;
+            const index = Math.round(target.scrollLeft / target.clientWidth);
+            if (index !== activeImage) setActiveImage(index);
+          }}
+        >
+          {project.images.map((img, i) => (
+            <div key={i} className="w-full h-full shrink-0 snap-center p-6 flex flex-col items-center justify-center relative">
+               {img.src ? (
+                <img
+                  src={img.src}
+                  alt={img.label}
+                  className="max-w-full max-h-full object-contain rounded-lg border border-white/[0.05]"
+                />
+              ) : (
+                <div className="w-full h-full max-w-sm rounded-lg flex items-center justify-center border border-white/[0.05]" style={{ background: (img as any).bg || 'rgba(255,255,255,0.02)' }}>
+                  <span className="text-xs font-mono uppercase tracking-widest text-white/30">{img.label}</span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        
+        {/* Mobile slide indicator */}
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-none">
+          {project.images.map((_, i) => (
+            <div 
+              key={i} 
+              className={`h-1 rounded-full transition-all duration-300 ${i === activeImage ? 'w-4 bg-white/70' : 'w-1 bg-white/20'}`} 
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="flex-1 lg:h-full flex flex-col lg:flex-row relative">
         {/* ============================================ */}
         {/* LEFT PANEL — Project details                 */}
         {/* ============================================ */}
         <motion.div
-          className="w-[62%] h-full flex flex-col justify-between pt-20 pb-10 px-10 md:px-14 lg:px-16 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden z-10"
+          className="w-full lg:w-[62%] h-full flex flex-col justify-between pt-10 lg:pt-20 pb-10 px-6 md:px-14 lg:px-16 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden z-10"
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.15, duration: 0.6, ease }}
@@ -347,7 +389,7 @@ function ProjectFullView({
           {/* Top section — Category + Title + Skills */}
           <div>
             <motion.span
-              className="text-[10px] font-mono uppercase tracking-[0.4em] text-white/20 block mb-5"
+              className="text-[10px] font-mono uppercase tracking-[0.4em] text-white/20 block mb-3 lg:mb-5"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -356,7 +398,7 @@ function ProjectFullView({
             </motion.span>
 
             <motion.h2
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-5 lg:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6, ease }}
@@ -366,7 +408,7 @@ function ProjectFullView({
 
             {/* Skills / Tags */}
             <motion.div
-              className="flex flex-wrap gap-2.5 mb-8"
+              className="flex flex-wrap gap-2 mb-6 lg:mb-8"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -374,7 +416,7 @@ function ProjectFullView({
               {project.tags.map((tag, i) => (
                 <span
                   key={i}
-                  className="text-[11px] font-mono uppercase tracking-wider text-white/40 px-4 py-2 border border-white/[0.1] bg-white/[0.02]"
+                  className="text-[10px] lg:text-[11px] font-mono uppercase tracking-wider text-white/40 px-3 py-1.5 lg:px-4 lg:py-2 border border-white/[0.1] bg-white/[0.02]"
                 >
                   {tag}
                 </span>
@@ -383,7 +425,7 @@ function ProjectFullView({
 
             {/* Divider */}
             <motion.div
-              className="h-px bg-white/[0.08] mb-8"
+              className="h-px bg-white/[0.08] mb-6 lg:mb-8"
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 0.35, duration: 0.8, ease }}
@@ -399,10 +441,10 @@ function ProjectFullView({
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.3 }}
               >
-                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/30 block mb-3">
+                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/30 block mb-2 lg:mb-3">
                   {project.images[activeImage].label}
                 </span>
-                <p className="text-base md:text-lg text-white/45 leading-relaxed">
+                <p className="text-sm md:text-base lg:text-lg text-white/45 leading-relaxed">
                   {project.images[activeImage].desc}
                 </p>
               </motion.div>
@@ -414,16 +456,17 @@ function ProjectFullView({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
+            className="mt-10 lg:mt-auto"
           >
             {/* Project description */}
-            <p className="text-[15px] text-white/30 leading-relaxed mb-6">
+            <p className="text-[14px] lg:text-[15px] text-white/30 leading-relaxed mb-6">
               {project.description}
             </p>
 
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6">
               <a
                 href={project.github}
-                className="group flex items-center gap-2 px-5 py-2.5 border border-white/[0.1] hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300"
+                className="group flex justify-center items-center gap-2 px-5 py-3 border border-white/[0.1] hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300"
               >
                 <Github className="w-4 h-4 text-white/40 group-hover:text-white/70 transition-colors" />
                 <span className="text-[11px] font-mono uppercase tracking-wider text-white/40 group-hover:text-white/70 transition-colors">
@@ -432,7 +475,7 @@ function ProjectFullView({
               </a>
               <a
                 href={project.link}
-                className="group flex items-center gap-2 px-5 py-2.5 border border-white/[0.1] hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300"
+                className="group flex justify-center items-center gap-2 px-5 py-3 border border-white/[0.1] hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300"
               >
                 <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-white/70 transition-colors" />
                 <span className="text-[11px] font-mono uppercase tracking-wider text-white/40 group-hover:text-white/70 transition-colors">
@@ -441,7 +484,7 @@ function ProjectFullView({
               </a>
             </div>
 
-            <div className="flex items-center gap-4 text-[10px] font-mono text-white/15 uppercase tracking-wider">
+            <div className="hidden lg:flex items-center gap-4 text-[10px] font-mono text-white/15 uppercase tracking-wider">
               <span>Image {activeImage + 1} of {project.images.length}</span>
               <span>·</span>
               <span>↑↓ Arrow keys · Scroll to navigate</span>
@@ -453,10 +496,10 @@ function ProjectFullView({
       </div>
 
       {/* ============================================ */}
-      {/* WHEEL CAROUSEL — absolute overlay, z-30     */}
+      {/* DESKTOP WHEEL CAROUSEL — absolute overlay   */}
       {/* ============================================ */}
       <motion.div
-        className="absolute inset-0 pointer-events-none z-30"
+        className="hidden lg:block absolute inset-0 pointer-events-none z-30"
         initial={{ opacity: 0, x: 60 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2, duration: 0.7, ease }}
@@ -470,10 +513,10 @@ function ProjectFullView({
         </div>
       </motion.div>
 
-      {/* Corner brackets */}
-      <div className="absolute top-3 left-3 w-5 h-5 border-t border-l border-white/[0.06] pointer-events-none" />
-      <div className="absolute bottom-3 left-3 w-5 h-5 border-b border-l border-white/[0.06] pointer-events-none" />
-      <div className="absolute bottom-3 right-3 w-5 h-5 border-b border-r border-white/[0.06] pointer-events-none" />
+      {/* Corner brackets (Desktop only to save space on mobile) */}
+      <div className="hidden lg:block absolute top-3 left-3 w-5 h-5 border-t border-l border-white/[0.06] pointer-events-none" />
+      <div className="hidden lg:block absolute bottom-3 left-3 w-5 h-5 border-b border-l border-white/[0.06] pointer-events-none" />
+      <div className="hidden lg:block absolute bottom-3 right-3 w-5 h-5 border-b border-r border-white/[0.06] pointer-events-none" />
     </motion.div>
   );
 }
@@ -570,7 +613,7 @@ export function ProjectsSection() {
 
   return (
     <>
-      <section ref={ref} className="relative min-h-screen bg-black overflow-hidden flex flex-col justify-center py-20 md:py-28">
+      <section id="projects" ref={ref} className="relative min-h-screen bg-black overflow-hidden flex flex-col justify-center py-20 md:py-28">
         {/* Dot pattern bg */}
         <div
           className="absolute inset-0 pointer-events-none z-0 opacity-[0.15]"
