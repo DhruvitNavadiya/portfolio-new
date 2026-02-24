@@ -537,6 +537,7 @@ function BentoCard({
 }) {
   return (
     <motion.div
+      id={`project-${project.id}`}
       className={`group relative ${project.colSpan} ${project.rowSpan} border border-white/[0.06] hover:border-white/[0.14] bg-white/[0.01] cursor-pointer overflow-hidden transition-colors duration-500`}
       initial={{ opacity: 0, y: 50, scale: 0.97 }}
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
@@ -611,6 +612,19 @@ export function ProjectsSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [selected, setSelected] = useState<(typeof PROJECTS)[number] | null>(null);
 
+  // Listen for custom 'select-project' events from chatbot
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const projectId = (e as CustomEvent).detail?.projectId;
+      if (projectId) {
+        const project = PROJECTS.find(p => p.id === projectId);
+        if (project) setSelected(project);
+      }
+    };
+    window.addEventListener('select-project', handler);
+    return () => window.removeEventListener('select-project', handler);
+  }, []);
+
   return (
     <>
       <section id="projects" ref={ref} className="relative min-h-screen bg-black overflow-hidden flex flex-col justify-center py-20 md:py-28">
@@ -627,35 +641,31 @@ export function ProjectsSection() {
         <div className="absolute inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.015)_0%,transparent_75%)]" />
         <div className="absolute inset-0 pointer-events-none z-0 bg-gradient-to-b from-transparent via-transparent to-black" />
 
-        {/* --- CREATIVE ANIMATED BACKGROUND ELEMENTS --- */}
-        {/* Deep Animated Auroras */}
-        <motion.div 
-          className="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-white/[0.005] blur-[100px] pointer-events-none z-0"
-          animate={{ x: [0, 50, 0], y: [0, 30, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        {/* --- LIGHTWEIGHT BACKGROUND ELEMENTS (Pure CSS for GPU compositing) --- */}
+        {/* Subtle static glow — no animation, near-zero cost */}
+        <div 
+          className="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-white/[0.008] pointer-events-none z-0"
+          style={{ filter: 'blur(80px)', willChange: 'transform', transform: 'translateZ(0)' }}
         />
-        <motion.div 
-          className="absolute top-[40%] -right-[20%] w-[60vw] h-[60vw] rounded-full bg-white/[0.003] blur-[120px] pointer-events-none z-0"
-          animate={{ x: [0, -40, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        <div 
+          className="absolute top-[40%] -right-[20%] w-[60vw] h-[60vw] rounded-full bg-white/[0.005] pointer-events-none z-0"
+          style={{ filter: 'blur(80px)', willChange: 'transform', transform: 'translateZ(0)' }}
         />
 
-        {/* Slow moving wireframe accent rings */}
-        <motion.div 
+        {/* Slow rotating wireframe rings — pure CSS animation */}
+        <div 
           className="absolute top-[15%] right-[25%] w-[400px] h-[400px] border-[0.5px] border-white/[0.015] rounded-full pointer-events-none z-0 hidden md:block"
-          animate={{ rotate: 360, scale: [1, 1.05, 1] }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          style={{ animation: 'spin 60s linear infinite', willChange: 'transform' }}
         />
-        <motion.div 
+        <div 
           className="absolute top-[18%] right-[26%] w-[350px] h-[350px] border-[0.5px] border-white/[0.01] border-dashed rounded-full pointer-events-none z-0 hidden md:block"
-          animate={{ rotate: -360, scale: [1, 1.05, 1] }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+          style={{ animation: 'spin 90s linear infinite reverse', willChange: 'transform' }}
         />
 
-        {/* Noise */}
+        {/* Noise — lightweight CSS pattern */}
         <div className="absolute inset-0 z-0 opacity-[0.02]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
-          backgroundSize: "150px 150px",
+          backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+          backgroundSize: '4px 4px',
         }} />
 
         {/* Edge decorations */}

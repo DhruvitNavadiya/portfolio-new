@@ -211,7 +211,7 @@ export function SkillsSection() {
   }, [inView]);
 
   return (
-    <section ref={ref} className="relative bg-black py-24 md:py-32 border-t border-white/[0.05] overflow-hidden min-h-screen flex flex-col items-center justify-center">
+    <section id="skills" ref={ref} className="relative bg-black py-24 md:py-32 border-t border-white/[0.05] overflow-hidden min-h-screen flex flex-col items-center justify-center">
       
       {/* ── Background Elements ── */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -253,7 +253,7 @@ export function SkillsSection() {
         {/* ── Premium Bento Box Physics Container ── */}
         <motion.div 
           ref={containerRef}
-          className="relative w-[95%] md:w-[90%] max-w-[1200px] h-[450px] md:h-[550px] lg:h-[700px] mx-auto border border-white/[0.15] bg-[#050505] overflow-hidden shadow-[inset_0_0_20px_rgba(255,255,255,0.01),0_10px_30px_rgba(0,0,0,0.5)] md:shadow-[inset_0_0_40px_rgba(255,255,255,0.02),0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl rounded-none"
+          className="relative w-[95%] md:w-[90%] max-w-[1200px] h-[450px] md:h-[550px] lg:h-[700px] mx-auto border border-white/[0.15] bg-[#050505] overflow-hidden shadow-[inset_0_0_20px_rgba(255,255,255,0.01),0_10px_30px_rgba(0,0,0,0.5)] md:shadow-[inset_0_0_40px_rgba(255,255,255,0.02),0_20px_40px_rgba(0,0,0,0.5)] rounded-none"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, delay: 0.4 }}

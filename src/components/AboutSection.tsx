@@ -28,20 +28,29 @@ export function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-60px" });
 
-  /* parallax: image shifts up slower than scroll */
+  /* parallax */
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const imgY = useTransform(scrollYProgress, [0, 1], [80, -80]);
-  const textY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const imgY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const textY = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
-  /* clip-path reveal: wipes open from center as section enters */
-  const clipInset = useTransform(scrollYProgress, [0, 0.35], [50, 0]);
-  const clipPath = useTransform(clipInset, (v) => `inset(${v}% 0% ${v}% 0%)`);
+  /* cinematic zoom-out: starts zoomed in, settles to normal */
+  const imgScale = useTransform(scrollYProgress, [0, 0.45], [1.4, 1]);
+  /* blur sharpens as you scroll in */
+  const imgBlur = useTransform(scrollYProgress, [0, 0.4], [8, 0]);
+  /* brightness builds up */
+  const imgBrightness = useTransform(scrollYProgress, [0, 0.45], [0.6, 1]);
+  /* combined CSS filter string */
+  const imgFilter = useTransform(
+    [imgBlur, imgBrightness],
+    ([b, br]) => `blur(${b}px) brightness(${br})`
+  );
 
   return (
     <section
+      id="about"
       ref={sectionRef}
       className="relative h-screen bg-black overflow-hidden flex items-center"
     >
@@ -160,11 +169,17 @@ export function AboutSection() {
               Who I Am
             </motion.h2>
 
-            {/* Portrait with parallax */}
+            {/* Portrait with cinematic zoom-out reveal */}
             <motion.div
               className="relative"
-              style={{ y: imgY }}
+              style={{
+                y: imgY,
+                scale: imgScale,
+              }}
             >
+              {/* Soft glow behind portrait */}
+              <div className="absolute -inset-4 rounded-lg opacity-30 blur-2xl bg-gradient-to-b from-white/10 via-white/5 to-transparent pointer-events-none z-0" />
+
               {/* Corner brackets */}
               <div className="absolute -top-3 -left-3 w-5 h-5 border-t border-l border-white/15 z-20" />
               <div className="absolute -top-3 -right-3 w-5 h-5 border-t border-r border-white/15 z-20" />
@@ -173,7 +188,9 @@ export function AboutSection() {
 
               <motion.div
                 className="relative w-[340px] h-[430px] md:w-[440px] md:h-[540px] overflow-hidden"
-                style={{ clipPath }}
+                style={{
+                  filter: imgFilter,
+                }}
               >
                 <Image
                   src="/portrait.png"

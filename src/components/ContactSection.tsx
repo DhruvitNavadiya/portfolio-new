@@ -60,8 +60,8 @@ export function ContactSection() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06)_0%,transparent_70%)]" />
 
         <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
-          backgroundSize: "150px 150px",
+          backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+          backgroundSize: '4px 4px',
         }} />
 
         {/* Accent Corners */}
@@ -105,7 +105,7 @@ export function ContactSection() {
 
         {/* ── Terminal Form Container ── */}
         <motion.div 
-          className="relative w-[95%] md:w-[80%] lg:w-[60%] max-w-[800px] mx-auto border border-white/[0.15] bg-[#050505] p-6 md:p-12 shadow-[inset_0_0_20px_rgba(255,255,255,0.01),0_10px_30px_rgba(0,0,0,0.5)] md:shadow-[inset_0_0_40px_rgba(255,255,255,0.02),0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl rounded-none"
+          className="relative w-[95%] md:w-[80%] lg:w-[60%] max-w-[800px] mx-auto border border-white/[0.15] bg-[#050505] p-6 md:p-12 shadow-[inset_0_0_20px_rgba(255,255,255,0.01),0_10px_30px_rgba(0,0,0,0.5)] md:shadow-[inset_0_0_40px_rgba(255,255,255,0.02),0_20px_40px_rgba(0,0,0,0.5)] rounded-none"
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}

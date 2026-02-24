@@ -146,138 +146,131 @@ function SpotlightCursor() {
   );
 }
 
-const GRID_SIZE = 140; // bigger boxes
+/* ================================================================== */
+/*  STARFIELD — 3 parallax depth layers of drifting particles          */
+/* ================================================================== */
 
-/** Dots that pulse at grid intersections */
-const GRID_DOTS = [
-  { col: 2, row: 1 }, { col: 4, row: 1 }, { col: 6, row: 1 },
-  { col: 1, row: 2 }, { col: 3, row: 2 }, { col: 5, row: 3 },
-  { col: 7, row: 2 }, { col: 2, row: 4 }, { col: 8, row: 3 },
-  { col: 4, row: 4 }, { col: 6, row: 4 }, { col: 9, row: 1 },
-  { col: 10, row: 3 }, { col: 3, row: 5 },
-];
+/* Seeded pseudo-random for stable layouts between renders */
+function seededRandom(seed: number) {
+  const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
+  return x - Math.floor(x);
+}
 
-/** Grid cells that briefly glow */
-const GLOW_CELLS = [
-  { col: 2, row: 1, delay: 0 }, { col: 5, row: 3, delay: 3 },
-  { col: 1, row: 3, delay: 6 }, { col: 7, row: 2, delay: 9 },
-  { col: 3, row: 4, delay: 2 }, { col: 8, row: 1, delay: 5 },
-  { col: 6, row: 4, delay: 8 }, { col: 4, row: 2, delay: 11 },
-];
+/* Generate star positions for a single depth layer */
+function generateStars(count: number, seed: number) {
+  return Array.from({ length: count }, (_, i) => ({
+    x: Number((seededRandom(seed + i * 1.3) * 100).toFixed(2)),
+    y: Number((seededRandom(seed + i * 2.7 + 50) * 100).toFixed(2)),
+    size: Number((1 + seededRandom(seed + i * 3.1 + 100) * 2).toFixed(2)),
+    opacity: Number((0.2 + seededRandom(seed + i * 4.9 + 200) * 0.6).toFixed(2)),
+    twinkleDelay: Number((seededRandom(seed + i * 5.3 + 300) * 8).toFixed(2)),
+    twinkleDuration: Number((3 + seededRandom(seed + i * 6.7 + 400) * 5).toFixed(2)),
+  }));
+}
 
-function GridAnimations() {
+/* 3 depth layers: far (small/slow), mid (medium), near (few/large/fast) */
+const STARS_FAR  = generateStars(30, 1);
+const STARS_MID  = generateStars(15, 100);
+const STARS_NEAR = generateStars(6, 200);
+
+function StarfieldBg({ mx, my }: { mx: number; my: number }) {
   return (
     <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
 
-      {/* ── Pulsing intersection dots ─────────────────────────── */}
-      {GRID_DOTS.map((dot, i) => (
-        <motion.div
-          key={`dot-${i}`}
-          className="absolute w-1 h-1 rounded-full bg-white"
-          style={{
-            left: dot.col * GRID_SIZE,
-            top: dot.row * GRID_SIZE,
-          }}
-          animate={{ opacity: [0, 0.35, 0], scale: [0.5, 1.8, 0.5] }}
-          transition={{
-            duration: 4 + (i % 3) * 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: i * 0.8,
-          }}
-        />
-      ))}
+      {/* ── Far layer ─────────────────────────────────────────── */}
+      <div
+        className="absolute inset-0"
+        style={{
+          transform: `translate(${mx * 3}px, ${my * 3}px)`,
+          transition: 'transform 0.6s ease-out',
+          willChange: 'transform',
+        }}
+      >
+        {STARS_FAR.map((star, i) => (
+          <div
+            key={`far-${i}`}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: star.size,
+              height: star.size,
+              opacity: star.opacity * 0.8,
+              animation: `flicker${i % 3 + 1} ${4 + (star.twinkleDuration % 3) * 2}s ease-in-out ${star.twinkleDelay}s infinite`,
+            }}
+          />
+        ))}
+      </div>
 
-      {/* ── Fading grid cell highlights ───────────────────────── */}
-      {GLOW_CELLS.map((cell, i) => (
-        <motion.div
-          key={`cell-${i}`}
-          className="absolute"
-          style={{
-            left: cell.col * GRID_SIZE,
-            top: cell.row * GRID_SIZE,
-            width: GRID_SIZE,
-            height: GRID_SIZE,
-          }}
-          animate={{ opacity: [0, 0.08, 0] }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: cell.delay,
-          }}
-        >
-          <div className="w-full h-full border border-white/[0.08] bg-white/[0.03]" />
-        </motion.div>
-      ))}
+      {/* ── Mid layer ─────────────────────────────────────────── */}
+      <div
+        className="absolute inset-0"
+        style={{
+          transform: `translate(${mx * 8}px, ${my * 8}px)`,
+          transition: 'transform 0.4s ease-out',
+          willChange: 'transform',
+        }}
+      >
+        {STARS_MID.map((star, i) => (
+          <div
+            key={`mid-${i}`}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: star.size * 1.3,
+              height: star.size * 1.3,
+              opacity: star.opacity * 0.9,
+              animation: `flicker${i % 3 + 1} ${3.5 + (star.twinkleDuration % 2) * 1.5}s ease-in-out ${star.twinkleDelay}s infinite`,
+            }}
+          />
+        ))}
+      </div>
 
-      {/* ── Concentric expanding rings (from center) ──────────── */}
-      {[0, 2.5, 5].map((delay, i) => (
-        <motion.div
-          key={`ring-${i}`}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.06]"
-          initial={{ width: 0, height: 0, opacity: 0.12 }}
-          animate={{
-            width: [0, 800],
-            height: [0, 800],
-            opacity: [0.12, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeOut",
-            delay,
-          }}
-        />
-      ))}
+      {/* ── Near layer ────────────────────────────────────────── */}
+      <div
+        className="absolute inset-0"
+        style={{
+          transform: `translate(${mx * 15}px, ${my * 15}px)`,
+          transition: 'transform 0.25s ease-out',
+          willChange: 'transform',
+        }}
+      >
+        {STARS_NEAR.map((star, i) => (
+          <div
+            key={`near-${i}`}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: star.size * 1.8,
+              height: star.size * 1.8,
+              opacity: star.opacity,
+              boxShadow: `0 0 ${star.size * 3}px ${star.size}px rgba(200,220,255,${star.opacity * 0.3})`,
+              animation: `flicker${i % 3 + 1} ${3 + (star.twinkleDuration % 2) * 1}s ease-in-out ${star.twinkleDelay}s infinite`,
+            }}
+          />
+        ))}
+      </div>
 
-      {/* ── Corner bracket accents ────────────────────────────── */}
-      <motion.svg className="absolute top-[18%] left-[10%]" width="40" height="40" viewBox="0 0 40 40"
-        initial={{ opacity: 0 }} animate={{ opacity: 0.12 }} transition={{ delay: 1, duration: 1 }}>
-        <path d="M0 15 L0 0 L15 0" stroke="white" strokeWidth="1" fill="none" />
-      </motion.svg>
-      <motion.svg className="absolute bottom-[18%] right-[10%]" width="40" height="40" viewBox="0 0 40 40"
-        initial={{ opacity: 0 }} animate={{ opacity: 0.12 }} transition={{ delay: 1.3, duration: 1 }}>
-        <path d="M40 25 L40 40 L25 40" stroke="white" strokeWidth="1" fill="none" />
-      </motion.svg>
-      <motion.svg className="absolute top-[25%] right-[15%]" width="30" height="30" viewBox="0 0 30 30"
-        initial={{ opacity: 0 }} animate={{ opacity: 0.08 }} transition={{ delay: 1.6, duration: 1 }}>
-        <path d="M30 10 L30 0 L20 0" stroke="white" strokeWidth="1" fill="none" />
-      </motion.svg>
-      <motion.svg className="absolute bottom-[25%] left-[15%]" width="30" height="30" viewBox="0 0 30 30"
-        initial={{ opacity: 0 }} animate={{ opacity: 0.08 }} transition={{ delay: 1.9, duration: 1 }}>
-        <path d="M0 20 L0 30 L10 30" stroke="white" strokeWidth="1" fill="none" />
-      </motion.svg>
+      {/* ── Vignette — soft edge darkening ──────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 80% 70% at 50% 50%, transparent 50%, rgba(0,0,0,0.15) 100%)',
+      }} />
+
+      {/* ── Center glow ────────────────────────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 40% 35% at 50% 50%, rgba(255,255,255,0.03), transparent 70%)',
+      }} />
+
+      {/* ── Corner bracket accents ──────────────────────────────── */}
+      <svg className="absolute top-[12%] left-[6%] opacity-[0.08]" width="36" height="36" viewBox="0 0 36 36">
+        <path d="M0 12 L0 0 L12 0" stroke="white" strokeWidth="0.5" fill="none" />
+      </svg>
+      <svg className="absolute bottom-[12%] right-[6%] opacity-[0.08]" width="36" height="36" viewBox="0 0 36 36">
+        <path d="M36 24 L36 36 L24 36" stroke="white" strokeWidth="0.5" fill="none" />
+      </svg>
     </div>
-  );
-}
-
-/* ================================================================== */
-/*  CROSSHAIRS                                                         */
-/* ================================================================== */
-const CROSS_POS = [
-  { left: "8%", top: "15%" }, { left: "22%", top: "35%" },
-  { left: "85%", top: "20%" }, { left: "72%", top: "65%" },
-  { left: "15%", top: "78%" }, { left: "92%", top: "82%" },
-  { left: "48%", top: "10%" }, { left: "55%", top: "88%" },
-  { left: "35%", top: "55%" }, { left: "68%", top: "42%" },
-];
-
-function Crosshairs() {
-  return (
-    <>
-      {CROSS_POS.map((pos, i) => (
-        <motion.div key={i} className="absolute z-[2] pointer-events-none"
-          style={{ left: pos.left, top: pos.top }}
-          initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.5 + i * 0.06, duration: 0.4 }}>
-          <svg width="12" height="12" viewBox="0 0 12 12">
-            <line x1="6" y1="1" x2="6" y2="11" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
-            <line x1="1" y1="6" x2="11" y2="6" stroke="rgba(255,255,255,0.06)" strokeWidth="0.5" />
-          </svg>
-        </motion.div>
-      ))}
-    </>
   );
 }
 
@@ -379,6 +372,13 @@ const fadeIn = (delay: number) => ({ initial: { opacity: 0, y: 18 }, animate: { 
 export function Hero3D() {
   const lenis = useLenis();
   const clock = useLiveClock();
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const cx = (e.clientX / window.innerWidth - 0.5) * 2;  // -1 to 1
+    const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+    setMouse({ x: cx, y: cy });
+  }, []);
 
   const texts = useMemo(() => [
     "Agentic AI Systems & Multi-Agent Orchestration",
@@ -388,36 +388,38 @@ export function Hero3D() {
   ], []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden select-none" style={{ backgroundColor: "#0e0e0eff" }}>
+    <section id="hero" className="relative h-screen w-full overflow-hidden select-none" onMouseMove={handleMouseMove} style={{ backgroundColor: "#0e0e0eff" }}>
 
       {/* ── CSS keyframes ──────────────────────────────────────── */}
       <style>{`
         @keyframes marqueeScroll  { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes marqueeReverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+        @keyframes flicker1 { 0% { opacity: 0.8; } 10% { opacity: 0.2; } 20% { opacity: 0.9; } 30% { opacity: 0.4; } 40% { opacity: 1; } 50% { opacity: 0.3; } 60% { opacity: 0.85; } 70% { opacity: 0.15; } 80% { opacity: 0.95; } 90% { opacity: 0.5; } 100% { opacity: 0.8; } }
+        @keyframes flicker2 { 0% { opacity: 0.6; } 8% { opacity: 1; } 18% { opacity: 0.2; } 28% { opacity: 0.7; } 42% { opacity: 0.15; } 55% { opacity: 0.9; } 65% { opacity: 0.35; } 75% { opacity: 0.85; } 85% { opacity: 0.25; } 95% { opacity: 0.7; } 100% { opacity: 0.6; } }
+        @keyframes flicker3 { 0% { opacity: 0.5; } 12% { opacity: 0.95; } 22% { opacity: 0.3; } 35% { opacity: 0.8; } 45% { opacity: 0.1; } 58% { opacity: 0.75; } 68% { opacity: 0.4; } 78% { opacity: 1; } 88% { opacity: 0.2; } 100% { opacity: 0.5; } }
+        @keyframes driftSlow { 0% { transform: translate(0, 0); } 25% { transform: translate(15px, -10px); } 50% { transform: translate(-6px, 15px); } 75% { transform: translate(-15px, -6px); } 100% { transform: translate(0, 0); } }
+        @keyframes driftMid  { 0% { transform: translate(0, 0); } 25% { transform: translate(-20px, 15px); } 50% { transform: translate(12px, -18px); } 75% { transform: translate(20px, 10px); } 100% { transform: translate(0, 0); } }
+        @keyframes driftFast { 0% { transform: translate(0, 0); } 25% { transform: translate(28px, -22px); } 50% { transform: translate(-18px, 25px); } 75% { transform: translate(-28px, -15px); } 100% { transform: translate(0, 0); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
       `}</style>
 
-      {/* ── Subtle noise texture on pure black ─────────────────── */}
-      <div className="absolute inset-0 z-0 opacity-[0.025]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
-        backgroundSize: "150px 150px",
+      {/* ── Subtle dot texture ──────────────────────────────────── */}
+      <div className="absolute inset-0 z-0 opacity-[0.02]" style={{
+        backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)`,
+        backgroundSize: '3px 3px',
       }} />
 
-      {/* ── CSS grid overlay — larger boxes with subtle crosses ── */}
-      <div className="absolute inset-0 z-[1] pointer-events-none" style={{
+      {/* ── Subtle grid lines ──────────────────────────────────── */}
+      <div className="absolute inset-0 z-[0] pointer-events-none opacity-[0.025]" style={{
         backgroundImage: `
-          linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
-          radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)
+          linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)
         `,
-        backgroundSize: `${GRID_SIZE}px ${GRID_SIZE}px, ${GRID_SIZE}px ${GRID_SIZE}px, ${GRID_SIZE}px ${GRID_SIZE}px`,
-        backgroundPosition: `0 0, 0 0, ${GRID_SIZE/2}px ${GRID_SIZE/2}px`,
+        backgroundSize: '160px 160px',
       }} />
 
-      {/* ── Grid-aware animations (dots, cell glows, rings) ──── */}
-      <GridAnimations />
-
-      {/* ── Crosshairs ─────────────────────────────────────────── */}
-      <Crosshairs />
+      {/* ── Parallax starfield ──────────────────────────────────── */}
+      <StarfieldBg mx={mouse.x} my={mouse.y} />
 
       {/* ── Tech badges ────────────────────────────────────────── */}
       <TechBadges />
@@ -435,6 +437,9 @@ export function Hero3D() {
         className="absolute bottom-0 left-0 right-0 z-[5] pointer-events-none">
         <Marquee reverse />
       </motion.div>
+
+      {/* ── Center radial glow ──────────────────────────────────── */}
+      <div className="absolute inset-0 z-[2] pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03)_0%,transparent_60%)]" />
 
       {/* ── Overlay content ────────────────────────────────────── */}
       <div className="relative z-[3] h-full flex flex-col items-center justify-center px-6">

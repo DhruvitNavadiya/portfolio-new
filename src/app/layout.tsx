@@ -38,17 +38,17 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <LenisProvider>
       <body
         className={`${interTight.variable} ${pixelify.variable} antialiased`}
-        >
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          {children}
-          <Toaster />
-        </ThemeProvider>
+      >
+        <LenisProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </LenisProvider>
         <Analytics/>
       </body>
-        </LenisProvider>
     </html>
   );
 }
