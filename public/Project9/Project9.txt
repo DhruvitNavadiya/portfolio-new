@@ -1,0 +1,9 @@
+
+I made a system on which you can create and provide a dashboard to multiple agencies so they can upload resumes of candidates. All resumes will be stored in one Notion database, and if the uploaded resume already exists in the database, it will notify the agency, so you can avoid unnecessary charges and have a centralized database for yourself.
+Skills and deliverables
+
+OpenAI API
+TypeScript
+Next.js
+Node.js
+GitHub

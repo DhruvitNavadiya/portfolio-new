@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 export function ContactSection() {
@@ -9,6 +9,20 @@ export function ContactSection() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [agentData, setAgentData] = useState<{ name: string; email: string; message: string } | null>(null);
+
+  // Listen for agent-submitted contact events from the chatbot
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail?.name && detail?.email) {
+        setAgentData({ name: detail.name, email: detail.email, message: detail.message || '' });
+        setSubmitStatus('success');
+      }
+    };
+    window.addEventListener('agent-contact-submitted', handler);
+    return () => window.removeEventListener('agent-contact-submitted', handler);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,8 +30,6 @@ export function ContactSection() {
     setSubmitStatus("idle");
 
     const formData = new FormData(e.currentTarget);
-    // Web3Forms requires the browser context to pass Cloudflare bot detection.
-    // The access key is considered a public routing key, not a secret password.
     formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "f076f953-b308-4a94-8c10-a73881584951");
 
     try {
@@ -25,9 +37,7 @@ export function ContactSection() {
         method: "POST",
         body: formData,
       });
-
       const data = await response.json();
-
       if (data.success) {
         setSubmitStatus("success");
         (e.target as HTMLFormElement).reset();
@@ -46,9 +56,8 @@ export function ContactSection() {
   return (
     <section id="contact" ref={ref} className="relative bg-[#111111] py-24 md:py-32 border-t border-white/[0.05] overflow-hidden min-h-screen flex flex-col items-center justify-center">
       
-      {/* ── Background & Decorations Wrapper ── */}
+      {/* ── Background Decorations ── */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {/* Background Grid & Noise */}
         <div
           className="absolute inset-0 opacity-[0.5]"
           style={{
@@ -56,9 +65,7 @@ export function ContactSection() {
             backgroundSize: '64px 64px',
           }}
         />
-        
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.06)_0%,transparent_70%)]" />
-
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(6,182,212,0.04)_0%,transparent_70%)]" />
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)`,
           backgroundSize: '4px 4px',
@@ -73,10 +80,10 @@ export function ContactSection() {
 
       <div className="relative z-10 w-full flex flex-col items-center max-w-[100vw]">
         
-        {/* Header */}
+        {/* ── Header ── */}
         <div className="text-center mb-12 md:mb-16 px-6 pointer-events-none">
           <motion.span
-            className="text-[10px] font-mono uppercase tracking-[0.4em] text-white/30 block mb-4"
+            className="text-[11px] font-mono uppercase tracking-[0.4em] text-white/30 block mb-4"
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
@@ -119,13 +126,13 @@ export function ContactSection() {
             }}
           />
           
-          {/* ── Thematic Developer Decorations ── */}
+          {/* Thematic Decorations */}
           <div className="absolute top-0 left-0 w-4 h-4 md:w-8 md:h-8 border-t-2 border-l-2 border-white/20 pointer-events-none" />
           <div className="absolute top-0 right-0 w-4 h-4 md:w-8 md:h-8 border-t-2 border-r-2 border-white/20 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-4 h-4 md:w-8 md:h-8 border-b-2 border-l-2 border-white/20 pointer-events-none" />
           <div className="absolute bottom-0 right-0 w-4 h-4 md:w-8 md:h-8 border-b-2 border-r-2 border-white/20 pointer-events-none" />
           
-          <div className="absolute top-4 left-4 md:left-6 text-white/30 font-mono text-[8px] md:text-[10px] uppercase tracking-widest pointer-events-none flex items-center gap-2">
+          <div className="absolute top-4 left-4 md:left-6 text-white/30 font-mono text-[9px] md:text-[11px] uppercase tracking-widest pointer-events-none flex items-center gap-2">
             <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]" />
             SECURE_CHANNEL_OPEN
           </div>
@@ -176,13 +183,31 @@ export function ContactSection() {
                 >
                   Thank you for reaching out.
                   <br />
-                  I'll get back to you shortly!
+                  I&apos;ll get back to you shortly!
                 </motion.p>
+                
+                {/* Agent-submitted badge */}
+                {agentData && (
+                  <motion.div
+                    className="mt-4 border border-cyan-500/20 bg-cyan-500/[0.05] px-5 py-4 text-left w-full max-w-sm mx-auto"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1 }}
+                  >
+                    <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-cyan-400/70 mb-3 flex items-center gap-1.5">
+                      <span className="w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_6px_rgba(6,182,212,0.5)]" />
+                      Submitted by AI Agent
+                    </p>
+                    <p className="text-sm text-white/50"><span className="text-white/30">Name:</span> {agentData.name}</p>
+                    <p className="text-sm text-white/50 mt-1"><span className="text-white/30">Email:</span> {agentData.email}</p>
+                    {agentData.message && <p className="text-sm text-white/50 mt-1 truncate"><span className="text-white/30">Message:</span> {agentData.message}</p>}
+                  </motion.div>
+                )}
               </div>
               
               <motion.button
-                onClick={() => setSubmitStatus("idle")}
-                className="mt-4 text-[10px] text-white/30 uppercase tracking-widest hover:text-white/70 transition-colors"
+                onClick={() => { setSubmitStatus("idle"); setAgentData(null); }}
+                className="mt-4 text-[11px] text-white/30 uppercase tracking-widest hover:text-white/70 transition-colors"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
@@ -192,12 +217,12 @@ export function ContactSection() {
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="relative z-10 mt-8 md:mt-12 flex flex-col gap-6 font-mono">
-              {/* Hidden honeypot to prevent spam */}
+              {/* Hidden honeypot */}
               <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
 
               <div className="flex flex-col md:flex-row gap-6">
                 <div className="flex-1 flex flex-col gap-2">
-                  <label htmlFor="name" className="text-[10px] text-white/40 uppercase tracking-widest">{">"} {">"} Name</label>
+                  <label htmlFor="name" className="text-[11px] text-white/40 uppercase tracking-widest">{">"} {">"} Name</label>
                   <input 
                     type="text" 
                     name="name" 
@@ -205,11 +230,11 @@ export function ContactSection() {
                     required 
                     placeholder="John Doe"
                     disabled={isSubmitting}
-                    className="bg-black/50 border border-white/10 rounded-none px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-white/40 focus:bg-white/[0.02] transition-colors disabled:opacity-50"
+                    className="bg-black/50 border border-white/10 rounded-none px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-cyan-400/30 focus:bg-white/[0.02] transition-all duration-200 focus:shadow-[0_0_20px_rgba(6,182,212,0.04)] disabled:opacity-50"
                   />
                 </div>
                 <div className="flex-1 flex flex-col gap-2">
-                  <label htmlFor="email" className="text-[10px] text-white/40 uppercase tracking-widest">{">"} {">"} Email</label>
+                  <label htmlFor="email" className="text-[11px] text-white/40 uppercase tracking-widest">{">"} {">"} Email</label>
                   <input 
                     type="email" 
                     name="email" 
@@ -217,13 +242,13 @@ export function ContactSection() {
                     required 
                     placeholder="john@example.com"
                     disabled={isSubmitting}
-                    className="bg-black/50 border border-white/10 rounded-none px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-white/40 focus:bg-white/[0.02] transition-colors disabled:opacity-50"
+                    className="bg-black/50 border border-white/10 rounded-none px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-cyan-400/30 focus:bg-white/[0.02] transition-all duration-200 focus:shadow-[0_0_20px_rgba(6,182,212,0.04)] disabled:opacity-50"
                   />
                 </div>
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="message" className="text-[10px] text-white/40 uppercase tracking-widest">{">"} {">"} Payload (Message)</label>
+                <label htmlFor="message" className="text-[11px] text-white/40 uppercase tracking-widest">{">"} {">"} Payload (Message)</label>
                 <textarea 
                   name="message" 
                   id="message" 
@@ -231,14 +256,14 @@ export function ContactSection() {
                   rows={5}
                   placeholder="What are we building?"
                   disabled={isSubmitting}
-                  className="bg-black/50 border border-white/10 rounded-none px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-white/40 focus:bg-white/[0.02] transition-colors resize-none disabled:opacity-50"
+                  className="bg-black/50 border border-white/10 rounded-none px-4 py-3.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-cyan-400/30 focus:bg-white/[0.02] transition-all duration-200 resize-none focus:shadow-[0_0_20px_rgba(6,182,212,0.04)] disabled:opacity-50"
                 />
               </div>
 
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="mt-4 relative group overflow-hidden bg-white text-black font-semibold text-sm uppercase tracking-widest py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-4 relative group overflow-hidden bg-white text-black font-semibold text-sm uppercase tracking-widest py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
                   {isSubmitting ? "TRANSMITTING..." : "EXECUTE_SEND"}
@@ -247,7 +272,7 @@ export function ContactSection() {
               </button>
 
               {submitStatus === "error" && (
-                <p className="text-red-400 text-xs text-center mt-2 animate-pulse">{">"} {">"} Error sequence. Transmission failed.</p>
+                <p className="text-red-400 text-sm text-center mt-2 animate-pulse">{">"} {">"} Error sequence. Transmission failed.</p>
               )}
             </form>
           )}

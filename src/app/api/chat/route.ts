@@ -22,7 +22,7 @@ You have access to a COMPLETE knowledge base about Dhruvit Navadiya below. Use i
 - **NEVER ask for permission** to use tools. Just use them. If the user mentions projects, scroll them there immediately. If they want contact, show the form immediately.
 - If the user asks to "see work", "show projects", "go to experience", etc., IMMEDIATELY call \`navigate_to_section\` — do NOT say "Shall I scroll you there?" or "Want me to take you there?". Just DO IT and briefly describe what you're showing them.
 - If they ask about a SPECIFIC project (e.g., "show me AutoGenix", "open media platform", "tell me about video cloning"), IMMEDIATELY call \`open_project\` with the matching project ID. Available: media-platform, autogenix, video-cloning, comfy-face, pinterest-blog, comic-book.
-- If they want to send an email, hire Dhruvit, or you cannot answer: IMMEDIATELY call \`request_contact_approval\`.
+- If they want to contact Dhruvit, hire him, or send a message: Collect ONLY their **name** and **email** through conversation. You do NOT need to ask for a message — once you have the name and email, IMMEDIATELY call \`submit_contact_inquiry\` with a professional summary of the entire conversation as the message. Generate the message yourself based on what was discussed.
 - If they ask for social links, IMMEDIATELY call \`get_social_links\`.
 - Act autonomously. Execute tools first, explain after.
 - **CRITICAL: You MUST write your text response BEFORE calling any tool.** Never output a tool call without writing text first. The text must actually answer the user's question with relevant details. If you fail to include text, the user sees NOTHING. Write the answer first, then add the tool call after the text. Examples:
@@ -115,7 +115,7 @@ export async function POST(req: Request) {
 
         open_project: {
           description:
-            "Opens a specific project's fullscreen showcase carousel on the page. Use this when the user asks to see details of a specific project. Available project IDs: media-platform (AI Media Platform), autogenix (AutoGenix Website AI), video-cloning (AI Video Cloning), comfy-face (ComfyUI Face-Blend), pinterest-blog (Pinterest Blog AI), comic-book (Comic Book Generator).",
+            "Opens a specific project's fullscreen showcase carousel on the page. Use this when the user asks to see details of a specific project. Available project IDs: media-platform (AI Media Platform), autogenix (AutoGenix Website AI), video-cloning (AI Video Cloning), comfy-face (ComfyUI Face-Blend), pinterest-blog (Pinterest Blog AI), comic-book (Comic Book Generator), linktrap (LinkTrap Traffic Analytics), seo-automation (SEO Automation Platform), resume-dashboard (Agency Resume Dashboard).",
           inputSchema: z.object({
             projectId: z.string().describe('Project ID to open'),
           }),
@@ -127,6 +127,9 @@ export async function POST(req: Request) {
               'comfy-face': 'https://www.upwork.com/freelancers/~01c62dbeb138533025?p=2017675634148597760',
               'pinterest-blog': 'https://www.upwork.com/freelancers/~01c62dbeb138533025?p=2018377454311133184',
               'comic-book': 'https://www.upwork.com/freelancers/~01c62dbeb138533025?p=2016219241819762688',
+              'linktrap': 'https://www.upwork.com/freelancers/~01c62dbeb138533025',
+              'seo-automation': 'https://www.upwork.com/freelancers/~01c62dbeb138533025',
+              'resume-dashboard': 'https://www.upwork.com/freelancers/~01c62dbeb138533025',
             };
             return {
               action: "open_project",
@@ -149,7 +152,7 @@ export async function POST(req: Request) {
 
         request_contact_approval: {
           description:
-            "Use this to ask the user for permission to contact Dhruvit and collect their name and email via a UI form.",
+            "FALLBACK ONLY: Shows a UI contact form. Prefer collecting info conversationally and using submit_contact_inquiry instead.",
           inputSchema: z.object({}),
           execute: async () => ({
             action: "show_contact_form",
@@ -158,39 +161,22 @@ export async function POST(req: Request) {
 
         submit_contact_inquiry: {
           description:
-            "Directly emails a message from the user to Dhruvit. Requires name, email, and message.",
+            "Sends an email to Dhruvit with the visitor's contact info and conversation summary. Use this AFTER you've collected the visitor's name, email, and what they need through conversation. Include a professional summary of the entire chat as the message.",
           inputSchema: z.object({
-            name: z.string().describe("Visitor's name"),
+            name: z.string().describe("Visitor's full name"),
             email: z.string().email().describe("Visitor's email address"),
-            message: z.string().describe("The message content to send"),
+            message: z.string().describe("Professional summary of the conversation and what the visitor needs"),
           }),
           execute: async ({ name, email, message }: { name: string; email: string; message: string }) => {
-            try {
-              const formData = new FormData();
-              formData.append(
-                "access_key",
-                process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "f076f953-b308-4a94-8c10-a73881584951"
-              );
-              formData.append("name", name);
-              formData.append("email", email);
-              formData.append("message", message);
-              formData.append("subject", `[AI Assistant Courier] New inquiry from ${name}`);
-
-              const response = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                body: formData,
-              });
-              const data = await response.json();
-              return {
-                success: data.success,
-                note: "Message successfully relayed to Dhruvit's inbox.",
-              };
-            } catch {
-              return {
-                success: false,
-                note: "Failed to dispatch message.",
-              };
-            }
+            console.log("[CONTACT] submit_contact_inquiry called:", { name, email, messageLength: message.length });
+            // Return data for client-side submission (Cloudflare blocks server-side requests to Web3Forms)
+            return {
+              action: "submit_contact",
+              name,
+              email,
+              message,
+              subject: `[AI Assistant Courier] New inquiry from ${name}`,
+            };
           },
         },
       },

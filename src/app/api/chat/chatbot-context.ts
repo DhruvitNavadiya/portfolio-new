@@ -298,6 +298,61 @@ Features:
 - Narrative Engine: AI-crafted wholesome, sequential 10-part children's stories matched to themes and characters.
 - JSON Output: Structured backend delivery with full narrative text and base64-encoded illustrations.
 
+---
+
+PROJECT 7: LINKTRAP TRAFFIC ANALYTICS (2026)
+Category: Data Analytics
+Tags: React, Analytics, Google BigQuery, REST API, Database, Dashboard
+Upwork: https://www.upwork.com/freelancers/~01c62dbeb138533025
+
+Description: A specialized traffic tracking application that monitors user activity
+originating from social media posts. It generates custom tracking links and leverages
+Google BigQuery for comprehensive data analytics and overall user journey tracking.
+
+Features:
+- Dashboard: Main analytics dashboard providing high-level overviews of social traffic.
+- Link Generation: Interface for creating specialized tracking links for social campaigns.
+- Data Visualization: Detailed breakdown of traffic sources and user engagement metrics.
+- BigQuery Integration: Underlying data structure synced with Google BigQuery for scalable analysis.
+
+---
+
+PROJECT 8: SEO AUTOMATION PLATFORM (2026)
+Category: Full Stack AI
+Tags: Next.js, TypeScript, FastAPI, Gemini AI, Firebase, Web Scraping, GitHub API
+Upwork: https://www.upwork.com/freelancers/~01c62dbeb138533025
+
+Description: A comprehensive 6-step workflow platform for generating highly optimized
+SEO websites. Automates keyword research, SERP scraping, metadata generation, and content
+creation using Gemini AI. Features exact match domain (EMD) management, multi-language
+translation, and direct GitHub publishing.
+
+Features:
+- Workflow Manager: Central hub for orchestrating the 6-step SEO automation pipeline.
+- Keyword Engine: Automated keyword research and SERP scraping interface.
+- AI Content Generator: Gemini AI integration for generating optimized section content and metadata.
+- Domain Management: Exact match domain (EMD) management and site configuration.
+- JSON Publishing: Automated pipeline converting JSON structures to multi-language websites via GitHub.
+
+---
+
+PROJECT 9: AGENCY RESUME DASHBOARD (2026)
+Category: SaaS Automation
+Tags: Next.js, TypeScript, Node.js, OpenAI API, Notion API
+Upwork: https://www.upwork.com/freelancers/~01c62dbeb138533025
+
+Description: A centralized dashboard platform allowing multiple recruitment agencies
+to upload candidate resumes. It automatically syncs documents to a master Notion
+database and utilizes AI to detect and reject duplicate submissions, preventing
+unnecessary overlapping charges.
+
+Features:
+- Agency Dashboard: Main management interface for agencies to upload candidate resumes.
+- Upload Portal: File upload portal connected to backend parsing pipelines.
+- Duplicate Detection: Automated AI-powered alert system notifying agencies of existing candidates.
+- Notion Integration: Centralized master database in Notion synced in real-time.
+
+=====================================================================
 Technical Highlights: Multimodal LLM orchestration, Base64 image encoding, JSON schema structuring, Frontend animation engine.
 
 =====================================================================

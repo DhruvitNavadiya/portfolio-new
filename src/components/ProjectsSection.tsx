@@ -15,10 +15,10 @@ const PROJECTS = [
   {
     id: "media-platform",
     title: "AI Media Platform",
-    short: "Automated media generation system",
-    description:
-      "An end-to-end agentic AI media platform. Automates image, video, prompt, and document generation using async workflows, real-time WebSockets, and a scalable Python backend.",
-    tags: ["Python", "AI Automation", "API Development", "WebSockets"],
+    short: "End-to-end agentic AI platform automating image, video & document generation with async workflows and real-time WebSockets",
+    description: "An end-to-end agentic AI media platform that automates image, video, prompt, and document generation using async workflows, real-time WebSockets, and a scalable Python backend. Features include infinite-scroll media galleries, batch format conversion with Cloudflare R2 storage, frame-by-frame video interpolation, AI lipsync generation, transcript analysis, and a multi-stage prompt intelligence pipeline powered by vector database retrieval. Built for a client on Upwork, designed to handle concurrent AI workloads at scale.",
+    tags: ["Python", "FastAPI", "WebSockets", "Firebase", "Cloudflare R2", "ComfyUI", "FFmpeg", "LLM Orchestration"],
+    stats: [{ label: "Automation Rate", value: "94%" }, { label: "Faster Delivery", value: "3x" }, { label: "Concurrent Jobs", value: "50+" }],
     category: "AI Automation",
     year: "2026",
     link: "https://www.upwork.com/freelancers/~01c62dbeb138533025?p=2016215245298167808",
@@ -49,7 +49,8 @@ const PROJECTS = [
     short: "Agentic AI Website Generator",
     description:
       "A fully agentic AI system that generates production-ready websites from natural language configs. Features multi-agent architecture to plan UI, write code, self-correct, and deploy live sites autonomously.",
-    tags: ["Artificial Intelligence", "Python", "Automation", "Software Architecture"],
+    tags: ["Python", "Next.js", "React", "Tailwind CSS", "Multi-Agent", "Vercel", "GitHub API"],
+    stats: [{ label: "Code Accuracy", value: "92%" }, { label: "Deploy Time", value: "<2min" }, { label: "Zero Manual", value: "100%" }],
     category: "Full Stack AI",
     year: "2026",
     link: "https://www.upwork.com/freelancers/~01c62dbeb138533025?p=2022718952231931904",
@@ -73,7 +74,8 @@ const PROJECTS = [
     short: "Autonomous Video & Script Engine",
     description:
       "An autonomous AI video system capable of cloning existing videos or generating original content. Includes URL-based scene detection, structured prompt engineering, and Instagram auto-publishing.",
-    tags: ["Video Automation", "Python", "Prompt Engineering"],
+    tags: ["Python", "FFmpeg", "Discord.py", "Scene Detection", "Prompt Engineering", "Instagram API"],
+    stats: [{ label: "Scene Accuracy", value: "89%" }, { label: "Production Speed", value: "5x" }],
     category: "AI Media",
     year: "2026",
     link: "https://www.upwork.com/freelancers/~01c62dbeb138533025?p=2017503603302031360",
@@ -97,7 +99,8 @@ const PROJECTS = [
     short: "Photorealistic Baby Generator",
     description:
       "A custom ComfyUI workflow generating ultra-realistic baby images by blending facial features from two parent photos. Uses IPAdapter FaceID, InsightFace, and CLIP Vision for identity preservation.",
-    tags: ["ComfyUI", "AI Image Generation", "Image Processing"],
+    tags: ["ComfyUI", "SDXL", "IPAdapter", "InsightFace", "CLIP Vision", "Image Processing"],
+    stats: [{ label: "Identity Match", value: "97%" }, { label: "Realism Score", value: "95%" }],
     category: "AI Workflow",
     year: "2026",
     link: "https://www.upwork.com/freelancers/~01c62dbeb138533025?p=2017675634148597760",
@@ -116,7 +119,8 @@ const PROJECTS = [
     short: "Content & Visual Automation",
     description:
       "A platform that generates lifestyle-focused content with a strict Pinterest/Reddit tone, pairing text with parallel-generated aesthetic images. Exports results as structured DOCX and JSON files.",
-    tags: ["Python", "Automation", "Contextual Prompting"],
+    tags: ["Python", "OpenAI", "DALL·E", "DOCX Export", "JSON", "Pinterest SEO"],
+    stats: [{ label: "Content Output", value: "10x" }, { label: "Style Match", value: "93%" }],
     category: "AI Content",
     year: "2026",
     link: "https://www.upwork.com/freelancers/~01c62dbeb138533025?p=2018377454311133184",
@@ -137,7 +141,8 @@ const PROJECTS = [
     short: "Personalized Story Flipbook",
     description:
       "An AI-powered application transforming real photos into personalized children’s storybooks. Preserves facial features and art style across a 10-part story, delivering via an interactive flipbook UI.",
-    tags: ["Multimodal AI", "Python", "UI Animation"],
+    tags: ["Python", "Multimodal AI", "HTML5 Canvas", "CSS Animations", "JSON", "PDF Export"],
+    stats: [{ label: "Face Consistency", value: "96%" }, { label: "Story Coherence", value: "98%" }],
     category: "AI Application",
     year: "2026",
     link: "https://www.upwork.com/freelancers/~01c62dbeb138533025?p=2016219241819762688",
@@ -150,12 +155,129 @@ const PROJECTS = [
       { src: "/Project6/Screenshot 2026-02-02 230252.png", label: "Narrative Engine", desc: "The output of the AI narrative engine, which crafts wholesome, sequential, and age-appropriate 10-part children’s stories precisely matched to user-defined themes and character references." },
       { src: "/Project6/Screenshot 2026-02-02 230314.png", label: "JSON Output", desc: "The structured backend delivery format incorporating the full narrative text and base64-encoded chapter illustrations within a single, cohesive JSON payload, ensuring effortless frontend viewer integration." },
     ],
-    colSpan: "md:col-span-2 lg:col-span-1",
+    colSpan: "md:col-span-1 lg:col-span-1",
+    rowSpan: "md:row-span-1 lg:row-span-1",
+  },
+  {
+    id: "linktrap",
+    title: "LinkTrap Traffic Analytics",
+    short: "Social Media Traffic Tracker & Link Generator",
+    description:
+      "A specialized traffic tracking application that monitors user activity originating from social media posts. It generates custom tracking links and leverages Google BigQuery for comprehensive data analytics and overall user journey tracking.",
+    tags: ["React", "Analytics", "Google BigQuery", "REST API", "Database", "Dashboard"],
+    stats: [{ label: "Data Pipeline", value: "Real-time" }, { label: "Tracking Detail", value: "High" }],
+    category: "Data Analytics",
+    year: "2026",
+    link: "https://www.upwork.com/freelancers/~01c62dbeb138533025",
+    github: "#",
+    gradient: "from-white/[0.05] via-white/[0.02] to-white/[0.01]",
+    accentColor: "rgba(255,255,255,0.05)",
+    images: [
+      { src: "/Project7/Screenshot 2026-02-19 at 9.43.40ΓÇ»PM.png", label: "Dashboard", desc: "Main analytics dashboard providing high-level overviews of social traffic." },
+      { src: "/Project7/Screenshot 2026-02-19 at 9.49.00ΓÇ»PM.png", label: "Link Generation", desc: "Interface for creating specialized tracking links for social campaigns." },
+      { src: "/Project7/Screenshot 2026-02-19 at 9.44.43ΓÇ»PM.png", label: "Data Visualization", desc: "Detailed breakdown of traffic sources and user engagement metrics." },
+      { src: "/Project7/Screenshot 2026-02-19 at 9.49.15ΓÇ»PM.png", label: "BigQuery Integration", desc: "Underlying data structure synced with Google BigQuery for scalable analysis." },
+    ],
+    colSpan: "md:col-span-1 lg:col-span-1",
+    rowSpan: "md:row-span-1 lg:row-span-1",
+  },
+  {
+    id: "seo-automation",
+    title: "SEO Automation Platform",
+    short: "Full-Stack App Automating SEO Content Creation",
+    description:
+      "A comprehensive 6-step workflow platform for generating highly optimized SEO websites. Automates keyword research, SERP scraping, metadata generation, and content creation using Gemini AI. Features exact match domain (EMD) management, multi-language translation, and direct GitHub publishing.",
+    tags: ["Next.js", "TypeScript", "FastAPI", "Gemini AI", "Firebase", "Web Scraping", "GitHub API"],
+    stats: [{ label: "Content Scale", value: "100x" }, { label: "SEO Score", value: "98%" }],
+    category: "Full Stack AI",
+    year: "2026",
+    link: "https://www.upwork.com/freelancers/~01c62dbeb138533025",
+    github: "#",
+    gradient: "from-white/[0.06] via-white/[0.03] to-white/[0.01]",
+    accentColor: "rgba(255,255,255,0.06)",
+    images: [
+      { src: "/Project8/1.png", label: "Workflow Manager", desc: "Central hub for orchestrating the 6-step SEO automation pipeline." },
+      { src: "/Project8/2.png", label: "Keyword Engine", desc: "Automated keyword research and SERP scraping interface." },
+      { src: "/Project8/3.png", label: "AI Content Generator", desc: "Gemini AI integration for generating optimized section content and metadata." },
+      { src: "/Project8/5.png", label: "Domain Management", desc: "Exact match domain (EMD) management and site configuration." },
+      { src: "/Project8/6.png", label: "JSON Publishing", desc: "Automated pipeline converting JSON structures to multi-language websites via GitHub." },
+    ],
+    colSpan: "md:col-span-2 lg:col-span-2",
+    rowSpan: "md:row-span-2 lg:row-span-2",
+  },
+  {
+    id: "resume-dashboard",
+    title: "Agency Resume Dashboard",
+    short: "Automated Notion Resume Sync & Deduplication",
+    description:
+      "A centralized dashboard platform allowing multiple recruitment agencies to upload candidate resumes. It automatically syncs documents to a master Notion database and utilizes AI to detect and reject duplicate submissions, saving costs and maintaining a clean, single-source-of-truth database.",
+    tags: ["Next.js", "TypeScript", "Node.js", "OpenAI API", "Notion API"],
+    stats: [{ label: "Duplicate Rejection", value: "100%" }, { label: "Data Sync", value: "Real-time" }],
+    category: "SaaS Automation",
+    year: "2026",
+    link: "https://www.upwork.com/freelancers/~01c62dbeb138533025",
+    github: "#",
+    gradient: "from-white/[0.04] via-white/[0.02] to-white/[0.01]",
+    accentColor: "rgba(255,255,255,0.04)",
+    images: [
+      { src: "/Project9/Screenshot 2026-02-20 at 2.34.00ΓÇ»PM.png", label: "Agency Dashboard", desc: "Main management interface for agencies to upload and track candidate resumes." },
+      { src: "/Project9/Screenshot 2026-02-20 at 2.34.30ΓÇ»PM.png", label: "Upload Portal", desc: "Drag-and-drop resume upload portal connected to backend parsing pipelines." },
+      { src: "/Project9/Screenshot 2026-02-20 at 2.36.01ΓÇ»PM.png", label: "Duplicate Detection", desc: "Automated alert system notifying agencies when a candidate is already in the database." },
+      { src: "/Project9/Screenshot 2026-02-20 at 2.36.26ΓÇ»PM.png", label: "Notion Database", desc: "The centralized master database in Notion, synced in real-time with the web platform." },
+    ],
+    colSpan: "md:col-span-1 lg:col-span-1",
     rowSpan: "md:row-span-1 lg:row-span-1",
   },
 ];
 
 const ease = [0.16, 1, 0.3, 1] as const;
+
+/* Tool icon SVGs — keyed by tag name */
+const TOOL_ICONS: Record<string, string> = {
+  "Python": "M14.25 2.26l-.02-.01c-1.85-.44-2.99-.35-3.73-.14-.37.1-.63.26-.82.43-.09.09-.15.17-.2.24l-.02.04v3.36h4.07v.85H6.57c-.47 0-2.76.27-3.43 3.17-.08.35-.25 1.2-.26 2.08 0 .97.1 1.84.36 2.6.38 1.08.95 1.72 1.72 2.06.46.2 1.02.3 1.64.3h1.06v-2.76c0-.53.43-2.93 2.88-2.93h4.07c.38 0 2.49-.1 2.49-2.49V5.36c0-.35-.42-2.35-2.85-3.1zm-4.7 1.78c-.41 0-.74-.33-.74-.74s.33-.74.74-.74.74.33.74.74-.33.74-.74.74z M18.53 7.67h-1.06v2.66c0 .72-.56 3.03-2.88 3.03H10.5c-.54 0-2.49.33-2.49 2.49v4.01c0 .35.73 1.88 2.85 2.55 1.01.32 1.88.38 2.72.18.36-.08.7-.24.97-.42.12-.09.2-.17.27-.26l.01-.03V19.5h-4.07v-.85h6.97c.47 0 1.64-.33 2.42-1.62.33-.55.62-1.25.76-2.12.14-.88.17-1.72.08-2.54-.13-1.16-.47-2.01-1.03-2.64-.42-.47-.93-.8-1.55-1.03-.37-.14-.78-.23-1.22-.27l-.46-.03v-.73zm-3.98 11.29c.41 0 .74.33.74.74s-.33.74-.74.74-.74-.33-.74-.74.33-.74.74-.74z",
+  "FastAPI": "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
+  "WebSockets": "M4 12a8 8 0 018-8m0 0a8 8 0 018 8m-8-8v16m8-8H4m3.5-4.5l9 9m0-9l-9 9",
+  "Firebase": "M5.2 19.4l2.2-13.6L9 9.5l3-6 3 6 1.6-3.7L18.8 19.4H5.2z",
+  "Cloudflare R2": "M16.5 12c0-2.5-2-4.5-4.5-4.5S7.5 9.5 7.5 12m9 0c0 2.5-2 4.5-4.5 4.5s-4.5-2-4.5-4.5m0 0H2m20 0h-5.5M12 2v4m0 12v4",
+  "ComfyUI": "M12 2a10 10 0 100 20 10 10 0 000-20zm0 5a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z",
+  "FFmpeg": "M4 4h16v16H4V4zm2 2v12h12V6H6zm2 3h8v2H8V9zm0 4h5v2H8v-2z",
+  "LLM Orchestration": "M12 2v4m0 12v4M6 12H2m20 0h-4m-1.5-6.5L14 8m-4 8l-2.5 2.5M18.5 5.5L16 8M8 16l-2.5 2.5M12 8a4 4 0 100 8 4 4 0 000-8z",
+  "Next.js": "M12 2a10 10 0 100 20 10 10 0 000-20zm-1 14V9.5l7 8.5h-2l-5-6v5h-1.5v-5l-2.5 3H6l4-5v5H9z",
+  "React": "M12 12m-2 0a2 2 0 104 0 2 2 0 10-4 0M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.74 0 3.41.56 4.78 1.57L12 12l-4.78-5.43A8.96 8.96 0 0112 5zm-7 7c0-1.74.56-3.41 1.57-4.78L12 12l-5.43 4.78A8.96 8.96 0 015 12zm7 7c-1.74 0-3.41-.56-4.78-1.57L12 12l4.78 5.43A8.96 8.96 0 0112 19z",
+  "Tailwind CSS": "M12 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.3.74 1.9 1.35.98 1 2.12 2.15 4.6 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.9-1.35C15.62 7.15 14.48 6 12 6zM7 12c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.3.74 1.9 1.35C8.38 16.85 9.52 18 12 18c2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.3-.74-1.9-1.35C10.62 13.15 9.48 12 7 12z",
+  "Multi-Agent": "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zm14 10v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75",
+  "Vercel": "M12 2l10 18H2L12 2z",
+  "GitHub API": "M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7C6.73 19.91 6.14 17.97 6.14 17.97c-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.7.11 2.5.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.7-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z",
+  "Discord.py": "M20.32 4.37a19.8 19.8 0 00-4.93-1.51.07.07 0 00-.08.04c-.21.38-.45.87-.61 1.26a18.27 18.27 0 00-5.4 0 12.6 12.6 0 00-.62-1.26.07.07 0 00-.08-.04 19.74 19.74 0 00-4.93 1.51.07.07 0 00-.03.03C1.11 8.39.34 12.28.79 16.12a.08.08 0 00.03.05 19.9 19.9 0 005.99 3.03.07.07 0 00.08-.03c.46-.63.87-1.3 1.22-2a.07.07 0 00-.04-.1 13.1 13.1 0 01-1.87-.9.07.07 0 01-.01-.12c.13-.09.25-.19.37-.29a.07.07 0 01.07-.01c3.93 1.8 8.18 1.8 12.07 0a.07.07 0 01.07.01c.12.1.25.2.37.29a.07.07 0 01-.01.12c-.6.35-1.22.65-1.87.9a.07.07 0 00-.04.1c.36.7.77 1.37 1.22 2a.07.07 0 00.08.03 19.83 19.83 0 006-3.03.08.08 0 00.03-.05c.53-5.47-.89-10.22-3.74-14.43a.06.06 0 00-.03-.03zM8.02 13.72c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42c1.21 0 2.18 1.09 2.16 2.42 0 1.34-.96 2.42-2.16 2.42zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42s.96-2.42 2.16-2.42c1.21 0 2.18 1.09 2.16 2.42 0 1.34-.95 2.42-2.16 2.42z",
+  "Scene Detection": "M15 12a3 3 0 11-6 0 3 3 0 016 0zm6-3h-2.18A2 2 0 0017 7.82L15.89 6.5A1 1 0 0015.05 6h-6.1a1 1 0 00-.84.5L6.99 7.82A2 2 0 005.18 9H3a1 1 0 00-1 1v8a1 1 0 001 1h18a1 1 0 001-1v-8a1 1 0 00-1-1z",
+  "Prompt Engineering": "M12 20h9M16.5 3.5a2.12 2.12 0 113 3L7 19l-4 1 1-4L16.5 3.5z",
+  "Instagram API": "M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5M12 7a5 5 0 110 10 5 5 0 010-10m0 2a3 3 0 100 6 3 3 0 000-6z",
+  "SDXL": "M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a6 6 0 110 12 6 6 0 010-12z",
+  "IPAdapter": "M4 6h16M4 12h16M4 18h16M8 6v12M16 6v12",
+  "InsightFace": "M12 2a10 10 0 100 20 10 10 0 000-20zm-3 8a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm6 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-8 4s1.5 3 5 3 5-3 5-3",
+  "CLIP Vision": "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 0 100 6 3 3 0 000-6z",
+  "Image Processing": "M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm0 14l4-4 2 2 4-4 5 5",
+  "OpenAI": "M22.28 14.37a5.86 5.86 0 00-.5-4.86 5.92 5.92 0 00-6.38-2.83 5.86 5.86 0 00-4.4-1.96 5.92 5.92 0 00-5.66 4.13A5.86 5.86 0 001.7 12.7a5.92 5.92 0 00.73 6.96 5.86 5.86 0 00.5 4.86 5.92 5.92 0 006.38 2.83 5.86 5.86 0 004.4 1.96 5.92 5.92 0 005.66-4.13 5.86 5.86 0 003.64-3.81 5.92 5.92 0 00-.73-6.96",
+  "DALL·E": "M12 2a10 10 0 100 20 10 10 0 000-20zm-2 14l-2-2 5-5 5 5-2 2-3-3-3 3z",
+  "DOCX Export": "M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM14 2v6h6M8 13h8M8 17h8M10 9h4",
+  "JSON": "M4 16V4h4M20 8v12h-4M8 12H4m16 0h-4",
+  "Pinterest SEO": "M12 2C6.48 2 2 6.48 2 12c0 4.12 2.5 7.65 6.07 9.17-.08-.76-.16-1.93.03-2.76.17-.75 1.1-4.67 1.1-4.67s-.28-.56-.28-1.39c0-1.3.76-2.28 1.7-2.28.8 0 1.19.6 1.19 1.32 0 .81-.51 2.01-.78 3.13-.22.93.47 1.7 1.39 1.7 1.67 0 2.95-1.76 2.95-4.3 0-2.25-1.62-3.82-3.93-3.82-2.68 0-4.25 2.01-4.25 4.09 0 .81.31 1.68.7 2.15.08.09.09.17.07.27l-.26 1.06c-.04.17-.14.21-.33.12-1.24-.58-2.01-2.38-2.01-3.83 0-3.12 2.27-5.99 6.55-5.99 3.44 0 6.12 2.45 6.12 5.73 0 3.42-2.16 6.17-5.15 6.17-1.01 0-1.95-.52-2.28-1.14l-.62 2.36c-.22.87-.83 1.96-1.24 2.63.93.29 1.92.44 2.95.44 5.52 0 10-4.48 10-10S17.52 2 12 2z",
+  "Multimodal AI": "M12 2v4m0 12v4M6 12H2m20 0h-4m-1.5-6.5L14 8m-4 8l-2.5 2.5M18.5 5.5L16 8M8 16l-2.5 2.5M12 8a4 4 0 100 8 4 4 0 000-8z",
+  "HTML5 Canvas": "M4 3l1.5 17L12 22l6.5-2L20 3H4zm3.5 5h9l-.3 3H9l.2 2h6.8l-.5 5.5L12 19.5l-3.5-1L8.2 15h2l.2 1.5 1.6.5 1.6-.5.2-2H8.5L8 8.5h8",
+  "CSS Animations": "M12 2a10 10 0 100 20 10 10 0 000-20zm-2 14V8l6 4-6 4z",
+  "PDF Export": "M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM14 2v6h6M16 13H8m8 4H8m2-8H8",
+  "Analytics": "M3 3v18h18M7 16l4-4 4 4 6-6",
+  "Google BigQuery": "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c2.3 0 4.41-.78 6.09-2.09l3.5 3.5 1.41-1.41-3.5-3.5C20.78 16.41 21.5 14.3 21.5 12c0-5.52-4.48-10-9.5-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z",
+  "REST API": "M4 6h16v12H4V6zm2 2v8h12V8H6zm2 2h8v2H8v-2z",
+  "Database": "M12 3c-4.97 0-9 1.79-9 4v10c0 2.21 4.03 4 9 4s9-1.79 9-4V7c0-2.21-4.03-4-9-4zm0 2c3.87 0 7 1.34 7 2s-3.13 2-7 2-7-1.34-7-2 3.13-2 7-2zm0 14c-3.87 0-7-1.34-7-2v-1.46c2.06 1.53 4.4 2.46 7 2.46s4.94-.93 7-2.46V19c0 .66-3.13 2-7 2zm0-5c-3.87 0-7-1.34-7-2v-1.46c2.06 1.53 4.4 2.46 7 2.46s4.94-.93 7-2.46V14c0 .66-3.13 2-7 2z",
+  "Dashboard": "M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z",
+  "TypeScript": "M4 4h16v16H4V4zm8 10h-2v4H8v-4H6V8h8v2H8v4h2v2h2v-2zm4-.5c0 1.93-3.5 1.5-3.5 1.5S11 16 11 14v-2h2v2s1 0 1-.5V13c0-.83-.67-1.5-1.5-1.5S11 10.83 11 10s.67-1.5 1.5-1.5S14 8.83 14 9.5v2h-2v-1.5s-1 0-1 .5V11c0 .83.67 1.5 1.5 1.5S16 13.17 16 14v-.5h-2z",
+  "Gemini AI": "M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5L12 2zm6 2l-1.5 4.5L12 10l4.5 1.5L18 16l1.5-4.5L24 10l-4.5-1.5L18 4z",
+  "Web Scraping": "M15 3h6v6h-2V6.41l-4.29 4.3-2.83-2.83L15 3zm2.5 14H6V8h6V6H4v14h14v-7h-2v5z",
+  "Node.js": "M12 22.21l-9.67-5.54V5.54L12 0l9.67 5.54v11.13L12 22.21zm-7.67-6.7l7.67 4.4 7.67-4.4V6.7l-7.67-4.4-7.67 4.4v8.81z",
+  "Notion API": "M4 4h16v16H4V4zm4 4v8h2V9l4 4v-4h-2v3l-4-4H8z",
+  "OpenAI API": "M22.28 14.37a5.86 5.86 0 00-.5-4.86 5.92 5.92 0 00-6.38-2.83 5.86 5.86 0 00-4.4-1.96 5.92 5.92 0 00-5.66 4.13A5.86 5.86 0 001.7 12.7a5.92 5.92 0 00.73 6.96 5.86 5.86 0 00.5 4.86 5.92 5.92 0 006.38 2.83 5.86 5.86 0 004.4 1.96 5.92 5.92 0 005.66-4.13 5.86 5.86 0 003.64-3.81 5.92 5.92 0 00-.73-6.96",
+};
 
 /* ================================================================== */
 /*  WHEEL CAROUSEL — large arc from right edge of screen               */
@@ -463,26 +585,27 @@ function ProjectFullView({
               {project.description}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6">
-              <a
-                href={project.github}
-                className="group flex justify-center items-center gap-2 px-5 py-3 border border-white/[0.1] hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300"
-              >
-                <Github className="w-4 h-4 text-white/40 group-hover:text-white/70 transition-colors" />
-                <span className="text-[11px] font-mono uppercase tracking-wider text-white/40 group-hover:text-white/70 transition-colors">
-                  Source
-                </span>
-              </a>
-              <a
-                href={project.link}
-                className="group flex justify-center items-center gap-2 px-5 py-3 border border-white/[0.1] hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300"
-              >
-                <ExternalLink className="w-4 h-4 text-white/40 group-hover:text-white/70 transition-colors" />
-                <span className="text-[11px] font-mono uppercase tracking-wider text-white/40 group-hover:text-white/70 transition-colors">
-                  Live
-                </span>
-              </a>
-            </div>
+            {/* Tools & Skills */}
+            {project.tags && project.tags.length > 0 && (
+              <div className="mb-4">
+                <span className="text-[9px] font-mono uppercase tracking-[0.3em] text-white/25 block mb-3">Tools & Skills</span>
+                <div className="flex flex-wrap gap-3">
+                  {project.tags.map((tag: string, ti: number) => (
+                    <div key={ti} className="group/icon relative w-8 h-8 flex items-center justify-center border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/20 transition-all duration-200 cursor-default">
+                      <svg className="w-4 h-4 text-white/50 group-hover/icon:text-white/80 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d={TOOL_ICONS[tag] || "M12 2a10 10 0 100 20 10 10 0 000-20z"} />
+                      </svg>
+                      {/* Instant tooltip */}
+                      <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-white text-black text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 opacity-0 scale-90 group-hover/icon:opacity-100 group-hover/icon:scale-100 transition-all duration-150 z-50">
+                        {tag}
+                        <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white" />
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
 
             <div className="hidden lg:flex items-center gap-4 text-[10px] font-mono text-white/15 uppercase tracking-wider">
               <span>Image {activeImage + 1} of {project.images.length}</span>
@@ -571,6 +694,25 @@ function BentoCard({
           <p className="text-[14px] text-white/70 group-hover:text-white mt-3 transition-colors duration-500 max-w-sm">
             {project.short}
           </p>
+
+          {/* Performance Stats */}
+          {project.stats && project.stats.length > 0 && (
+            <div className="flex gap-4 mt-4">
+              {project.stats.map((stat: { label: string; value: string }, si: number) => (
+                <motion.div
+                  key={si}
+                  className="flex flex-col"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.4 + index * 0.12 + si * 0.08, duration: 0.4 }}
+                >
+                  <span className="text-lg font-bold text-white/90 tracking-tight">{stat.value}</span>
+                  <span className="text-[9px] font-mono uppercase tracking-wider text-white/30">{stat.label}</span>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
           <motion.div
             className="h-px bg-white/30 mt-5"
             initial={{ width: 0 }}
@@ -579,19 +721,7 @@ function BentoCard({
           />
         </div>
 
-        <div className="flex flex-wrap gap-2 mt-2">
-          {project.tags.map((tag, i) => (
-            <motion.span
-              key={i}
-              className="text-[10px] font-mono uppercase tracking-wider text-white/80 px-3 py-1.5 border border-white/20 bg-white/[0.03] group-hover:bg-white/[0.08] group-hover:border-white/40 group-hover:text-white rounded-md transition-all duration-500"
-              initial={{ opacity: 0, y: 8 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.5 + index * 0.12 + i * 0.06, duration: 0.4 }}
-            >
-              {tag}
-            </motion.span>
-          ))}
-        </div>
+
       </div>
 
       {/* Bottom accent */}
@@ -738,8 +868,8 @@ export function ProjectsSection() {
             transition={{ delay: 0.2, duration: 1, ease }}
           />
 
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[280px] md:auto-rows-[300px] gap-px bg-white/[0.03]">
+          {/* Bento Grid layout with dense packing to flawlessly fill trailing holes */}
+          <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[280px] md:auto-rows-[300px] gap-px bg-white/[0.03] grid-flow-row-dense">
             {PROJECTS.map((project, i) => (
               <BentoCard
                 key={project.id}
@@ -762,7 +892,7 @@ export function ProjectsSection() {
               More projects on GitHub
             </span>
             <motion.a
-              href="https://github.com"
+              href="https://github.com/DhruvitNavadiya"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-2 px-5 py-2.5 border border-white/[0.1] hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300"

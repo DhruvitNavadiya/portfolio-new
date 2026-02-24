@@ -1,0 +1,3 @@
+this project is linktrap 
+it tracks the traffic from all the social media posts of an particular account 
+it creates the links which can be used for tracking the users activity in the website and overall data tracking using google's big query

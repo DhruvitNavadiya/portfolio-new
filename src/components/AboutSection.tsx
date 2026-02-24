@@ -8,7 +8,7 @@ import Image from "next/image";
 /*  TRAITS — left and right                                            */
 /* ================================================================== */
 const LEFT_TRAITS = [
-  { label: "22 years old", sub: "Born in 2002, Gujarat" },
+  { label: "21 years old", sub: "Born in 2004, Gujarat" },
   { label: "☕ Coffee Addict", sub: "Fueled by espresso shots" },
   { label: "🌙 Night Owl", sub: "Best code after midnight" },
 ];
