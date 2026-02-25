@@ -21,15 +21,35 @@ const pixelify = Pixelify_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Pixel Perfect UI",
-  description: "Pixel Perfect UI — a lightweight documentation UI library",
-  icons: {
-    icon: "/logo/static/logo.svg",
-  },
+  title: "Dhruvit Navadiya — AI Automation Engineer & Agentic Systems Developer",
+  description:
+    "Portfolio of Dhruvit Navadiya — AI Automation Engineer specializing in multi-agent systems, agentic AI platforms, and full-stack development. Featuring 9 production projects, an AI-powered chatbot assistant, and interactive 3D experiences.",
+  keywords: [
+    "Dhruvit Navadiya",
+    "AI Automation Engineer",
+    "Agentic Systems",
+    "Multi-Agent AI",
+    "Full Stack Developer",
+    "Next.js",
+    "Python",
+    "Portfolio",
+  ],
+  authors: [{ name: "Dhruvit Navadiya" }],
   openGraph: {
+    title: "Dhruvit Navadiya — AI Automation Engineer",
+    description:
+      "Explore 9 production AI projects, an interactive AI chatbot, and a premium dark-themed portfolio built with Next.js, Three.js, and Framer Motion.",
+    type: "website",
+    url: "https://dhruvit.vercel.app",
     images: [
       "https://res.cloudinary.com/dz12pywzs/image/upload/v1766372535/Copy_of_Copy_of_Webinar_Keynote_Presentation_1_ljemzi.jpg",
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dhruvit Navadiya — AI Automation Engineer",
+    description:
+      "Portfolio featuring 9 AI projects, an agentic chatbot assistant, and immersive 3D experiences.",
   },
 };
 
