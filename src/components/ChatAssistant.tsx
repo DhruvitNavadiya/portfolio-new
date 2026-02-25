@@ -442,16 +442,21 @@ export function ChatAssistant() {
                 );
               })}
               
-              {/* Typing indicator */}
-              {isLoading && status !== 'submitted' && (
+              {/* Typing indicator — shown from submit until response completes */}
+              {isLoading && (
                 <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="self-start flex gap-2 items-center px-4 h-10 border border-white/[0.08] bg-white/[0.03]"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="self-start"
                 >
-                  <div className="w-2 h-2 bg-white/40 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                  <div className="w-2 h-2 bg-white/40 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                  <div className="w-2 h-2 bg-white/40 rounded-full animate-bounce" />
+                  <span className="text-[11px] font-mono uppercase tracking-[0.15em] mb-2 px-0.5 text-white/35 block">Agent</span>
+                  <div className="flex gap-1.5 items-center px-4 py-3 border border-white/[0.08] bg-white/[0.03]">
+                    <div className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                    <div className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                    <div className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" />
+                    <span className="text-[11px] font-mono text-white/20 ml-2 uppercase tracking-wider">Thinking</span>
+                  </div>
                 </motion.div>
               )}
               <div ref={messagesEndRef} className="h-2" />

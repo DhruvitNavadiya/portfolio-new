@@ -52,7 +52,7 @@ export function AboutSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative h-screen bg-black overflow-hidden flex items-center"
+      className="relative min-h-screen bg-black overflow-hidden flex items-center py-20 md:py-0"
     >
       {/* ── Subtle dot pattern (distinct from hero grid) ────── */}
       <div className="absolute inset-0 pointer-events-none z-0 opacity-[0.4]" style={{
@@ -161,7 +161,7 @@ export function AboutSection() {
           <div className="flex flex-col items-center shrink-0">
             {/* Section heading */}
             <motion.h2
-              className="text-2xl md:text-3xl font-bold text-white/80 tracking-tight text-center mb-6"
+              className="text-xl sm:text-2xl md:text-3xl font-bold text-white/80 tracking-tight text-center mb-4 sm:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, ease }}
@@ -187,7 +187,7 @@ export function AboutSection() {
               <div className="absolute -bottom-3 -right-3 w-5 h-5 border-b border-r border-white/15 z-20" />
 
               <motion.div
-                className="relative w-[340px] h-[430px] md:w-[440px] md:h-[540px] overflow-hidden"
+                className="relative w-[240px] h-[300px] sm:w-[300px] sm:h-[380px] md:w-[440px] md:h-[540px] overflow-hidden"
                 style={{
                   filter: imgFilter,
                 }}
@@ -260,18 +260,19 @@ export function AboutSection() {
           </div>
         </div>
 
-        {/* MOBILE TRAITS */}
-        <div className="lg:hidden flex flex-wrap justify-center gap-2 mt-6">
+        {/* MOBILE TRAITS — compact grid */}
+        <div className="lg:hidden grid grid-cols-2 sm:grid-cols-3 gap-3 mt-8 px-2">
           {[...LEFT_TRAITS, ...RIGHT_TRAITS].map((t, i) => (
-            <motion.span
+            <motion.div
               key={i}
-              className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider text-white/35 border border-white/[0.08] rounded-full"
+              className="px-3 py-2.5 border border-white/[0.08] bg-white/[0.02] rounded-lg text-center"
               initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.6 + i * 0.08, duration: 0.4 }}
             >
-              {t.label}
-            </motion.span>
+              <div className="text-[11px] font-medium text-white/50">{t.label}</div>
+              <div className="text-[9px] font-mono text-white/20 mt-0.5">{t.sub}</div>
+            </motion.div>
           ))}
         </div>
       </div>
