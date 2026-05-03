@@ -228,6 +228,87 @@ const PROJECTS = [
     colSpan: "md:col-span-1 lg:col-span-1",
     rowSpan: "md:row-span-1 lg:row-span-1",
   },
+  {
+    id: "ampere-chatbot",
+    title: "Ampere Chatbot & Ticketing",
+    short: "Tri-Service AI Chat & Support Operations Platform",
+    description:
+      "A comprehensive AI-driven customer support system built on a tri-service architecture. Features an embeddable smart chat widget with multi-session recovery, a powerful Node.js/SQLite RAG backend to prevent AI hallucinations, and a Next.js support dashboard for live high-volume ticket management and agent takeover.",
+    tags: ["Next.js", "React", "Node.js", "Socket.IO", "Firebase", "SQLite", "OpenAI"],
+    stats: [{ label: "AI Resolution", value: "High" }, { label: "Real-time Sync", value: "<1s" }],
+    category: "AI SaaS",
+    year: "2026",
+    link: "https://www.upwork.com/freelancers/~01c62dbeb138533025",
+    github: "#",
+    gradient: "from-white/[0.06] via-white/[0.03] to-white/[0.01]",
+    accentColor: "rgba(255,255,255,0.06)",
+    images: [
+      { src: "/Project 10/Screenshot 2026-05-02 183654.png", label: "Smart Widget", desc: "Embeddable customer-facing chat widget featuring smart route filtering, live typing indicators, and persistent multi-session recovery via WebSockets." },
+      { src: "/Project 10/Screenshot 2026-05-02 183801.png", label: "RAG AI Engine", desc: "Backend RAG pipeline loading knowledge base files to answer questions dynamically without hallucination, supporting auto-escalation when the AI cannot resolve the query." },
+      { src: "/Project 10/Screenshot 2026-05-02 183857.png", label: "Agent Dashboard", desc: "High-volume ticket table allowing human agents to filter live active and closed tickets, with URL state persistence for easy sharing among managers." },
+      { src: "/Project 10/Screenshot 2026-05-02 184049.png", label: "Workspace View", desc: "Three-panel detail workspace showing ticket metadata, live chat window with agent-takeover capabilities, and synced Firebase customer data context." },
+      { src: "/Project 10/Screenshot 2026-05-02 184210.png", label: "Knowledge Gaps", desc: "Unanswered questions view highlighting cases where the AI triggered auto-escalation, providing a clear feedback loop for administrators to update the knowledge base." },
+      { src: "/Project 10/Screenshot 2026-05-02 184246.png", label: "System Health", desc: "Global network health monitoring with live ApiHealthBadge and ConnectionBadge components to alert staff if WebSockets or APIs go offline." },
+      { src: "/Project 10/Screenshot 2026-05-02 190148.png", label: "Discord Alerts", desc: "Real-time Discord webhooks sending critical event notifications directly to the support team, ensuring instant visibility on escalations." },
+    ],
+    colSpan: "md:col-span-2 lg:col-span-2",
+    rowSpan: "md:row-span-2 lg:row-span-2",
+  },
+  {
+    id: "future-fulfillment",
+    title: "Future Fulfillment Logistics",
+    short: "Multi-Service Logistics Investigation Platform",
+    description:
+      "A complete e-commerce logistics platform letting sellers view ChannelDock orders, raise investigations, and track case progress. Composed of a Next.js portal, a Node.js email automation worker, and a Python/FastAPI headless browser bot for Freshdesk integrations.",
+    tags: ["Next.js", "TypeScript", "Node.js", "Python", "FastAPI", "Firebase", "Firestore", "Playwright"],
+    stats: [{ label: "Automated Routing", value: "100%" }, { label: "Carrier Matching", value: "High" }],
+    category: "Operations Automation",
+    year: "2026",
+    link: "https://www.upwork.com/freelancers/~01c62dbeb138533025",
+    github: "#",
+    gradient: "from-white/[0.05] via-white/[0.02] to-white/[0.01]",
+    accentColor: "rgba(255,255,255,0.05)",
+    images: [
+      { src: "/Project11/Screenshot 2026-04-28 010232.png", label: "Seller Dashboard", desc: "Next.js seller-facing portal integrating ChannelDock orders and Firebase Auth, offering streamlined shipment visibility and status filtering." },
+      { src: "/Project11/Screenshot 2026-04-28 010247.png", label: "Query Submission", desc: "Structured investigation form allowing sellers to specify issues, upload evidence directly to Google Drive, and instantly log cases into Firestore." },
+      { src: "/Project11/Screenshot 2026-04-28 010301.png", label: "Case Tracking", desc: "Live case tracker visualizing the lifecycle of an investigation from submission to carrier review to final resolution, utilizing Firestore for state." },
+      { src: "/Project11/Screenshot 2026-04-28 010404.png", label: "Automated Dispatch", desc: "Node.js background worker claiming pending cases transactionally and routing them as direct emails or Freshdesk tickets via a Python browser bot." },
+      { src: "/Project11/Screenshot 2026-04-28 010416.png", label: "Carrier Ingestion", desc: "Inbound Gmail API processor parsing complex carrier auto-replies and forwarding verified case updates directly into the portal conversation thread." },
+      { src: "/Project11/Screenshot 2026-04-28 010445.png", label: "Freshdesk Sync", desc: "Python FastAPI service using Camoufox to automate Freshdesk UI operations, creating, updating, and synchronizing ticket closures across systems." },
+      { src: "/Project11/Screenshot 2026-04-28 010455.png", label: "Message History", desc: "Full audit trail conversation view persisting all seller, carrier, and system messages independently of the high-level investigation status." },
+      { src: "/Project11/Screenshot 2026-04-28 010505.png", label: "Admin Reporting", desc: "Data insights mapping carrier responses and ticket closures to individual seller accounts for streamlined internal operations review." },
+    ],
+    colSpan: "md:col-span-1 lg:col-span-1",
+    rowSpan: "md:row-span-1 lg:row-span-1",
+  },
+  {
+    id: "floris-tv",
+    title: "Floris TV Live Updates",
+    short: "Real-Time Warehouse Operations Dashboard",
+    description:
+      "A real-time logistics and warehouse coordination dashboard with an admin back office. Features department-based active worker tracking, subtask assignment, business-hour timers, and complex Excel/CSV operations reporting synchronized via Firestore.",
+    tags: ["Next.js", "React", "Firebase", "Firestore"],
+    stats: [{ label: "Sync Speed", value: "Real-time" }, { label: "Data Tracking", value: "100%" }],
+    category: "Dashboard UI",
+    year: "2026",
+    link: "https://www.upwork.com/freelancers/~01c62dbeb138533025",
+    github: "#",
+    gradient: "from-white/[0.04] via-white/[0.02] to-white/[0.01]",
+    accentColor: "rgba(255,255,255,0.04)",
+    images: [
+      { src: "/Project12/Screenshot 2026-04-28 003254.png", label: "TV Operations View", desc: "Public live dashboard optimized for warehouse TV display, showing department columns, active employees, subtasks, and real-time timers." },
+      { src: "/Project12/Screenshot 2026-04-28 003320.png", label: "Drag-and-Drop Mgmt", desc: "Interactive workforce assignment allowing managers to drag employees between departments or directly onto subtasks to update live rosters instantly." },
+      { src: "/Project12/Screenshot 2026-04-28 003336.png", label: "Task Modals", desc: "Detailed task creation and management modal supporting descriptions, employee assignment, attachment uploads via Firebase Storage, and custom timer overrides." },
+      { src: "/Project12/Screenshot 2026-04-28 003358.png", label: "Activity Logs", desc: "Employee-level detail view showcasing current assignments, active subtasks, historical assignment transitions, and logged time analytics." },
+      { src: "/Project12/Screenshot 2026-04-28 003413.png", label: "Admin Workspace", desc: "Password-protected administrative control panel enabling detailed task creation, permanent deletion capabilities, and workforce configuration." },
+      { src: "/Project12/Screenshot 2026-04-28 003439.png", label: "Time Tracking Engine", desc: "Business-logic driven time tracker enforcing Netherlands local time (Europe/Amsterdam), automatically pausing between midnight and 9:00 AM." },
+      { src: "/Project12/Screenshot 2026-04-28 003514.png", label: "Data Export Pipeline", desc: "Advanced reporting tools generating highly structured Excel workbooks featuring daily KPI summaries, department performance, and task logs." },
+      { src: "/Project12/Screenshot 2026-04-28 003526.png", label: "Completed Archives", desc: "Dedicated history view separating completed operations from active workflow, allowing admins to reopen or audit finalized warehouse tasks." },
+      { src: "/Project12/Screenshot 2026-04-28 010232.png", label: "Live Sync Engine", desc: "Firestore-backed synchronization keeping dashboard screens, admin panels, and active Modals constantly refreshed without manual browser reloads." },
+    ],
+    colSpan: "md:col-span-1 lg:col-span-1",
+    rowSpan: "md:row-span-1 lg:row-span-1",
+  }
 ];
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -286,10 +367,12 @@ function WheelCarousel({
   images,
   activeIndex,
   onSelect,
+  onImageClick,
 }: {
   images: { src?: string; bg?: string; label: string; desc: string }[];
   activeIndex: number;
   onSelect: (i: number) => void;
+  onImageClick?: () => void;
 }) {
   const IMG_W = 500;
   const IMG_H = 310;
@@ -306,8 +389,13 @@ function WheelCarousel({
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       if (locked) return;
+      
+      // Ignore tiny trackpad jitters
+      if (Math.abs(e.deltaY) < 25) return;
+
       locked = true;
-      setTimeout(() => { locked = false; }, 800);
+      setTimeout(() => { locked = false; }, 600);
+      
       if (e.deltaY > 0) onSelect(Math.max(0, activeIndex - 1));
       else onSelect(Math.min(total - 1, activeIndex + 1));
     };
@@ -373,7 +461,13 @@ function WheelCarousel({
               rotate,
             }}
             transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-            onClick={() => onSelect(i)}
+            onClick={() => {
+              if (i === activeIndex && onImageClick) {
+                onImageClick();
+              } else {
+                onSelect(i);
+              }
+            }}
           >
              {/* Image card */}
             <div className="absolute inset-0 flex items-center justify-center group">
@@ -419,6 +513,7 @@ function ProjectFullView({
   onClose: () => void;
 }) {
   const [activeImage, setActiveImage] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   /* lock body scroll */
   useEffect(() => {
@@ -428,12 +523,17 @@ function ProjectFullView({
 
   /* keyboard navigation */
   const handleKey = useCallback((e: KeyboardEvent) => {
-    if (e.key === "Escape") onClose();
-    if (e.key === "ArrowUp" || e.key === "ArrowLeft")
-      setActiveImage((p) => Math.max(0, p - 1));
-    if (e.key === "ArrowDown" || e.key === "ArrowRight")
-      setActiveImage((p) => Math.min(project.images.length - 1, p + 1));
-  }, [onClose, project.images.length]);
+    if (e.key === "Escape") {
+      if (lightboxOpen) setLightboxOpen(false);
+      else onClose();
+    }
+    if (!lightboxOpen) {
+      if (e.key === "ArrowUp" || e.key === "ArrowLeft")
+        setActiveImage((p) => Math.max(0, p - 1));
+      if (e.key === "ArrowDown" || e.key === "ArrowRight")
+        setActiveImage((p) => Math.min(project.images.length - 1, p + 1));
+    }
+  }, [onClose, project.images.length, lightboxOpen]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKey);
@@ -476,7 +576,8 @@ function ProjectFullView({
                 <img
                   src={img.src}
                   alt={img.label}
-                  className="max-w-full max-h-full object-contain rounded-lg border border-white/[0.05]"
+                  onClick={() => i === activeImage && setLightboxOpen(true)}
+                  className="max-w-full max-h-full object-contain rounded-lg border border-white/[0.05] cursor-pointer"
                 />
               ) : (
                 <div className="w-full h-full max-w-sm rounded-lg flex items-center justify-center border border-white/[0.05]" style={{ background: (img as any).bg || 'rgba(255,255,255,0.02)' }}>
@@ -632,6 +733,7 @@ function ProjectFullView({
             images={project.images}
             activeIndex={activeImage}
             onSelect={setActiveImage}
+            onImageClick={() => setLightboxOpen(true)}
           />
         </div>
       </motion.div>
@@ -640,6 +742,38 @@ function ProjectFullView({
       <div className="hidden lg:block absolute top-3 left-3 w-5 h-5 border-t border-l border-white/[0.06] pointer-events-none" />
       <div className="hidden lg:block absolute bottom-3 left-3 w-5 h-5 border-b border-l border-white/[0.06] pointer-events-none" />
       <div className="hidden lg:block absolute bottom-3 right-3 w-5 h-5 border-b border-r border-white/[0.06] pointer-events-none" />
+
+      {/* ============================================ */}
+      {/* LIGHTBOX OVERLAY                             */}
+      {/* ============================================ */}
+      <AnimatePresence>
+        {lightboxOpen && project.images[activeImage].src && (
+          <motion.div
+            className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center backdrop-blur-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightboxOpen(false)}
+          >
+            <button
+              onClick={() => setLightboxOpen(false)}
+              className="absolute top-6 right-6 z-50 w-12 h-12 border border-white/20 bg-black/50 backdrop-blur-md flex items-center justify-center hover:border-white/40 hover:bg-white/[0.1] transition-all rounded-full cursor-pointer"
+            >
+              <X className="w-5 h-5 text-white/80" />
+            </button>
+            <motion.img
+              src={project.images[activeImage].src}
+              alt={project.images[activeImage].label}
+              className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

@@ -1,0 +1,538 @@
+# Floris TV Live Updates
+
+## Full Project Context
+
+## 1. Project Summary
+
+This project is a **real-time warehouse operations dashboard and admin management system** built for a fulfillment/logistics workflow.
+
+The goal of the system is to help a warehouse team:
+
+- see which employees are assigned to which department
+- manage subtasks inside each department
+- track live task time and employee activity
+- preserve assignment and task history for reporting
+- export operational data into CSV and Excel dashboards
+
+It is designed for a **TV/dashboard-style live operations screen** plus a **password-protected admin back office** where managers can control assignments, subtasks, employees, reporting, and historical data.
+
+## 2. What the Product Solves
+
+This system solves a common warehouse coordination problem:
+
+- team leads need a simple live screen showing who is working where
+- admins need to reassign staff quickly
+- tasks must be created, updated, completed, archived, or deleted cleanly
+- employee task history must remain available for review and reporting
+- timing must be tracked in a business-relevant way rather than just raw browser time
+
+In practice, this project acts like a **lightweight warehouse operations control center**.
+
+## 3. Main User Roles
+
+### Warehouse / Floor Team
+
+- uses the live dashboard
+- sees department staffing
+- sees task cards and active timers
+- can view task details and employee activity
+
+### Admin / Team Lead
+
+- logs into the admin area
+- creates and manages assignments
+- creates subtasks and manages staffing
+- reviews employee task history
+- reviews completed tasks
+- exports operational reports
+
+## 4. Main Product Areas
+
+### Public Dashboard
+
+Main route: `/`
+
+The public dashboard is the live operational screen. It supports:
+
+- department columns for warehouse work areas
+- live employee assignments
+- live subtask cards
+- presentation mode for TV display
+- drag-and-drop reassignment
+- drag employee onto task to assign them to a subtask
+- employee detail popups
+- task detail popups
+- visible employee notes
+- split `Overige` section for `Internal` and `Customers`
+- optional on-screen timers for tasks and employees
+
+### Admin Panel
+
+Main route: `/admin`
+
+The admin system is a password-protected control panel with these sections:
+
+- `Task Assignment`
+- `Employees`
+- `Completed Tasks`
+- `Export Data`
+
+The admin area is designed for operational control and reporting, not only data entry.
+
+## 5. Core Business Concepts
+
+The app is built around these main concepts:
+
+### Departments
+
+Seeded warehouse departments include:
+
+- Pick & Pack
+- Replenishment
+- Inbound
+- Containers
+- Returns
+- Overige
+
+Each department has:
+
+- name
+- color
+- order
+
+### Employees
+
+Each employee can have:
+
+- active/inactive state
+- department assignment
+- employee note / short description
+- selected on-screen timer preference
+- `Overige` lane selection (`internal` or `customers`)
+
+### Assignments
+
+Assignments connect employees to departments.
+
+Key behaviors:
+
+- active assignments are shown live on the dashboard
+- reassignment creates historical trace
+- assignment removals are preserved in history
+- duplicate active assignments are deduped in UI and cleanup logic
+
+### Subtasks
+
+Subtasks represent real work inside departments.
+
+Each subtask can include:
+
+- title
+- description
+- assigned employees
+- live/complete state
+- attachment list
+- final logged time override
+- on-screen timer visibility
+- history events
+
+### Subtask Events
+
+Subtask events preserve employee-task history, including:
+
+- employee added
+- employee removed
+- task completed
+- task reopened
+- task deleted
+
+This event stream is used for:
+
+- employee task history
+- reporting
+- exports
+- timeline reconstruction
+
+## 6. Dashboard Features
+
+### 6.1 Department-Based Live Operations View
+
+The main dashboard shows all departments as operational columns.
+
+Each column can show:
+
+- assigned employees
+- active tasks
+- completed tasks
+- per-department task counts
+
+The `Overige` column is special because it is split into two visible sub-blocks:
+
+- Internal
+- Customers
+
+This allows the client to use one department visually while still separating two business types.
+
+### 6.2 Drag-and-Drop Workforce Management
+
+The dashboard supports:
+
+- dragging employees between departments
+- dragging employees onto tasks
+- removing assignments
+- quick reassignment through menus
+
+This makes the dashboard usable as an actual live staffing board.
+
+### 6.3 Task Manager Modal
+
+The task manager allows:
+
+- creating tasks
+- adding descriptions
+- assigning employees
+- deleting tasks
+- uploading attachments during creation
+
+This was designed as a central place for task operations rather than scattered inline controls.
+
+### 6.4 Task Detail Modal
+
+Task detail view supports:
+
+- editing description
+- adding/removing employees
+- attachment upload/removal
+- final logged time entry
+- showing a task timer on screen
+
+### 6.5 Employee Activity Modal
+
+Clicking an employee opens a detailed activity view with:
+
+- employee note
+- `Overige` lane selection
+- current main assignment
+- active subtasks
+- recent subtask history
+- assignment history context
+- live or logged duration display
+
+## 7. Admin Features
+
+### 7.1 Task Assignment Control
+
+The admin main page supports:
+
+- assigning employees to departments
+- assigning employees specifically into `Overige > Internal` or `Overige > Customers`
+- clearing assignments
+- creating subtasks
+- viewing active subtasks grouped by department
+- permanently deleting subtasks from admin
+
+### 7.2 Employee Management
+
+Admin employees section supports:
+
+- adding employees
+- listing all employees
+- viewing current assignment
+- viewing employee detail history
+
+### 7.3 Employee Detail Page
+
+Employee detail pages show:
+
+- current assignment
+- active tasks
+- departments worked
+- latest task activity
+- main assignment history
+- current subtasks
+- subtask time history
+- assignment history table
+
+The UI prioritizes:
+
+- clear time visibility
+- logged/manual time if available
+- compact history with detail expansion
+
+### 7.4 Completed Tasks Page
+
+Completed tasks have their own admin page.
+
+Admins can:
+
+- view completed subtasks only
+- reopen completed tasks
+- permanently delete completed tasks
+
+This separation prevents active operational screens from becoming cluttered.
+
+## 8. Time Tracking Rules
+
+The system uses **Netherlands local time** everywhere in the UI.
+
+Time zone:
+
+- `Europe/Amsterdam`
+
+Important business rule:
+
+- working time is counted from **09:00 NL**
+- timers pause from **00:00 to 09:00 NL**
+
+That means:
+
+- timers do not continue counting overnight in raw continuous mode
+- durations are aligned with the operational working day
+- daylight saving is handled automatically through the Netherlands time zone
+
+### Final Logged Time
+
+Subtasks support a `Final logged time` override.
+
+This is useful when:
+
+- the auto timer is not the final reporting value
+- a manager wants to manually set the official duration
+
+If a final logged time exists:
+
+- it overrides the live/automatic value in reporting and relevant UI
+
+## 9. Attachments
+
+The system supports task attachments using Firebase Storage.
+
+Attachments can be added:
+
+- while creating a task
+- from the task detail modal
+
+Attachments are stored with task metadata such as:
+
+- name
+- content type
+- size
+- path
+- bucket
+- uploaded timestamp
+
+## 10. Data Persistence Model
+
+The app uses **Firebase Firestore** as the primary database.
+
+Main collections:
+
+- `departments`
+- `employees`
+- `assignments`
+- `subtasks`
+- `subtaskEvents`
+- `liveSync`
+
+The Firestore layer is centralized in:
+
+- `src/lib/firestore-db.js`
+
+This abstraction handles:
+
+- CRUD logic
+- normalization
+- event staging
+- employee history assembly
+- soft-delete behavior
+- permanent delete behavior
+
+## 11. Delete vs Archive Behavior
+
+The app distinguishes between:
+
+### Soft Delete / Remove From Screen
+
+For normal task removal:
+
+- the task disappears from active display
+- it remains in Firestore
+- history remains available
+
+### Permanent Delete
+
+Admin can also permanently delete a subtask:
+
+- removes subtask document
+- removes its event history
+- clears any related timer references
+
+This is useful for data cleanup when a task should truly be erased.
+
+## 12. Real-Time / Multi-Screen Sync
+
+The system includes a live-sync mechanism so that changes made in one place propagate to other open screens.
+
+It uses:
+
+- a Firestore-backed live sync token
+- browser-side refresh hooks
+- broadcast signaling for same-browser updates
+
+This is implemented through:
+
+- `src/app/api/live-sync/route.js`
+- `src/lib/use-live-sync-refresh.js`
+- `src/lib/live-sync-broadcast.js`
+
+This means:
+
+- dashboard screens
+- admin screens
+- employee detail screens
+
+can react to data changes without requiring a manual refresh.
+
+## 13. Export & Reporting System
+
+The export system is significantly beyond a basic CSV dump.
+
+Export area route:
+
+- `/admin/export`
+
+Supported exports include:
+
+- current assignments
+- assignment history
+- employee directory
+- task register
+- completed tasks
+- task activity log
+- employee task history
+- daily staffing summaries
+- date-range exports
+- Excel workbook exports
+
+### Daily Visual Dashboard Export
+
+There is also a **single-day Excel dashboard export** designed as a management report.
+
+It includes:
+
+- one-day KPI summary
+- department performance
+- employee workload
+- task/event insights
+- visualized analytics layout
+- additional analytics sheet
+
+The current implementation focuses on:
+
+- professional workbook structure
+- styled KPI panels
+- data bars and executive-style summary sections
+
+This is generated with:
+
+- `exceljs`
+
+## 14. Tech Stack
+
+### Frontend
+
+- Next.js 16
+- React 19
+- CSS Modules
+
+### Backend / Data
+
+- Firebase Firestore
+- Firebase Admin SDK
+- Firebase Storage
+
+### Reporting
+
+- PapaParse for CSV
+- ExcelJS for `.xlsx` dashboards and exports
+
+### Runtime
+
+- Node.js 20+
+
+## 15. Key Technical Highlights
+
+These are good talking points for Upwork:
+
+- built a custom live warehouse operations dashboard in Next.js
+- implemented real-time staffing and subtask visibility
+- designed a hybrid admin/workfloor system
+- built Firestore-backed event history and employee task reconstruction
+- implemented manual vs automatic duration handling
+- added Firebase Storage attachment support
+- implemented advanced reporting and visual Excel exports
+- normalized all time handling to Netherlands local time
+- supported business-specific rules like overnight timer pause
+- created split operational views for special departments like `Overige`
+
+## 16. UX / Product Decisions
+
+Several workflow-focused decisions were added to make the app operationally useful:
+
+- unfinished tasks are prioritized above completed tasks
+- employee and task details open in modal workflows
+- notes and timer controls are visible in context
+- completed tasks have a separate admin page
+- exports are designed for real-world review, not raw database dumps
+- task history is preserved even when removed from active display
+
+## 17. Reliability & Quality Work Done
+
+The project has gone through extensive iteration and stabilization.
+
+Major improvements include:
+
+- migration from mock/in-memory data to real Firestore
+- assignment deduping
+- safer delete model
+- better timer logic
+- live sync across screens
+- build/lint stabilization
+- refined admin/reporting flows
+- better employee activity history modeling
+
+## 18. Notable Current Capabilities
+
+At its current state, this project supports:
+
+- live warehouse department dashboard
+- presentation/TV mode
+- department-based employee assignment
+- task-level employee assignment
+- employee detail notes
+- split `Overige` section (`Internal` / `Customers`)
+- live and manual time tracking
+- attachment upload
+- soft delete + permanent delete
+- employee history and session tracking
+- completed-task management
+- CSV and Excel reporting
+- daily visual dashboard export
+
+## 19. Good Upwork Positioning
+
+This project can be presented as:
+
+> A custom warehouse operations dashboard and admin system built with Next.js, React, Firebase Firestore, and Excel reporting. It supports real-time department staffing, task management, employee activity tracking, attachments, historical reporting, and management-friendly exports tailored for logistics/fulfillment workflows.
+
+## 20. Suggested Portfolio Summary
+
+If you want a short portfolio summary, you can describe it like this:
+
+> Designed and developed a real-time warehouse operations platform for fulfillment teams. The system includes a TV-style live dashboard, admin assignment control, employee activity history, task timing with business-hour logic, attachment handling, and advanced CSV/Excel reporting with daily operational dashboards.
+
+---
+
+If needed, this document can be shortened into:
+
+- a 5-line Upwork proposal summary

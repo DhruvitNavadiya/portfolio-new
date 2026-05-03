@@ -1,0 +1,81 @@
+Full Project Feature Guide & Explanation
+This document provides a comprehensive, detailed breakdown of every feature across the entire Ampere Chatbot-Ticketing project. It not only lists the features but explains what they are, how they work, and why they are important to the overall system.
+
+The project is structured as a "Tri-Service Architecture":
+
+The Chat Widget (Frontend): What the end-customer interacts with on a website.
+The Backend Server (API & WebSockets): The brain of the operation, handling AI routing and data storage.
+The Support Dashboard (Frontend): The command center where human staff manage tickets.
+1. The Embeddable Chat Widget (Customer Facing)
+Built with Next.js and React, this is the floating chat window embedded on the user's website.
+
+1.1. Smart Path Rendering (Route Filtering)
+What it is: The widget can be configured to only show up on specific pages of a website.
+Explanation: Website owners don't always want a chat bubble blocking the UI on every page (e.g., checkout pages or admin dashboards). The widget accepts showOnPaths and hideOnPaths configurations. It supports wildcards (like /admin/*), allowing the widget to intelligently read the browser's current URL and decide whether to render itself or remain hidden.
+1.2. Persistent Session Recovery
+What it is: If a user closes the tab and comes back later, their chat is still there.
+Explanation: The widget securely stores a unique ampere_session_id in the browser's sessionStorage. When the widget boots up, it checks for this ID. If found, it instantly reconnects to the WebSocket server and retrieves the entire conversation history, ensuring the user doesn't have to restart their conversation from scratch.
+1.3. Multi-Session Intelligence
+What it is: The widget knows how to prioritize tickets if a user has multiple open issues.
+Explanation: A user might have asked an AI a question yesterday, and escalated a different question to a human today. The widget queries the backend for all active sessions. It prioritizes loading tickets currently assigned to a human (human_handling), falling back to AI tickets (ai_handling), or cleanly creating a brand-new session if all past tickets are closed.
+1.4. Real-Time Bi-Directional Chat
+What it is: Messages appear instantly without refreshing the page.
+Explanation: It uses socket.io-client to maintain a persistent WebSocket connection to the backend. This allows messages from both the AI and Human Agents to be "pushed" to the user's screen instantly.
+1.5. Live Typing Indicators & Streaming
+What it is: Visual feedback that someone (or something) is typing.
+Explanation:
+When an Agent types: The widget listens for typing_update events and displays animated bouncing dots.
+When AI types: The widget listens for ai_stream_chunk events. Because AI generation takes time, the widget streams the response word-by-word as it's generated, keeping the user engaged rather than staring at a blank loading screen.
+1.6. Dynamic UI & Inline Actions
+What it is: Buttons that appear inside the chat flow.
+Explanation: The UI isn't just text. If the backend determines the user needs human help, it sends a special action payload. The widget interprets this payload and renders a clickable "💬 Connect me to a human agent" button directly inside the chat bubble, making escalation completely frictionless.
+2. The Backend & AI RAG Engine (The Brain)
+Built with Node.js, Express, Socket.IO, and SQLite.
+
+2.1. Retrieval-Augmented Generation (RAG) AI
+What it is: An AI bot that only answers based on your company's documentation.
+Explanation: Using the Vercel AI SDK and Together AI (Llama-3/GPT-OSS), the backend loads a knowledge_base.md file into memory. When a user asks a question, the backend instructs the LLM to strictly use the information in that document to formulate an answer. This entirely prevents "AI Hallucinations" (where the bot makes up fake pricing or features).
+2.2. Contextual Memory Window
+What it is: The AI remembers what you said two minutes ago.
+Explanation: Instead of just sending the user's latest message to the AI, the backend retrieves the last 10 messages of the conversation from the database and sends the entire transcript. This allows the AI to understand follow-up questions (e.g., User: "How much is the Pro plan?", AI: "$50", User: "Does it include web search?", AI: "Yes, the Pro plan includes web search").
+2.3. Auto-Escalation Engine
+What it is: The system knows when the AI is failing and steps in.
+Explanation: After every AI response, a backend script scans the generated text. If the AI output contains phrases like "I'm not sure", "I don't know", or "contact support", the backend intercepts the message and automatically attaches an escalation button to it. It prevents the user from hitting a dead end.
+2.4. File-Based High-Concurrency Database
+What it is: Fast, local, reliable storage without requiring external database servers.
+Explanation: The backend uses better-sqlite3 configured with WAL (Write-Ahead Logging) mode. This means database reads and writes don't block each other, allowing the system to handle thousands of concurrent chat messages safely while storing all sessions and messages locally in a simple support.db file.
+2.5. Firebase Identity Sync
+What it is: It knows exactly who the customer is.
+Explanation: When the widget connects, it passes a userUid (from the customer's login state on the main website). The backend connects to Firebase Admin SDK, queries Firestore for that UID, and fetches the customer's real Name, Email, and Subscription Plan. This data is permanently attached to the ticket so support agents have full context instantly.
+2.6. Graceful "Mock" Modes
+What it is: The backend works even if API keys break or aren't provided.
+Explanation: If the TOGETHER_API_KEY or Firebase credentials are missing, the server doesn't crash. It seamlessly falls back to "Mock Mode"—using regex keyword matching to simulate AI responses, and returning dummy user data. This is crucial for local development and preventing catastrophic failures in production.
+2.7. Real-Time Discord Notifications
+What it is: Instant alerts to your team's Discord server for critical events.
+Explanation: The system integrates with Discord Webhooks to instantly notify the support team whenever a ticket is escalated to a human, or when an unanswered question requires a knowledge base update. This ensures that support agents don't have to proactively monitor the dashboard to know when a customer urgently needs human intervention.
+3. The Support Dashboard (Agent Command Center)
+Built with Next.js, this is where human staff log in to manage operations.
+
+3.1. High-Volume Ticket Table
+What it is: A sortable, filterable list of every conversation happening right now.
+Explanation: Staff can see all active and closed tickets. The table uses URL query parameters to store filter states. This means an agent can filter for "Only Active Tickets", copy the URL, and send it to a manager, and the manager will see the exact same filtered view.
+3.2. Knowledge Gap Detection (Unanswered Questions View)
+What it is: A dedicated tab that automatically collects questions the AI failed to answer.
+Explanation: By analyzing escalated tickets where the AI triggered the Auto-Escalation engine (e.g., admitting "I don't know"), the system isolates these specific customer queries in a dedicated "Unanswered Questions" (/questions) dashboard view. This provides a direct feedback loop for administrators to easily identify gaps in the knowledge_base.md and update it. Once the knowledge base is updated, the AI can handle these questions autonomously in the future.
+3.3. Three-Panel Detail Workspace
+What it is: The main screen used to resolve a ticket.
+Explanation: It is divided into three logical sections:
+Left Panel (Metadata): Shows when the ticket was created, its status, and why it was escalated.
+Middle Panel (Workspace): The chat window where the agent can read the entire AI transcript and chat live with the customer.
+Right Panel (Customer Context): Displays the Firebase data fetched by the backend (Name, Email, Pricing Tier). An agent knows immediately if they are talking to a "Free" user or a "Pro" user, speeding up triage.
+3.4. Unread Message & Status Syncing
+What it is: The dashboard updates itself without requiring manual page refreshes.
+Explanation: If an agent is looking at the ticket list and a customer sends a new message to a specific ticket, the dashboard instantly highlights that row and increments an unread badge. If an agent takes over a ticket, the status pill instantly turns from Blue ("AI Handling") to Orange ("Human Handling") for all other logged-in agents, preventing duplicate work.
+3.5. Global Network Health Monitoring
+What it is: Built-in alerts if the system goes offline.
+Explanation: The dashboard features an ApiHealthBadge and ConnectionBadge in the header. These components constantly ping the backend. If the WebSocket disconnects or the REST API goes down, the badges turn Red and dismissible error banners appear, immediately alerting the staff that they have lost connection with the customers.
+3.6. Instant Agent Takeover & Resolution
+What it is: Controls to manage the ticket lifecycle.
+Explanation:
+Takeover: Clicking this fires an event to the backend that locks the AI out of the conversation. The customer sees a system message saying "An agent has joined", and the agent can begin typing.
+Resolve: Clicking this closes the ticket, preventing further messages, and archives the chat transcript in the database for future audits or AI training.

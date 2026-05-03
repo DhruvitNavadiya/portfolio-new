@@ -1,0 +1,600 @@
+# Future Fulfillment Project Context
+
+## 1. Executive Summary
+
+This project is a multi-service logistics investigation platform built for e-commerce operations teams.
+
+Its purpose is to help sellers:
+
+- see shipped orders from ChannelDock
+- raise investigation requests against carriers
+- attach evidence such as shipment photos and invoices
+- track investigation progress in a seller portal
+- automatically send investigation emails or create Freshdesk tickets
+- ingest carrier replies back into the portal
+- keep investigation status synchronized until closure
+
+The system is built as three cooperating services:
+
+1. `seller-portal` — seller-facing Next.js web application
+2. `logistics-email-automation` — Node.js/TypeScript background worker
+3. `freshdesk-bot` — Python FastAPI browser-automation microservice for Freshdesk
+
+At a business level, this turns a manual logistics support workflow into a structured, auditable, semi-automated operations system.
+
+---
+
+## 2. Core Business Problem It Solves
+
+Before this type of system, logistics investigations are usually handled manually:
+
+- operations teams export or search shipped orders
+- they gather screenshots, invoices, parcel details, and tracking links
+- they manually email carriers or open support tickets
+- they wait for replies in a shared mailbox
+- they forward updates to the customer by hand
+- they struggle to keep the status of each case visible to the seller
+
+This project consolidates that into one workflow:
+
+- sellers log in to a portal
+- they raise a carrier query from a shipped order
+- the investigation is stored in Firestore
+- a worker routes it either to carrier email or Freshdesk
+- replies are pulled back into the portal conversation thread
+- status stays visible to the seller throughout the lifecycle
+
+---
+
+## 3. System Architecture
+
+### Services
+
+#### `seller-portal`
+- Framework: Next.js 16 + React 19 + TypeScript
+- Purpose: seller authentication, order browsing, query submission, query tracking, conversation UI
+- Key integrations:
+  - Firebase Authentication
+  - Firestore
+  - ChannelDock API
+  - Google Drive upload API
+
+#### `logistics-email-automation`
+- Runtime: Node.js 20 + TypeScript
+- Purpose: process pending investigations, send outbound investigation emails, forward/store carrier replies, sync Freshdesk closures
+- Key integrations:
+  - Firestore
+  - Gmail API
+  - Freshdesk bot HTTP API
+
+#### `freshdesk-bot`
+- Runtime: Python + FastAPI
+- Browser automation: Playwright-compatible `Camoufox`
+- Purpose: automate WeGrow Freshdesk UI for ticket creation, closure, listing, and ticket detail lookup
+
+---
+
+## 4. High-Level End-to-End Flow
+
+### Flow A: Seller onboarding and authentication
+
+1. Seller registers with email + ChannelDock API key + API secret.
+2. The portal validates the ChannelDock credentials against the ChannelDock orders API.
+3. If valid, credentials are stored in Firestore under the `sellers` collection.
+4. Login is handled through Firebase email-link authentication.
+5. The frontend stores the Firebase ID token in session storage and uses it for portal API calls.
+6. Backend API routes verify the Firebase token and then load the seller’s stored ChannelDock credentials.
+
+### Flow B: Shipped order visibility
+
+1. The portal fetches shipped/completed orders from ChannelDock.
+2. The portal also fetches existing investigations from Firestore.
+3. Orders with active investigations are hidden from the “ready to review” queue.
+4. Sellers can search by order ID, customer name, or customer email.
+
+### Flow C: Investigation submission
+
+1. Seller opens a shipped order.
+2. Seller fills a structured investigation form:
+   - carrier
+   - reason
+   - tracking URL
+   - parcel contents
+   - dimensions
+   - optional question
+   - evidence uploads
+3. Evidence files are uploaded to Google Drive.
+4. A Firestore investigation document is created.
+5. An initial seller message is added to the investigation’s `messages` subcollection.
+
+### Flow D: Outbound routing and dispatch
+
+1. The automation worker polls Firestore for investigations with `emailStatus = PENDING`.
+2. It transactionally claims each investigation by switching it to `PROCESSING`.
+3. It resolves the target route:
+   - direct carrier email
+   - unsupported-carrier fallback notification
+   - Freshdesk routing
+4. It downloads evidence files from Drive.
+5. It either:
+   - sends an investigation email via Gmail API, or
+   - creates a Freshdesk ticket through the Python bot
+6. It updates Firestore with send outcome, destination, and status.
+7. It adds a system message to the investigation thread.
+
+### Flow E: Carrier reply ingestion
+
+1. The automation worker polls unread Gmail messages.
+2. It parses sender, subject, body, order ID candidates, tracking references, and auto-reply hints.
+3. It tries to match the reply to a Firestore investigation:
+   - first by order ID
+   - then by tracking reference
+4. On success, it:
+   - stores the carrier reply in Firestore
+   - stores a system note
+   - optionally forwards the reply to the customer
+   - updates investigation status
+5. On uncertain carrier messages, it prefers leaving them unread instead of forcing a bad match.
+
+### Flow F: Freshdesk ticket monitoring
+
+1. The worker fetches active Freshdesk-backed investigations from Firestore.
+2. It checks Freshdesk page 1 first for low-cost ticket lookups.
+3. For tracked tickets not visible on page 1, it fetches exact ticket detail by ticket ID.
+4. If Freshdesk shows the ticket as closed, the worker marks the investigation complete in Firestore.
+5. A system message is added to the conversation thread for the closure event.
+
+---
+
+## 5. Service-by-Service Context
+
+## 5.1 `seller-portal`
+
+### Main responsibilities
+
+- seller registration and Firebase email-link login
+- fetch shipped orders from ChannelDock
+- filter out orders with active investigations
+- submit new investigations
+- upload evidence to Google Drive
+- display investigation list and status summaries
+- display conversation history per order
+- allow seller-side follow-up messages
+- allow manual closure of investigations
+
+### Main user-facing pages
+
+- `/` — login page
+- `/register` — seller onboarding and ChannelDock credential linking
+- `/orders` — shipped orders eligible for investigation
+- `/queries` — investigation dashboard with live status and conversation drawer
+
+### Important backend API routes
+
+- `/api/auth/register` — validates ChannelDock credentials and stores seller access
+- `/api/orders` — proxies paginated ChannelDock order data
+- `/api/queries` — creates and lists Firestore investigations
+- `/api/upload` — uploads files to Google Drive
+- `/api/queries/[orderId]/messages` — reads and sends conversation messages
+- `/api/queries/[orderId]/close` — closes the investigation and, if applicable, closes the Freshdesk ticket
+
+### Important behavior
+
+- Authentication for portal APIs is based on Firebase ID tokens.
+- Seller identity is tied to stored ChannelDock credentials in Firestore.
+- Seller-facing order visibility is derived from Firestore investigation state.
+- The portal is not just a dashboard; it is the primary case-management UI.
+
+---
+
+## 5.2 `logistics-email-automation`
+
+### Main responsibilities
+
+- poll pending investigations from Firestore
+- claim them safely to avoid duplicate processing
+- resolve routing based on carrier and reason
+- send investigation emails through Gmail API
+- create Freshdesk tickets through the Python service
+- ingest carrier replies from Gmail
+- update Firestore investigation status and messages
+- sync Freshdesk closures back into Firestore
+
+### Runtime loops
+
+This service runs three recurring background jobs:
+
+1. Pending investigation processor
+2. Carrier reply watcher
+3. Freshdesk watcher
+
+### Main routing logic
+
+An investigation can end up in one of several paths:
+
+- direct email to a carrier mailbox
+- reason-based email override
+- Freshdesk ticket creation
+- unsupported-carrier notification path
+
+### Important design characteristics
+
+- Firestore is the source of truth for investigation lifecycle.
+- Gmail API is used for outbound mail and inbound reply polling.
+- All important state transitions are persisted back to Firestore.
+- Conversation messages are stored separately from high-level investigation status.
+
+---
+
+## 5.3 `freshdesk-bot`
+
+### Main responsibilities
+
+- log in to WeGrow Freshdesk
+- submit new tickets through the Freshdesk UI
+- close tickets through the Freshdesk UI
+- fetch ticket lists from the Freshdesk ticket overview page
+- fetch exact ticket details for a tracked ticket
+- provide a dedicated search endpoint for debugging and validation
+
+### Why browser automation is used
+
+This project does not use the official Freshdesk REST API for the WeGrow workflow. Instead, it automates the actual Freshdesk web interface used by operations. That lets the system work against the real business portal flow and custom ticket form.
+
+### Current ticket-fetch strategy
+
+For exact ticket detail lookup, the bot uses a fallback chain:
+
+1. Try to locate the ticket on Freshdesk page 1
+2. Try the direct ticket URL `/support/tickets/<id>`
+3. Try the live search-suggestion flow
+
+After opening a ticket, it verifies that the opened ticket ID matches the requested ticket ID before trusting the result.
+
+### Concurrency model
+
+- The FastAPI service uses a global async lock.
+- Only one Camoufox session is allowed at a time.
+- This reduces SSO and UI automation instability.
+
+---
+
+## 6. Main Integrations
+
+## 6.1 ChannelDock
+
+Used for:
+
+- seller credential verification
+- shipped order retrieval
+- order search
+- shipment lookup
+- carrier/inventory-related supporting endpoints
+
+### Why it matters
+
+ChannelDock is the operational order source for sellers. The portal uses it to present only real shipped orders that are relevant for investigation.
+
+## 6.2 Firebase Authentication
+
+Used for:
+
+- seller login via email-link authentication
+- token-based authorization for the portal’s server routes
+
+## 6.3 Firestore
+
+Used for:
+
+- seller credential storage
+- investigation records
+- investigation conversation threads
+- status synchronization across all services
+
+## 6.4 Gmail API
+
+Used for:
+
+- outbound carrier investigation emails
+- outbound customer reply forwarding
+- inbound unread reply scanning
+- marking processed Gmail messages as read
+
+## 6.5 Google Drive
+
+Used for:
+
+- storing uploaded evidence files
+- linking those files into the investigation workflow
+
+## 6.6 Freshdesk / WeGrow support portal
+
+Used for:
+
+- support ticket creation
+- ticket closure
+- ticket status monitoring
+- detailed ticket scraping for synchronization
+
+---
+
+## 7. Firestore Data Model
+
+## 7.1 `sellers` collection
+
+Each document is keyed by the seller’s email address and stores:
+
+- seller email
+- ChannelDock API key
+- ChannelDock API secret
+- creation timestamp
+
+This allows the portal to authenticate the user with Firebase, then retrieve the operational ChannelDock credentials server-side.
+
+## 7.2 `investigations` collection
+
+Each investigation document is keyed as:
+
+`<orderId>_<sellerId>`
+
+Where:
+
+- `orderId` is the ChannelDock order identifier
+- `sellerId` is derived from a SHA-256 hash of the seller’s ChannelDock API key
+
+### Typical fields
+
+- `orderId`
+- `sellerId`
+- `customerEmail`
+- `trackingUrl`
+- `carrier`
+- `queryReason`
+- `askQuestion`
+- `productsReceived`
+- `shipmentPhoto`
+- `salesInvoice`
+- `purchaseInvoice`
+- `dimensions`
+- `contents`
+- `status`
+- `emailStatus`
+- `replyStatus`
+- `sentTo`
+- `statusMessage`
+- `freshdeskTicketId`
+- `createdAt`
+- `updatedAt`
+- `lastReplyAt`
+
+## 7.3 `investigations/{docId}/messages` subcollection
+
+Each investigation contains a conversation thread with messages from:
+
+- `SELLER`
+- `CARRIER`
+- `SYSTEM`
+
+Typical message fields:
+
+- `sender`
+- `body`
+- `subject`
+- `from`
+- `messageId`
+- `timestamp`
+
+This gives each investigation a full audit trail rather than only top-level status changes.
+
+---
+
+## 8. Status Model
+
+## 8.1 Investigation `status`
+
+Main lifecycle values:
+
+- `pending` — created in the portal but not yet sent
+- `open` — investigation has been sent or is actively waiting
+- `resolved` — non-Freshdesk flow has a successful carrier reply or portal-only reply outcome
+- `incomplete` — failed or needs manual attention
+- `complete` — final closed state, especially for Freshdesk-backed closure sync
+
+## 8.2 `emailStatus`
+
+Outbound processing state:
+
+- `PENDING`
+- `PROCESSING`
+- `SENT`
+- `FAILED`
+- `UNSUPPORTED_CARRIER`
+- `UNKNOWN_CARRIER`
+- `VALIDATION_FAILED`
+- `MISSING_EMAIL`
+
+## 8.3 `replyStatus`
+
+Inbound reply state:
+
+- `PENDING`
+- `FORWARDED`
+- `AUTO_REPLY`
+- `FAILED_FORWARD`
+
+---
+
+## 9. Important Business Rules
+
+### 9.1 Orders with active investigations should not be re-opened from the orders list
+
+The portal hides shipped orders that already have an active investigation in an `open` or `awaiting` state.
+
+### 9.2 Freshdesk-backed investigations remain open until Freshdesk itself closes the ticket
+
+Even if a carrier replies, the system does not prematurely complete a Freshdesk-backed case. Closure is driven by Freshdesk ticket status.
+
+### 9.3 Carrier reply processing is safer than “best guess” matching
+
+The reply processor prioritizes:
+
+1. exact order ID match
+2. tracking-reference fallback
+3. leaving uncertain carrier mail unread for manual review
+
+It avoids forcing low-confidence matches that could attach a reply to the wrong investigation.
+
+### 9.4 `ENABLE_REPLY_FORWARDING=false` means portal-only reply handling
+
+When disabled:
+
+- carrier replies are still ingested
+- messages still appear in the portal
+- investigation state still updates
+- only the customer-email forward step is skipped
+
+### 9.5 Unsupported carriers do not silently fail
+
+If a carrier does not support external investigations, the system routes to a fallback notification path so the customer is informed rather than leaving the case in a dead state.
+
+---
+
+## 10. Carrier Reply Logic and Edge-Case Handling
+
+The carrier reply flow is one of the most important parts of the project because it determines whether real carrier responses are matched safely.
+
+### Main logic
+
+1. Poll unread Gmail messages
+2. Parse sender, subject, body, and headers
+3. Detect auto-replies
+4. Extract order ID when possible
+5. Extract tracking reference when possible
+6. Match Firestore investigation
+7. Store reply in the portal
+8. Optionally forward to customer
+9. Update investigation status
+
+### Important safeguards already implemented
+
+- Avoids mistaking carrier-side case numbers for internal order IDs
+- Supports tracking-reference fallback matching
+- Rejects ambiguous multi-match situations
+- Keeps unmatched carrier mail unread
+- Marks unmatched non-carrier unread mail as read
+- Deduplicates already-saved carrier replies
+- Keeps Freshdesk-backed investigations open until ticket closure
+- Handles auto-replies separately from real resolutions
+
+This is a meaningful engineering strength in the project because it shows operational robustness, not just a simple send-email workflow.
+
+---
+
+## 11. Freshdesk Monitoring Logic
+
+The Freshdesk side was designed to balance correctness and load.
+
+### Current strategy
+
+1. Only track Freshdesk investigations still in `pending` or `open`
+2. Fetch Freshdesk page 1 first for the cheap path
+3. For tracked tickets not visible on page 1, fetch the exact ticket detail
+4. Use fallback methods for exact ticket opening
+5. Verify the opened ticket ID matches the requested ID
+6. Mark the Firestore investigation `complete` only when Freshdesk shows the ticket as closed
+
+This avoids the older failure mode where closed tickets could be missed once they moved off page 1.
+
+---
+
+## 12. Technical Highlights Worth Showcasing on Upwork
+
+This project is strong as a portfolio piece because it combines:
+
+- full-stack web application development
+- workflow automation
+- API integrations
+- headless browser automation
+- stateful background processing
+- Firestore-based case tracking
+- operational dashboards
+- edge-case-heavy email parsing and reply matching
+
+### Specific engineering highlights
+
+- Multi-service architecture with clear separation of concerns
+- Secure seller authentication plus server-side credential proxying
+- ChannelDock integration for real operational order data
+- Firestore used as a durable workflow state machine
+- Gmail API integration for both outbound and inbound mail processing
+- Freshdesk browser automation with layered fallback strategies
+- Conversation thread persistence for full auditability
+- Dry-run simulation tooling for carrier-reply edge cases
+- Demo-order generation tooling for realistic testing
+
+---
+
+## 13. Quality, Testing, and Operational Tooling
+
+### Available verification and demo tooling
+
+- `seller-portal` build pipeline through `next build`
+- `logistics-email-automation` TypeScript build pipeline
+- Jest-based tests in the automation service
+- Dedicated dry-run carrier reply harness:
+  - `npm run demo:carrier-replies`
+- Demo order creation script for real portal testing:
+  - `npm run demo:orders`
+
+### Why this matters
+
+This is not only a prototype. The codebase includes operational test support for:
+
+- reproducing reply-handling edge cases
+- generating realistic test data
+- validating build health across services
+
+---
+
+## 14. Typical User Journey
+
+A normal seller journey through the system looks like this:
+
+1. Register portal access with ChannelDock credentials
+2. Log in through Firebase email link
+3. Open the shipped orders dashboard
+4. Select a shipment that needs investigation
+5. Submit the query with attachments and parcel details
+6. The backend automatically sends the case to a carrier or Freshdesk
+7. The seller monitors status in the queries page
+8. Carrier replies appear inside the portal thread
+9. The seller can follow the case until it is resolved or closed
+
+---
+
+## 15. What This Project Demonstrates Professionally
+
+For Upwork positioning, this project demonstrates capability in:
+
+- designing internal ops tools
+- building SaaS-style seller portals
+- integrating third-party logistics platforms
+- automating customer support workflows
+- implementing background workers and cron-driven processing
+- solving real-world email ingestion and threading problems
+- building resilient browser automation around external web UIs
+- structuring multi-service systems around Firestore-backed workflow state
+
+---
+
+## 16. Suggested Upwork Positioning Summary
+
+If you want a short positioning summary for proposals or portfolio use, this project can be described as:
+
+> Built a multi-service logistics investigation platform for e-commerce operations. The system integrates ChannelDock, Firebase, Firestore, Gmail API, Google Drive, and Freshdesk automation to let sellers raise shipment investigations, attach evidence, track cases in a portal, ingest carrier replies automatically, and synchronize support-ticket closures end to end.
+
+---
+
+## 17. Notes on Current State
+
+This document reflects the current codebase structure and behavior at the time of writing. It is intentionally based on the live implementation rather than the older `PROJECT_CONTEXT.md`, which no longer reflects 

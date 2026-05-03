@@ -352,6 +352,63 @@ Features:
 - Duplicate Detection: Automated AI-powered alert system notifying agencies of existing candidates.
 - Notion Integration: Centralized master database in Notion synced in real-time.
 
+---
+
+PROJECT 10: AMPERE CHATBOT & TICKETING (2026)
+Category: AI SaaS
+Tags: Next.js, React, Node.js, Socket.IO, Firebase, SQLite, OpenAI
+Upwork: https://www.upwork.com/freelancers/~01c62dbeb138533025
+
+Description: A comprehensive AI-driven customer support system built on a tri-service architecture. 
+Features an embeddable smart chat widget with multi-session recovery, a powerful Node.js/SQLite RAG 
+backend to prevent AI hallucinations, and a Next.js support dashboard for live high-volume ticket management.
+
+Features:
+- Smart Widget: Embeddable customer-facing chat widget featuring smart route filtering, live typing indicators, and persistent multi-session recovery via WebSockets.
+- RAG AI Engine: Backend RAG pipeline loading knowledge base files to answer questions dynamically without hallucination, supporting auto-escalation.
+- Agent Dashboard: High-volume ticket table allowing human agents to filter live active and closed tickets.
+- Workspace View: Three-panel detail workspace showing ticket metadata, live chat window with agent-takeover capabilities, and synced Firebase customer data context.
+- Knowledge Gaps: Unanswered questions view highlighting cases where the AI triggered auto-escalation.
+- System Health: Global network health monitoring with live ApiHealthBadge and ConnectionBadge components.
+- Discord Alerts: Real-time Discord webhooks sending critical event notifications directly to the support team.
+
+---
+
+PROJECT 11: FUTURE FULFILLMENT LOGISTICS (2026)
+Category: Operations Automation
+Tags: Next.js, TypeScript, Node.js, Python, FastAPI, Firebase, Firestore, Playwright
+Upwork: https://www.upwork.com/freelancers/~01c62dbeb138533025
+
+Description: A complete e-commerce logistics platform letting sellers view ChannelDock orders, raise investigations, and track case progress. Composed of a Next.js portal, a Node.js email automation worker, and a Python/FastAPI headless browser bot for Freshdesk integrations.
+
+Features:
+- Seller Dashboard: Next.js seller-facing portal integrating ChannelDock orders and Firebase Auth.
+- Query Submission: Structured investigation form allowing sellers to specify issues, upload evidence directly to Google Drive.
+- Case Tracking: Live case tracker visualizing the lifecycle of an investigation from submission to resolution.
+- Automated Dispatch: Node.js background worker claiming pending cases transactionally and routing them.
+- Carrier Ingestion: Inbound Gmail API processor parsing complex carrier auto-replies.
+- Freshdesk Sync: Python FastAPI service using Camoufox to automate Freshdesk UI operations.
+- Admin Reporting: Data insights mapping carrier responses and ticket closures to individual seller accounts.
+
+---
+
+PROJECT 12: FLORIS TV LIVE UPDATES (2026)
+Category: Dashboard UI
+Tags: Next.js, React, Firebase, Firestore
+Upwork: https://www.upwork.com/freelancers/~01c62dbeb138533025
+
+Description: A real-time logistics and warehouse coordination dashboard with an admin back office. Features department-based active worker tracking, subtask assignment, business-hour timers, and complex Excel/CSV operations reporting synchronized via Firestore.
+
+Features:
+- TV Operations View: Public live dashboard optimized for warehouse TV display.
+- Drag-and-Drop Mgmt: Interactive workforce assignment allowing managers to drag employees between departments.
+- Task Modals: Detailed task creation and management modal supporting descriptions, employee assignment, attachment uploads via Firebase Storage.
+- Activity Logs: Employee-level detail view showcasing current assignments, active subtasks, historical assignment transitions.
+- Admin Workspace: Password-protected administrative control panel enabling detailed task creation.
+- Time Tracking Engine: Business-logic driven time tracker enforcing Netherlands local time (Europe/Amsterdam).
+- Data Export Pipeline: Advanced reporting tools generating highly structured Excel workbooks featuring daily KPI summaries.
+- Live Sync Engine: Firestore-backed synchronization keeping dashboard screens and active Modals constantly refreshed.
+
 =====================================================================
 Technical Highlights: Multimodal LLM orchestration, Base64 image encoding, JSON schema structuring, Frontend animation engine.
 
