@@ -934,7 +934,7 @@ export function ProjectsSection() {
 
         {/* Edge decorations */}
         <motion.div
-          className="absolute top-8 left-8 z-10 pointer-events-none"
+          className="absolute top-8 left-8 z-10 pointer-events-none hidden md:block"
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
@@ -944,7 +944,7 @@ export function ProjectsSection() {
         </motion.div>
 
         <motion.div
-          className="absolute top-8 right-8 z-10 text-right pointer-events-none"
+          className="absolute top-8 right-8 z-10 text-right pointer-events-none hidden md:block"
           initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.3, duration: 0.6 }}
         >

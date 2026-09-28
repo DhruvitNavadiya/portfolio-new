@@ -21,7 +21,7 @@ You have access to a COMPLETE knowledge base about Dhruvit Navadiya below. Use i
 **CRITICAL TOOL INSTRUCTIONS (FOLLOW EXACTLY)**:
 - **NEVER ask for permission** to use tools. Just use them. If the user mentions projects, scroll them there immediately. If they want contact, show the form immediately.
 - If the user asks to "see work", "show projects", "go to experience", etc., IMMEDIATELY call \`navigate_to_section\` — do NOT say "Shall I scroll you there?" or "Want me to take you there?". Just DO IT and briefly describe what you're showing them.
-- If they ask about a SPECIFIC project (e.g., "show me AutoGenix", "open media platform", "tell me about video cloning"), IMMEDIATELY call \`open_project\` with the matching project ID. Available: media-platform, autogenix, video-cloning, comfy-face, pinterest-blog, comic-book.
+- If they ask about a SPECIFIC project (e.g., "show me AutoGenix", "open media platform", "tell me about video cloning"), IMMEDIATELY call \`open_project\` with the matching project ID. Available: media-platform, autogenix, video-cloning, comfy-face, pinterest-blog, comic-book, linktrap, seo-automation, resume-dashboard, ampere-chatbot, future-fulfillment, floris-tv.
 - If they want to contact Dhruvit, hire him, or send a message: Collect ONLY their **name** and **email** through conversation. You do NOT need to ask for a message — once you have the name and email, IMMEDIATELY call \`submit_contact_inquiry\` with a professional summary of the entire conversation as the message. Generate the message yourself based on what was discussed.
 - If they ask for social links, IMMEDIATELY call \`get_social_links\`.
 - Act autonomously. Execute tools first, explain after.
@@ -35,7 +35,7 @@ You are also Dhruvit's sales representative. When a potential client or recruite
 1. **Map their requirements** to Dhruvit's specific skills and proven project experience.
 2. **Emphasize production-readiness**: Dhruvit ships production-grade systems with retry logic, failure recovery, real-time monitoring, and cloud deployments.
 3. **Highlight speed & reliability**: He has built full-scale AI platforms, multi-agent systems, and autonomous pipelines end-to-end.
-4. **Use social proof**: Reference his Upwork profile, his current role at Nextbase Solutions, his 8.80 CGPA distinction, and 6 major projects.
+4. **Use social proof**: Reference his Upwork profile, his freelance work as primary engineer of the 8-service Future Fulfilment operations platform, his earlier role at Nextbase Solutions, his 8.80 CGPA distinction, and 12 production projects.
 5. **Close the deal**: Proactively offer the \`submit_contact_inquiry\` tool to connect them with Dhruvit.
 6. **Never undersell**: Position Dhruvit as a senior-level engineer who architects, implements, deploys, and monitors.
 
@@ -115,7 +115,7 @@ export async function POST(req: Request) {
 
         open_project: {
           description:
-            "Opens a specific project's fullscreen showcase carousel on the page. Use this when the user asks to see details of a specific project. Available project IDs: media-platform (AI Media Platform), autogenix (AutoGenix Website AI), video-cloning (AI Video Cloning), comfy-face (ComfyUI Face-Blend), pinterest-blog (Pinterest Blog AI), comic-book (Comic Book Generator), linktrap (LinkTrap Traffic Analytics), seo-automation (SEO Automation Platform), resume-dashboard (Agency Resume Dashboard).",
+            "Opens a specific project's fullscreen showcase carousel on the page. Use this when the user asks to see details of a specific project. Available project IDs: media-platform (AI Media Platform), autogenix (AutoGenix Website AI), video-cloning (AI Video Cloning), comfy-face (ComfyUI Face-Blend), pinterest-blog (Pinterest Blog AI), comic-book (Comic Book Generator), linktrap (LinkTrap Traffic Analytics), seo-automation (SEO Automation Platform), resume-dashboard (Agency Resume Dashboard), ampere-chatbot (Ampere Chatbot & Ticketing), future-fulfillment (Future Fulfilment Operations Platform), floris-tv (Floris TV Live Updates).",
           inputSchema: z.object({
             projectId: z.string().describe('Project ID to open'),
           }),
@@ -130,6 +130,9 @@ export async function POST(req: Request) {
               'linktrap': 'https://www.upwork.com/freelancers/~01c62dbeb138533025',
               'seo-automation': 'https://www.upwork.com/freelancers/~01c62dbeb138533025',
               'resume-dashboard': 'https://www.upwork.com/freelancers/~01c62dbeb138533025',
+              'ampere-chatbot': 'https://www.upwork.com/freelancers/~01c62dbeb138533025',
+              'future-fulfillment': 'https://www.upwork.com/freelancers/~01c62dbeb138533025',
+              'floris-tv': 'https://www.upwork.com/freelancers/~01c62dbeb138533025',
             };
             return {
               action: "open_project",

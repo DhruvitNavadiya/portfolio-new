@@ -7,8 +7,18 @@ import Image from "next/image";
 /* ================================================================== */
 /*  TRAITS — left and right                                            */
 /* ================================================================== */
+/* Age is derived from the birth date so the trait never goes stale */
+const BIRTH_DATE = new Date(2004, 4, 7);
+function ageToday() {
+  const now = new Date();
+  const hadBirthday =
+    now.getMonth() > BIRTH_DATE.getMonth() ||
+    (now.getMonth() === BIRTH_DATE.getMonth() && now.getDate() >= BIRTH_DATE.getDate());
+  return now.getFullYear() - BIRTH_DATE.getFullYear() - (hadBirthday ? 0 : 1);
+}
+
 const LEFT_TRAITS = [
-  { label: "21 years old", sub: "Born in 2004, Gujarat" },
+  { label: `${ageToday()} years old`, sub: "Born in 2004, Gujarat" },
   { label: "☕ Coffee Addict", sub: "Fueled by espresso shots" },
   { label: "🌙 Night Owl", sub: "Best code after midnight" },
 ];
@@ -90,7 +100,7 @@ export function AboutSection() {
         transition={{ delay: 0.5, duration: 0.6 }}
       >
         <div className="w-4 h-4 border-b border-l border-white/10 mb-2" />
-        <span className="text-[10px] font-mono text-white/15 block">© 2024</span>
+        <span className="text-[10px] font-mono text-white/15 block">© {new Date().getFullYear()}</span>
       </motion.div>
 
       {/* Bottom-right */}
@@ -228,8 +238,8 @@ export function AboutSection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.8, duration: 0.6 }}
             >
-              "Building intelligent systems that think, adapt, and scale —
-              one agent at a time."
+              &ldquo;Building intelligent systems that think, adapt, and scale —
+              one agent at a time.&rdquo;
             </motion.p>
           </div>
 

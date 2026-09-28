@@ -95,10 +95,28 @@ Academic Focus:
 PROFESSIONAL EXPERIENCE
 =====================================================================
 
---- Nextbase Solutions — AI Automation Engineer ---
-May 2025 — Present | Surat, India
+--- Freelance AI & Automation Engineer (Upwork and direct clients) ---
+Jan 2026 — Present | Remote
 
-Role Overview: Leading design and implementation of agentic AI platforms
+Current role. Works directly with international clients on production
+automation systems built in custom code (not fragile no-code chains).
+
+Key engagements:
+- Future Fulfilment B.V. (Netherlands), Mar 2026 — Present: primary engineer
+  (649 of 960 commits) of an 8-service operations platform (~186K lines of
+  TypeScript and Python, 194 API routes, 118 test files) that runs warehouse,
+  returns and customer-support operations for a fulfilment centre serving
+  ~350 web-shop sellers. See Project 11.
+- Smollan Kenya, Jul 2026 — Aug 2026: built a deterministic multi-client
+  billing automation system for the finance team. It replaced a
+  hand-maintained monthly Excel process, writes auditable formula-driven
+  workbooks, was validated to the cent against the finance team's reference
+  workbook, and is deployed on Google Cloud Run.
+
+--- Nextbase Solutions — AI Automation Engineer ---
+May 2025 — Jul 2026 | Surat, India
+
+Role Overview: Led design and implementation of agentic AI platforms
 for media automation, website generation, and workflow orchestration.
 
 Key Responsibilities:
@@ -374,12 +392,25 @@ Features:
 
 ---
 
-PROJECT 11: FUTURE FULFILLMENT LOGISTICS (2026)
+PROJECT 11: FUTURE FULFILMENT OPERATIONS PLATFORM (2026, ongoing)
 Category: Operations Automation
-Tags: Next.js, TypeScript, Node.js, Python, FastAPI, Firebase, Firestore, Playwright
+Tags: Next.js 16, TypeScript, Node.js, Python, Firestore, Vertex AI Gemini, Cloud Tasks, Twilio, Railway
 Upwork: https://www.upwork.com/freelancers/~01c62dbeb138533025
 
-Description: A complete e-commerce logistics platform letting sellers view ChannelDock orders, raise investigations, and track case progress. Composed of a Next.js portal, a Node.js email automation worker, and a Python/FastAPI headless browser bot for Freshdesk integrations.
+Description: The operations platform behind a Dutch fulfilment centre that
+stores, ships and processes returns for ~350 web-shop sellers. Eight services
+in one monorepo (~186K source lines, 194 API routes, 118 test files), with
+Dhruvit as primary engineer (649 of 960 commits), deployed as 12 production
+services.
+
+Services:
+- Admin panel: unified support inbox for Gmail (Pub/Sub push sync), WhatsApp (Twilio) and seller-portal tickets, with undoable delayed sends on Cloud Tasks, Gemini reply suggestions and a knowledge base that learns from closed tickets; plus investigations, credits, manual logging and warehouse staff tools.
+- AI returns terminal: Gemini reads a parcel label from a single photo, a staged resolver matches it to the order, and signed scan tokens ensure each label is sent to the AI only once. Covered by 388 test cases. Bulk data (a ~14,000-product catalogue) is served from in-memory Cloud Storage snapshots so scans never hit the database.
+- Warehouse TV shift board with SLA tracking, forecasting and four cron services.
+- QR clock-in kiosk for warehouse staff.
+- Seller portal for tickets, investigations, orders and credits.
+- Carrier-investigation email worker (also runs a white-label deployment for a second company).
+- Headless-browser Freshdesk bot and Firebase Functions for snoozes and delayed sends.
 
 Features:
 - Seller Dashboard: Next.js seller-facing portal integrating ChannelDock orders and Firebase Auth.
@@ -482,7 +513,7 @@ This portfolio website is built with:
 
 Website Sections:
 - Hero: Cinematic introduction with animated typography
-- Experience: Auto-sliding marquee showing work history at Nextbase Solutions, Stypix, and Coderbabu Infotech
+- Experience: Stacking cards showing work history: freelance (Jan 2026 — present), Nextbase Solutions, Stypix, and Coderbabu Infotech
 - Skills: Interactive 2D physics sandbox where tech skill icons bounce, collide, and can be dragged around (built with Matter.js)
 - Projects: Bento-box grid layout with interactive wheel carousel for browsing project screenshots and descriptions
 - Contact: Brutalist terminal-style contact form powered by Web3Forms API
