@@ -328,3 +328,28 @@ body::-webkit-scrollbar,
   transform-box: fill-box;
   transform-origin: center;
 }
+
+/* ── Accessibility polish ─────────────────────────────────────────── */
+
+/* Visible focus ring for keyboard users only (mouse clicks stay clean) */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.75);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.85);
+  color: #000;
+}
+
+/* Honour the OS "reduce motion" setting: stop looping CSS animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

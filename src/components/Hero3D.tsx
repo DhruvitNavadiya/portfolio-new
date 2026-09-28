@@ -453,19 +453,15 @@ export function Hero3D() {
           onMouseLeave={() => document.dispatchEvent(new CustomEvent('spotlight', { detail: false }))}
           onMouseMove={(e) => document.dispatchEvent(new CustomEvent('spotlight-move', { detail: { x: e.clientX, y: e.clientY } }))}
         >
-          <div className="overflow-hidden">
-            <motion.h1 {...slideUp(0.5)}
-              className="text-[clamp(3.5rem,13vw,11rem)] font-bold leading-[0.92] tracking-tighter text-white text-center">
-              Dhruvit
-            </motion.h1>
-          </div>
-
-          <div className="overflow-hidden">
-            <motion.h1 {...slideUp(0.65)}
-              className="text-[clamp(3.5rem,13vw,11rem)] font-bold leading-[0.92] tracking-tighter text-white text-center">
-              Navadiya
-            </motion.h1>
-          </div>
+          {/* One h1 for the page; each line keeps its own slide-up reveal */}
+          <h1 className="text-[clamp(3.5rem,13vw,11rem)] font-bold leading-[0.92] tracking-tighter text-white text-center">
+            <span className="block overflow-hidden">
+              <motion.span {...slideUp(0.5)} className="block">Dhruvit</motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span {...slideUp(0.65)} className="block">Navadiya</motion.span>
+            </span>
+          </h1>
         </div>
 
         <motion.div {...fadeIn(1)}
@@ -503,9 +499,9 @@ export function Hero3D() {
       <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 2.2, duration: 0.6 }}
         className="absolute left-6 top-1/2 -translate-y-1/2 z-[3] hidden md:flex flex-col gap-5">
-        <a href="https://github.com/DhruvitNavadiya" target="_blank" rel="noopener" className="text-white/50 hover:text-white transition-colors duration-300"><Github className="w-5 h-5" /></a>
-        <a href="https://www.linkedin.com/in/dhruvit-navadiya/" target="_blank" rel="noopener" className="text-white/50 hover:text-white transition-colors duration-300"><Linkedin className="w-5 h-5" /></a>
-        <a href="mailto:navadiyadhruvit@gmail.com" className="text-white/50 hover:text-white transition-colors duration-300"><Mail className="w-5 h-5" /></a>
+        <a href="https://github.com/DhruvitNavadiya" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-white/50 hover:text-white transition-colors duration-300"><Github className="w-5 h-5" /></a>
+        <a href="https://www.linkedin.com/in/dhruvit-navadiya/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white/50 hover:text-white transition-colors duration-300"><Linkedin className="w-5 h-5" /></a>
+        <a href="mailto:navadiyadhruvit@gmail.com" aria-label="Email" className="text-white/50 hover:text-white transition-colors duration-300"><Mail className="w-5 h-5" /></a>
         <div className="w-px h-8 bg-white/20 mx-auto" />
       </motion.div>
 

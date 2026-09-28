@@ -8,10 +8,12 @@ import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 
 import { ChatAssistant } from "@/components/ChatAssistant";
+import { SiteNav } from "@/components/SiteNav";
 
 export default function Home() {
   return (
     <main>
+      <SiteNav />
       <Hero3D />
       <div className="h-12 md:h-16 bg-black" />
       <AboutSection />
