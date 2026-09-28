@@ -21,14 +21,17 @@ const pixelify = Pixelify_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://dhruvitnavadiya.vercel.app"),
   title: "Dhruvit Navadiya — AI Automation Engineer & Agentic Systems Developer",
   description:
-    "Portfolio of Dhruvit Navadiya — AI Automation Engineer specializing in multi-agent systems, agentic AI platforms, and full-stack development. Featuring 9 production projects, an AI-powered chatbot assistant, and interactive 3D experiences.",
+    "Portfolio of Dhruvit Navadiya — AI Automation Engineer specializing in multi-agent systems, agentic AI platforms, and production automation backends. Featuring 12 production projects, an AI-powered chatbot assistant, and interactive 3D experiences.",
   keywords: [
     "Dhruvit Navadiya",
     "AI Automation Engineer",
     "Agentic Systems",
     "Multi-Agent AI",
+    "Python Automation",
+    "Freelance AI Engineer",
     "Full Stack Developer",
     "Next.js",
     "Python",
@@ -38,9 +41,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dhruvit Navadiya — AI Automation Engineer",
     description:
-      "Explore 9 production AI projects, an interactive AI chatbot, and a premium dark-themed portfolio built with Next.js, Three.js, and Framer Motion.",
+      "Explore 12 production AI projects, an interactive AI chatbot, and a premium dark-themed portfolio built with Next.js, Three.js, and Framer Motion.",
     type: "website",
-    url: "https://dhruvit.vercel.app",
+    url: "https://dhruvitnavadiya.vercel.app",
     images: [
       "https://res.cloudinary.com/dz12pywzs/image/upload/v1766372535/Copy_of_Copy_of_Webinar_Keynote_Presentation_1_ljemzi.jpg",
     ],
@@ -49,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dhruvit Navadiya — AI Automation Engineer",
     description:
-      "Portfolio featuring 9 AI projects, an agentic chatbot assistant, and immersive 3D experiences.",
+      "Portfolio featuring 12 AI projects, an agentic chatbot assistant, and immersive 3D experiences.",
   },
 };
 

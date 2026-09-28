@@ -339,7 +339,7 @@ function TechBadges() {
 /* ================================================================== */
 const STATS = [
   { label: "Projects", value: "15+" },
-  { label: "Experience", value: "3 yrs" },
+  { label: "Experience", value: "3.5 yrs" },
   { label: "AI Models", value: "10+" },
   { label: "Uptime", value: "99.9%" },
 ];
@@ -469,8 +469,8 @@ export function Hero3D() {
         </div>
 
         <motion.div {...fadeIn(1)}
-          className="mt-6 px-4 py-1.5 rounded-full border border-white/[0.1] bg-white/[0.03]">
-          <span className="text-[11px] tracking-[0.2em] uppercase text-white/45 font-mono">
+          className="mt-6 px-4 py-1.5 rounded-full border border-white/[0.1] bg-white/[0.03] text-center">
+          <span className="text-[10px] sm:text-[11px] tracking-[0.12em] sm:tracking-[0.2em] uppercase text-white/45 font-mono">
             AI Automation Engineer · Agentic Systems Architect
           </span>
         </motion.div>
@@ -479,17 +479,17 @@ export function Hero3D() {
           <Typewriter texts={texts} />
         </motion.div>
 
-        <motion.div {...fadeIn(1.5)} className="mt-8 flex gap-4">
-          <button 
+        <motion.div {...fadeIn(1.5)} className="mt-8 flex gap-3 sm:gap-4">
+          <button
             onClick={() => lenis?.scrollTo("#projects", { duration: 2.5, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })}
-            className="group relative px-8 py-3.5 border border-white/20 text-white text-sm tracking-wide hover:border-white/60 hover:bg-white/10 transition-all duration-300 overflow-hidden"
+            className="group relative px-5 sm:px-8 py-3.5 whitespace-nowrap border border-white/20 text-white text-sm tracking-wide hover:border-white/60 hover:bg-white/10 transition-all duration-300 overflow-hidden"
           >
             <span className="relative z-10">View My Work</span>
             <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </button>
           <button 
             onClick={() => lenis?.scrollTo("#contact", { duration: 3.5, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })}
-            className="group px-8 py-3.5 bg-white text-black text-sm font-semibold tracking-wide hover:bg-white/85 hover:scale-[1.02] transition-all duration-300 flex items-center gap-2"
+            className="group px-5 sm:px-8 py-3.5 whitespace-nowrap bg-white text-black text-sm font-semibold tracking-wide hover:bg-white/85 hover:scale-[1.02] transition-all duration-300 flex items-center gap-2"
           >
             Contact Me
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

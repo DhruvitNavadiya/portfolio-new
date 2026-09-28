@@ -72,11 +72,11 @@ function ServicePanel({
         transition={{ duration: 0.5, ease }}
       />
 
-      <div className="relative z-10 flex flex-col md:flex-row md:items-center py-8 md:py-10 px-4 md:px-8 gap-6 md:gap-12 transition-all duration-500">
-        
+      <div className="relative z-10 flex flex-col md:flex-row md:items-start py-8 md:py-10 px-4 md:px-8 gap-6 md:gap-10 transition-all duration-500">
+
         {/* Left: Number & Icon */}
-        <div className="flex items-center gap-6 shrink-0 w-[180px]">
-          <span className="text-xl font-mono text-white/20 group-hover:text-white/50 transition-colors duration-500">
+        <div className="flex items-center gap-6 shrink-0">
+          <span className="w-8 text-xl font-mono tabular-nums text-white/20 group-hover:text-white/50 transition-colors duration-500">
             {service.number}
           </span>
           <div className="w-12 h-12 flex items-center justify-center border border-white/[0.08] bg-black group-hover:bg-white/[0.05] group-hover:border-white/20 transition-all duration-500">
@@ -84,19 +84,16 @@ function ServicePanel({
           </div>
         </div>
 
-        {/* Center: Title & Desc */}
-        <div className="flex-1">
+        {/* Center: Title, description and tags. The tags sit under the text so the
+            text column keeps its full width instead of being squeezed beside them. */}
+        <div className="flex-1 min-w-0">
           <h3 className="text-2xl md:text-3xl font-bold text-white/80 group-hover:text-white transition-colors duration-300 tracking-tight mb-3">
             {service.title}
           </h3>
           <p className="text-[14px] md:text-[15px] text-white/40 group-hover:text-white/70 max-w-xl leading-relaxed transition-colors duration-500">
             {service.description}
           </p>
-        </div>
-
-        {/* Right: Tags & Arrow */}
-        <div className="flex flex-col md:items-end shrink-0 gap-6 mt-4 md:mt-0">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mt-5">
             {service.tags.map((tag, i) => (
               <span
                 key={i}
@@ -106,8 +103,11 @@ function ServicePanel({
               </span>
             ))}
           </div>
-          
-          <div className="hidden md:flex items-center justify-center w-8 h-8 rounded-full border border-white/[0.08] group-hover:border-white/30 overflow-hidden transition-all duration-500">
+        </div>
+
+        {/* Right: Arrow */}
+        <div className="hidden md:flex shrink-0 self-center">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full border border-white/[0.08] group-hover:border-white/30 overflow-hidden transition-all duration-500">
             <motion.div
               initial={false}
               animate={{ x: isHovered ? 0 : -20, opacity: isHovered ? 1 : 0 }}

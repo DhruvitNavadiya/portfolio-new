@@ -2,9 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const cloudName = 'deq6qmh8n';
-const apiKey = '986212796353773';
-const apiSecret = 'VZ6DR-4mbM3H1C8M6xOvGpzk41k';
+// Credentials come from the environment; never commit them.
+// Usage: CLOUDINARY_CLOUD_NAME=... CLOUDINARY_API_KEY=... CLOUDINARY_API_SECRET=... node upload.js
+const cloudName = process.env.CLOUDINARY_CLOUD_NAME || 'deq6qmh8n';
+const apiKey = process.env.CLOUDINARY_API_KEY;
+const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+if (!apiKey || !apiSecret) {
+  console.error('Set CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET before running this script.');
+  process.exit(1);
+}
 
 const componentPath = path.join(__dirname, 'src/components/ProjectsSection.tsx');
 const publicDir = path.join(__dirname, 'public');

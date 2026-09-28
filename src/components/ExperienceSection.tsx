@@ -2,20 +2,30 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Briefcase, Building2, Terminal } from "lucide-react";
+import { Briefcase, Building2, Globe, Terminal } from "lucide-react";
 
 /* ================================================================== */
 /*  EXPERIENCE DATA                                                    */
 /* ================================================================== */
 const EXPERIENCES = [
   {
+    company: "Freelance · Upwork & Direct Clients",
+    role: "AI & Automation Engineer",
+    date: "Jan 2026 — Present",
+    location: "Remote",
+    icon: Globe,
+    description:
+      "Primary engineer of an 8-service operations platform (~186K lines of TypeScript and Python) that runs warehouse, returns and customer-support operations for a Dutch fulfilment centre serving ~350 sellers. Also built a deterministic multi-client billing automation system for Smollan Kenya's finance team, deployed on Google Cloud Run.",
+    skills: ["Next.js 16", "TypeScript", "Python", "Vertex AI Gemini", "Firestore", "FastAPI", "Cloud Run"],
+  },
+  {
     company: "Nextbase Solutions",
     role: "AI Automation Engineer",
-    date: "May 2025 — Present",
+    date: "May 2025 — Jul 2026",
     location: "Surat, India",
     icon: Terminal,
     description:
-      "Leading design and implementation of agentic AI platforms for media automation, website generation, and workflow orchestration. Built asynchronous Python backends managing long-running AI jobs and integrated multi-provider LLMs.",
+      "Led design and implementation of agentic AI platforms for media automation, website generation, and workflow orchestration. Built asynchronous Python backends managing long-running AI jobs and integrated multi-provider LLMs.",
     skills: ["AsyncIO", "WebSockets", "Multi-Agent Systems", "AWS S3 / R2"],
   },
   {
@@ -185,7 +195,7 @@ export function ExperienceSection() {
                     {/* Left Info */}
                     <div className="md:w-[28%] shrink-0 flex flex-col justify-between">
                       <div>
-                        <span className="text-[10px] font-mono text-white/30 tracking-wider mb-1.5 block">
+                        <span className="text-[10px] font-mono text-white/45 tracking-wider mb-1.5 block">
                           {exp.date}
                         </span>
                         <h4 className="text-lg md:text-xl font-bold text-white/70 mb-1">
@@ -203,7 +213,7 @@ export function ExperienceSection() {
                       <h3 className="text-2xl md:text-3xl font-bold text-white/90 mb-4 tracking-tight">
                         {exp.role}
                       </h3>
-                      <p className="text-white/30 text-[14px] leading-relaxed mb-6 max-w-2xl">
+                      <p className="text-white/55 text-[14px] leading-relaxed mb-6 max-w-2xl">
                         {exp.description}
                       </p>
 
@@ -212,7 +222,7 @@ export function ExperienceSection() {
                         {exp.skills.map((skill, sdx) => (
                           <span 
                             key={sdx} 
-                            className="text-[9px] font-mono uppercase tracking-wider text-white/30 px-2.5 py-1 bg-white/[0.015] border border-white/[0.05] rounded-sm"
+                            className="text-[9px] font-mono uppercase tracking-wider text-white/50 px-2.5 py-1 bg-white/[0.02] border border-white/[0.08] rounded-sm"
                           >
                             {skill}
                           </span>
