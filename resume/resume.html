@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dhruvit Navadiya — Resume</title>
+<meta name="author" content="Dhruvit Navadiya">
+<meta name="description" content="AI Automation Engineer — agentic systems, production AI platforms, Python and TypeScript backends.">
+<style>
+  @font-face { font-family: "Inter"; font-weight: 400; font-style: normal; src: url(fonts/inter-latin-400-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 400; font-style: italic; src: url(fonts/inter-latin-400-italic.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 500; src: url(fonts/inter-latin-500-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 600; src: url(fonts/inter-latin-600-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 700; src: url(fonts/inter-latin-700-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 800; src: url(fonts/inter-latin-800-normal.woff2) format("woff2"); }
+  @font-face { font-family: "JetBrains Mono"; font-weight: 400; src: url(fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2"); }
+  @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url(fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2"); }
+
+  :root {
+    --ink: #14171c;
+    --body: #2b3038;
+    --muted: #5f6775;
+    --rule: #d5d9e0;
+    --accent: #1d4ed8;
+    --accent-soft: #eef2fb;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  @page { size: A4; margin: 12mm 14mm 11mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Inter", "Liberation Sans", sans-serif;
+    font-size: 9pt;
+    line-height: 1.4;
+    color: var(--body);
+    background: #fff;
+    font-feature-settings: "cv11", "tnum";
+  }
+  @media screen { body { width: 210mm; padding: 12mm 14mm 11mm; } }
+  a { color: inherit; text-decoration: none; }
+  code { font-family: var(--mono); font-size: 0.86em; }
+
+  /* ---------- header ---------- */
+  h1 { font-size: 24pt; font-weight: 800; letter-spacing: -0.022em; color: var(--ink); line-height: 1; }
+  .role { margin-top: 1.8mm; font-size: 10.4pt; font-weight: 600; color: var(--accent); }
+  .contact { margin-top: 2.2mm; font-size: 8.3pt; line-height: 1.55; color: var(--muted); white-space: nowrap; }
+  .contact a { color: var(--body); }
+  .contact .sep { color: #b8bec8; margin: 0 1.6mm; }
+  .header-rule { border-top: 1.6pt solid var(--ink); margin: 3.2mm 0 2.8mm; }
+
+  .summary { font-size: 9.2pt; line-height: 1.45; }
+  .summary strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 4.2mm; }
+  h2 {
+    font-size: 8.1pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); display: flex; align-items: center; gap: 2.5mm; margin-bottom: 2.2mm;
+    break-after: avoid;
+  }
+  h2::after { content: ""; flex: 1; border-top: 0.6pt solid var(--rule); }
+
+  .entry { margin-bottom: 3.4mm; break-inside: avoid; }
+  .entry:last-child { margin-bottom: 0; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .title { font-size: 9.9pt; font-weight: 700; color: var(--ink); }
+  .title .pos { font-weight: 500; color: var(--body); }
+  .title .dash { color: var(--muted); font-weight: 400; margin: 0 1.2mm; }
+  .when { font-size: 8.3pt; color: var(--muted); white-space: nowrap; }
+  .stack { font-family: var(--mono); font-size: 7.4pt; color: var(--muted); margin-top: 0.7mm; letter-spacing: -0.01em; }
+  .lede { margin-top: 1mm; color: var(--body); }
+
+  ul { list-style: none; margin-top: 1.1mm; }
+  li { position: relative; padding-left: 3.6mm; margin-top: 0.9mm; }
+  li::before { content: ""; position: absolute; left: 0.6mm; top: 0.6em; width: 1.3mm; height: 1.3mm; background: var(--accent); border-radius: 0.2mm; transform: rotate(45deg); }
+  li strong { color: var(--ink); font-weight: 600; }
+
+  /* freelance client blocks */
+  .clients { margin-top: 2mm; }
+  .client { border-left: 1.6pt solid var(--accent); padding: 0.2mm 0 0.2mm 3.2mm; margin-top: 2.8mm; break-inside: avoid; }
+  .client:first-child { margin-top: 0; }
+  .client .title { font-size: 9.5pt; }
+  .metrics { display: flex; gap: 1.5mm; margin: 1.6mm 0 0.3mm; flex-wrap: wrap; }
+  .metric { background: var(--accent-soft); border-radius: 1mm; padding: 0.6mm 1.9mm; font-size: 7.6pt; color: var(--body); white-space: nowrap; }
+  .metric b { font-family: var(--mono); font-weight: 500; color: var(--accent); margin-right: 0.9mm; }
+
+  /* projects */
+  .proj { margin-bottom: 2.4mm; break-inside: avoid; }
+  .proj:last-child { margin-bottom: 0; }
+  .proj .title { font-size: 9.3pt; }
+  .proj p { margin-top: 0.6mm; }
+  .also { margin-top: 2.4mm; }
+  .also b { color: var(--ink); font-weight: 600; }
+
+  /* skills */
+  .skills { display: grid; grid-template-columns: 29mm 1fr; column-gap: 3mm; row-gap: 1.1mm; }
+  .skills dt { font-weight: 600; color: var(--ink); }
+
+  .edu-line { margin-top: 0.8mm; }
+  .edu-line .hl { font-weight: 600; color: var(--ink); }
+  .certs { margin-top: 1.4mm; }
+  .certs b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Dhruvit Navadiya</h1>
+  <div class="role">AI Automation Engineer · Agentic Systems · Production AI &amp; Automation Platforms</div>
+  <div class="contact">
+    Surat, India<span class="sep">|</span><a href="mailto:navadiyadhruvit@gmail.com">navadiyadhruvit@gmail.com</a><span class="sep">|</span><a href="tel:+919099645594">+91 90996 45594</a><br><a href="https://dhruvitnavadiya.vercel.app/">dhruvitnavadiya.vercel.app</a><span class="sep">|</span><a href="https://github.com/DhruvitNavadiya">github.com/DhruvitNavadiya</a><span class="sep">|</span><a href="http://linkedin.com/in/dhruvit-navadiya/">linkedin.com/in/dhruvit-navadiya</a><span class="sep">|</span><a href="https://www.upwork.com/freelancers/~01c62dbeb138533025">Upwork</a>
+  </div>
+</header>
+<div class="header-rule"></div>
+
+<p class="summary">
+  AI automation engineer who designs and ships production systems end to end: <strong>multi-agent orchestration</strong>, <strong>multimodal AI pipelines</strong>,
+  and the async backends, job queues and cloud infrastructure that keep them reliable. As a freelancer I am the <strong>primary engineer of an
+  8-service operations platform (~186K lines of TypeScript and Python)</strong> that runs the warehouse, returns and support operations of a Dutch
+  fulfilment centre, and I built the <strong>billing automation used by Smollan Kenya's finance team</strong>. I architect before I implement,
+  prove correctness with tests, and design for failure recovery rather than demos.
+</p>
+
+<!-- ================= EXPERIENCE ================= -->
+<section>
+  <h2>Experience</h2>
+
+  <div class="entry" style="break-inside:auto">
+    <div class="row">
+      <div class="title">Freelance AI &amp; Automation Engineer<span class="dash">—</span><span class="pos">Upwork and direct clients</span></div>
+      <div class="when">2025 – Present · Remote</div>
+    </div>
+
+    <div class="clients">
+      <div class="client">
+        <div class="row">
+          <div class="title">Future Fulfilment B.V.<span class="dash">—</span><span class="pos">Warehouse, returns &amp; support operations platform</span></div>
+          <div class="when">Mar 2026 – Present · Netherlands</div>
+        </div>
+        <div class="stack">Next.js 16 · TypeScript · Node.js · Python · Firestore · Vertex AI Gemini · Cloud Tasks · Twilio · Railway</div>
+        <div class="metrics">
+          <span class="metric"><b>649 / 960</b>commits</span>
+          <span class="metric"><b>8</b>services</span>
+          <span class="metric"><b>186K</b>source lines</span>
+          <span class="metric"><b>194</b>API routes</span>
+          <span class="metric"><b>12</b>prod services</span>
+          <span class="metric"><b>~350</b>sellers served</span>
+        </div>
+        <ul>
+          <li>Primary engineer of the platform the fulfilment centre runs on daily: an internal admin panel, seller portal, AI returns terminal, warehouse TV shift board with 4 cron services, QR clock-in kiosk, carrier-claims email worker, a headless-browser Freshdesk bot and Firebase Functions.</li>
+          <li>Built an <strong>omnichannel support workspace</strong> unifying Gmail (Pub/Sub push sync), WhatsApp (Twilio) and portal tickets, with undoable delayed sends on Cloud Tasks, Gemini reply suggestions and message polish, and a <strong>knowledge base that learns from closed tickets</strong>.</li>
+          <li>Designed an <strong>AI returns terminal</strong>: Gemini reads the shipping label from one photo, a staged resolver matches on tracking code, every spelling of the order number, then customer details, and <strong>HMAC-signed scan tokens</strong> guarantee each label is sent to the model once. Covered by <strong>388 test cases</strong> and a label-reading benchmark.</li>
+          <li>Kept scan and inbox hot paths free of database reads by serving bulk data (a <strong>~14,000-product catalogue</strong>, sellers, open returns) as gzipped Cloud Storage snapshots held in memory with generation checks, and <code>count()</code> aggregations for inbox badges.</li>
+          <li>Integrated the ChannelDock fulfilment API within its hourly rate budget and exact-match filters, and built a white-label deployment of the carrier-claims worker for a second fulfilment company.</li>
+        </ul>
+      </div>
+
+      <div class="client">
+        <div class="row">
+          <div class="title">Smollan Kenya<span class="dash">—</span><span class="pos">Ledgerline, multi-client billing automation</span></div>
+          <div class="when">Jul 2026 – Aug 2026 · Kenya</div>
+        </div>
+        <div class="stack">Python · FastAPI · pandas · openpyxl · Next.js 16 · SQLite · Docker · Cloud Run · GitHub Actions</div>
+        <div class="metrics">
+          <span class="metric"><b>17</b>client billing configs</span>
+          <span class="metric"><b>0 / 300</b>cells off in acceptance rebuild</span>
+          <span class="metric"><b>10</b>months rebuilt to the cent</span>
+        </div>
+        <ul>
+          <li>Replaced a hand-maintained monthly Excel billing process with a <strong>deterministic Python pipeline</strong> that joins encrypted payroll (decrypted in memory; passwords never persisted), the HR master, SAGE expenses and IT schedules, then bills each client from <strong>versioned per-client configs</strong>.</li>
+          <li>Writes each month into the client's master workbook as <strong>live <code>COUNTIFS</code>/<code>SUMIFS</code> formulas</strong>, so finance can still audit it in Excel, with pre-commit backups, immutable run snapshots, file hashes and a reconciliation report.</li>
+          <li>Proved correctness three independent ways (a hand-written oracle, the pipeline modules, and a full rebuild of 10 reference months through the HTTP API); all three match finance's workbook <strong>to the cent</strong>.</li>
+          <li>Built a six-stage Next.js operator workflow (upload, join review, blockers and audited overrides, preview, invoiced amount, commit) and shipped it as containers to <strong>Google Cloud Run</strong> through Cloud Build and GitHub Actions.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <div class="title">Nextbase Solutions<span class="dash">—</span><span class="pos">AI Automation Engineer</span></div>
+      <div class="when">May 2025 – Present · Surat, India</div>
+    </div>
+    <ul>
+      <li>Lead the design and delivery of <strong>agentic AI platforms</strong> for media automation, website generation and workflow orchestration, owning each from requirements and architecture through deployment and monitoring.</li>
+      <li>Built <strong>asynchronous Python backends</strong> (AsyncIO, WebSockets, background job queues) that run long-lived AI jobs concurrently and stream live progress to clients.</li>
+      <li>Integrated OpenAI, Gemini on Vertex AI, Fal AI and Whisper with <strong>retries, exponential backoff and schema-validated outputs</strong>, so a failing provider or malformed response never corrupts a job.</li>
+      <li>Engineered modular workflow engines with state tracking, validation loops and automatic error correction; automated cloud asset lifecycles on AWS S3 and Cloudflare R2 and social-media publishing.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <div class="title">Stypix<span class="dash">—</span><span class="pos">AI Engineering Intern</span></div>
+      <div class="when">Jan 2025 – May 2025 · Remote</div>
+    </div>
+    <ul>
+      <li>Prototyped <strong>RAG pipelines</strong> over vector databases and function-calling agents for task execution; built structured prompt pipelines with output-schema validation for deterministic results.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <div class="title">Coderbabu Infotech<span class="dash">—</span><span class="pos">AI &amp; Backend Developer</span></div>
+      <div class="when">Jan 2023 – Apr 2025</div>
+    </div>
+    <ul>
+      <li>Built modular <strong>REST APIs in FastAPI and Flask</strong> on PostgreSQL, MongoDB and Redis; shipped reusable automation services for internal tools and supported CI/CD and deployments.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section>
+  <h2>Selected Projects</h2>
+
+  <div class="proj">
+    <div class="row">
+      <div class="title">AutoGenix<span class="dash">—</span><span class="pos">Agentic website builder</span></div>
+      <div class="stack">Python · Next.js · Multi-Agent · GitHub API · Vercel</div>
+    </div>
+    <p>Multi-agent system that turns a plain-language brief into a live site: requirements → design system → architecture → phased code generation → self-correcting validation → GitHub repository → Vercel deployment.</p>
+  </div>
+
+  <div class="proj">
+    <div class="row">
+      <div class="title">Agentic AI Media Platform</div>
+      <div class="stack">Python · AsyncIO · WebSockets · Vertex AI · S3 / R2 · Pinecone</div>
+    </div>
+    <p>13-module platform for image, video, caption, transcript, lipsync and document generation: concurrent async jobs, live WebSocket progress, vector-retrieved prompt templates and S3/R2 asset management.</p>
+  </div>
+
+  <div class="proj">
+    <div class="row">
+      <div class="title">Autonomous AI Video System</div>
+      <div class="stack">Python · LLM APIs · Discord API · Cloud Storage</div>
+    </div>
+    <p>Clones videos from Instagram or X links via scene detection, or builds them from a script; a JSON scene planner respects model clip limits and keeps characters consistent. Discord-bot control, Instagram auto-publishing.</p>
+  </div>
+
+  <div class="proj">
+    <div class="row">
+      <div class="title">Ampere<span class="dash">—</span><span class="pos">AI support chat &amp; ticketing</span></div>
+      <div class="stack">Next.js · Node.js · Socket.IO · SQLite · OpenAI</div>
+    </div>
+    <p>Embeddable chat widget with multi-session recovery, RAG answers grounded in a knowledge base with auto-escalation to humans, and an agent dashboard with live takeover and Discord alerts.</p>
+  </div>
+
+  <p class="also"><b>Also:</b> SEO automation platform (Next.js, FastAPI, Gemini) · ComfyUI face-blend workflow (IPAdapter FaceID, SDXL) · real-time warehouse TV dashboard (Firestore) · LinkTrap analytics (BigQuery) · Notion resume dashboard with AI de-duplication.</p>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section>
+  <h2>Technical Skills</h2>
+  <dl class="skills">
+    <dt>Languages</dt><dd>Python, TypeScript, JavaScript, SQL, C/C++</dd>
+    <dt>AI &amp; LLM Systems</dt><dd>Multi-agent orchestration, RAG, function calling, structured outputs, LangGraph, OpenAI, Gemini</dd>
+    <dt>Generative Media</dt><dd>ComfyUI, SDXL, IPAdapter FaceID, InsightFace, Fal AI, Whisper, image-to-video, FFmpeg</dd>
+    <dt>Backend</dt><dd>FastAPI, Flask, AsyncIO, Node.js, WebSockets / Socket.IO, REST API design, job queues</dd>
+    <dt>Data</dt><dd>Firestore, PostgreSQL, MongoDB, Redis, SQLite, Pinecone, BigQuery, pandas, openpyxl</dd>
+    <dt>Google Cloud</dt><dd>Vertex AI, Cloud Run, Cloud Build, Cloud Tasks, Pub/Sub, Cloud Storage, Firebase Functions</dd>
+    <dt>DevOps &amp; Hosting</dt><dd>Docker, GitHub Actions, Railway, Vercel, AWS S3, Cloudflare R2</dd>
+    <dt>Integrations</dt><dd>Gmail API, Twilio WhatsApp, GitHub, Notion, Freshdesk, ChannelDock, Playwright / Camoufox</dd>
+    <dt>Frontend</dt><dd>Next.js, React, Tailwind CSS, Framer Motion, GSAP</dd>
+    <dt>Engineering</dt><dd>pytest, node:test, Jest, golden-file acceptance tests, idempotency, retry and backoff design</dd>
+  </dl>
+</section>
+
+<!-- ================= EDUCATION ================= -->
+<section class="entry">
+  <h2>Education</h2>
+  <div class="row">
+    <div class="title">G.H. Patel College of Engineering &amp; Technology<span class="dash">—</span><span class="pos">B.Tech, CSE (IoT)</span></div>
+    <div class="when">Aug 2021 – May 2025 · Anand, India</div>
+  </div>
+  <p class="edu-line"><span class="hl">CGPA 8.80 / 10, Distinction.</span> Coursework: distributed systems, data structures &amp; algorithms, databases, operating systems, software engineering.</p>
+  <p class="certs"><b>Certifications:</b> Introduction to DevOps · Data Visualization with Python · Introduction to SQL · C++ for C Programmers</p>
+</section>
+
+</body>
+</html>
