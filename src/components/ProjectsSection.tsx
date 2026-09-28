@@ -256,12 +256,12 @@ const PROJECTS = [
   },
   {
     id: "future-fulfillment",
-    title: "Future Fulfillment Logistics",
-    short: "Multi-Service Logistics Investigation Platform",
+    title: "Future Fulfilment Operations Platform",
+    short: "8-Service Warehouse, Returns & Support Platform for a Dutch Fulfilment Centre",
     description:
-      "A complete e-commerce logistics platform letting sellers view ChannelDock orders, raise investigations, and track case progress. Composed of a Next.js portal, a Node.js email automation worker, and a Python/FastAPI headless browser bot for Freshdesk integrations.",
-    tags: ["Next.js", "TypeScript", "Node.js", "Python", "FastAPI", "Firebase", "Firestore", "Playwright"],
-    stats: [{ label: "Automated Routing", value: "100%" }, { label: "Carrier Matching", value: "High" }],
+      "The operations platform behind a Dutch fulfilment centre that stores, ships and processes returns for ~350 web-shop sellers. Eight services in one TypeScript/Python monorepo (~186K source lines, 194 API routes, 118 test files), with Dhruvit as primary engineer (649 of 960 commits). It spans an internal admin panel with a unified Gmail, WhatsApp and seller-portal support inbox and Gemini reply suggestions that learn from closed tickets; an AI returns terminal that reads a parcel label from one photo and books the return in ChannelDock; a warehouse TV shift board with SLA tracking and forecasting; a QR clock-in kiosk; a seller portal; a carrier-investigation email worker; a headless-browser Freshdesk bot; and Firebase Functions on Cloud Tasks. Runs on 12 Railway services plus Google Cloud.",
+    tags: ["Next.js 16", "TypeScript", "Python", "Firestore", "Vertex AI Gemini", "Cloud Tasks", "Twilio", "Railway"],
+    stats: [{ label: "Services", value: "8" }, { label: "Source Lines", value: "186K" }, { label: "API Routes", value: "194" }],
     category: "Operations Automation",
     year: "2026",
     link: "https://www.upwork.com/freelancers/~01c62dbeb138533025",
