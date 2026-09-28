@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Bot, Server, Workflow, Cpu, ArrowUpRight, ChevronRight } from "lucide-react";
+import { useLenis } from "lenis/react";
 
 /* ================================================================== */
 /*  SERVICE DATA                                                       */
@@ -128,6 +129,7 @@ function ServicePanel({
 export function ServicesSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const lenis = useLenis();
 
   return (
     <section id="services" ref={ref} className="relative min-h-screen bg-[#111111] py-24 md:py-32">
@@ -204,7 +206,10 @@ export function ServicesSection() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 1 }}
             >
-              <button className="group flex items-center gap-4 text-white/50 hover:text-white transition-colors duration-300">
+              <button
+                onClick={() => lenis?.scrollTo("#skills", { duration: 1.8, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })}
+                className="group flex items-center gap-4 text-white/50 hover:text-white transition-colors duration-300"
+              >
                 <span className="text-[10px] font-mono uppercase tracking-[0.2em]">View tech stack</span>
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>

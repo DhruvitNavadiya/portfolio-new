@@ -235,7 +235,7 @@ export function ExperienceSection() {
               </div>
 
               {/* ── Gap between cards ── */}
-              {!isLast && <div className="h-[50vh] w-full pointer-events-none" />}
+              {!isLast && <div className="h-[28vh] md:h-[38vh] w-full pointer-events-none" />}
             </React.Fragment>
             );
           })}
